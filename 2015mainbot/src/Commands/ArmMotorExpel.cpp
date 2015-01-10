@@ -1,6 +1,6 @@
 #include "ArmMotorExpel.h"
 #include <math.h>
-
+//this is a test of github
 ArmMotorExpel::ArmMotorExpel() {
 	Requires(m_intake);
 }
