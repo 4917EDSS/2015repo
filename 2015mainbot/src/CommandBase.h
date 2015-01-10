@@ -19,11 +19,11 @@ public:
 	CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
-	static ExampleSubsystem *examplesubsystem;
-	static Drivetrain *m_drivetrain;
+	static Drivetrain* m_drivetrain;
 	static Intake* m_intake;
-	static InputButton *inputbutton;
-	static OI *oi;
+	static InputButton* m_inputButton;
+	static OI* oi;
+	static LiftSubsystem* m_liftSubsystem;
 };
 
 #endif

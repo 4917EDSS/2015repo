@@ -3,11 +3,9 @@
 
 InputButton::InputButton(int Channel): Subsystem("InputButton") {
 	RightButton = new DigitalInput(Channel);
-	
-	
 }
 bool InputButton::IsPressed(){
-    	return !RightButton->Get();
+    	return RightButton->Get();
 }
 
 // Put methods for controlling this subsystem
