@@ -1,0 +1,65 @@
+Creating New Subsystems
+=======================
+This is a list of steps you can use to create and setup a new subsystem.
+
+A “subsystem” is a group of all of the actuators and sensors that make something work.  
+For example: the drivetrain, the box stacking mechanism.
+
+--------------------
+Create the subsystem
+--------------------
+1.	Right-click the project folder in Eclipse’s Project Explorer
+2.	Choose New -> Subsystem
+3.	For the Class Name, enter a name followed by the word “Subsystem” (no quotes)
+	•	e.g. DriveTrainSubsystem
+4.	Click Finish
+
+------------------------------
+Add the subsystem to the robot
+------------------------------
+5.	Open CommandBase.h
+6.	Add the subsystem point to the public section of the CommandBase class.   You can put it right
+	after the “static OI *oi;” line
+	•	e.g.  static DriveTrainSubsystem* drivetrainsubsystem;
+7.	Open CommandBase.cpp
+8.	Initialize the subsystem pointer that was just added.  You can put it right after “OI* 
+	CommandBase::oi = NULL;” near the top of the file
+	•	e.g. DriveTrainSubsystem* CommandBase::drivetrainsubsystem = NULL;
+9.	Create an instance of the subsystem in “CommandBase::init()”.
+	•	e.g. drivetrainsubsystem = new DriveTrainSubsystem();
+10.	Open [your_new_subsystem_name].cpp
+11.	Change Subsystem(“ExampleSubsystem”) to Subsystem(“[your_new_subsystem_name]”)
+	•	e.g. DriveTrainSubsystem::DriveTrainSubsystem() :
+			Subsystem("DriveTrainSubsystem")
+
+------------------------------	
+Setup the subsystem’s hardware
+------------------------------
+12.	Open [your_new_subsystem_name].h
+13.	In the private section of the class, add a pointer for each piece of hardware that this 
+	subsystem uses
+	•	E.g. 
+			Talon* leftmotor1;
+			Talon* leftmotor2;
+			Talon* rightmotor1;
+			Talon* rightmotor2;
+14.	In the subsystem’s constructor, initialize all the actuators and sensors that the subsystem 
+	uses
+	•	e.g. 
+			leftmotor1 = new Talon(7);
+			leftmotor2 = new Talon(6);
+			rightmotor1 = new Talon(5);
+			rightmotor2 = new Talon(4);
+15.	Add methods for controlling the subsystem.  These methods will be called by commands
+	•	e.g.  
+		•	in DriveTrainSubsystem.h -> class DriveTrainSubsystem -> public:
+			void drive(float rightspeed, float leftspeed);
+		•	in DriveTrainSubsystem.cpp
+			void DriveTrainSubsystem::drive(float rightspeed, float leftspeed)
+			{
+				leftmotor1->Set(leftspeed);
+				leftmotor2->Set(leftspeed);
+				rightmotor1->Set(rightspeed);
+				rightmotor2->Set(rightspeed);
+			}
+
