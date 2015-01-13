@@ -18,15 +18,7 @@ void DriveWithJoystickCommand::Execute() {
 
 // PLAYSTATION Controller Code
 // Called repeatedly when this Command is scheduled to run
-/* void DriveWithJoystickCommand::Execute() {
-	m_drivetrain->drive(oi->GetRightStick()->GetRawAxis(2) *
-						oi->GetRightStick()->GetRawAxis(2)*
-	 	 	 	 	 	 (oi->GetRightStick()->GetRawAxis(2) / fabs(oi->GetRightStick()->GetRawAxis(2))) ,
-						-(oi->GetLeftStick()->GetRawAxis(2)*
-						oi->GetLeftStick()->GetRawAxis(2)*
-						(oi->GetLeftStick()->GetRawAxis(2) / fabs(oi->GetLeftStick()->GetRawAxis(2)))));
-}
-*/
+
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveWithJoystickCommand::IsFinished() {
