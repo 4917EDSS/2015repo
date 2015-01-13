@@ -1,8 +1,10 @@
 #include "LiftSubsystem.h"
 #include "../Robotmap.h"
 
-LiftSubsystem::LiftSubsystem(int lift_channel) : Subsystem("LiftSubsystem") {
-	lifterMotor = new Talon(lift_channel);
+LiftSubsystem::LiftSubsystem(int lift_channel1, int lift_channel2) : Subsystem("LiftSubsystem") {
+	lifterArticulationRight = new Solenoid(lift_channel1);
+	lifterArticulationLeft = new Solenoid(lift_channel2);
+	isUp = false;
 }
     
 void LiftSubsystem::InitDefaultCommand() {
@@ -14,6 +16,8 @@ void LiftSubsystem::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-void LiftSubsystem::setMotor(float motorSpeed){
-	lifterMotor->Set(motorSpeed);
+void LiftSubsystem::toggleUpDown(){
+	isUp = !isUp;
+	lifterArticulationRight->Set(isUp);
+	lifterArticulationLeft->Set(!isUp);
 }

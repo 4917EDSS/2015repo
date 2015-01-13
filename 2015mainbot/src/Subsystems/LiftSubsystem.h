@@ -10,12 +10,14 @@
  */
 class LiftSubsystem: public Subsystem {
 private:
-	Talon* lifterMotor;
+	Solenoid* lifterArticulationRight;
+	Solenoid* lifterArticulationLeft;
+	bool isUp;
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
-	void setMotor(float motorSpeed);
-	LiftSubsystem(int lift_channel);
+	void toggleUpDown();
+	LiftSubsystem(int lift_channel1, int lift_channel2);
 	void InitDefaultCommand();
 };
 
