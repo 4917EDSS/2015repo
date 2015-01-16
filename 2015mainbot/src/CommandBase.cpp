@@ -22,5 +22,5 @@ void CommandBase::init() {
 	m_drivetrain = new Drivetrain(1, 3, 5, 2, 4, 6);
 	m_inputButton = new InputButton(1);
 	oi = new OI();
-	m_liftSubsystem = new LiftSubsystem(2,3);
+	m_liftSubsystem = new LiftSubsystem(2,3,7,0);
 }

@@ -16,6 +16,13 @@ private:
 	JoystickButton* intakeToggleButton;
 	JoystickButton* expelSpinButton;
 	JoystickButton* intakeSpinButton;
+	JoystickButton* liftRaiseButton;
+	JoystickButton* liftLowerButton;
+	JoystickButton* boxZeroButton;
+	JoystickButton* boxOneButton;
+	JoystickButton* boxTwoButton;
+	JoystickButton* boxThreeButton;
+	JoystickButton* boxFourButton;
 	float getStick(Joystick* stick, int axis);
 public:
 	OI();

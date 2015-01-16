@@ -1,8 +1,12 @@
 #include "OI.h"
+#include "RobotParameters.h"
 #include "Commands/ToggleIntake.h"
 #include "Commands/ArmMotorIntake.h"
 #include "Commands/ArmMotorExpel.h"
 #include "Commands/ToggleLift.h"
+#include "Commands/ManualRaiseCommand.h"
+#include "Commands/ManualLowerCommand.h"
+#include "Commands/SetLiftPositionCommand.h"
 #include <cmath>
 
 OI::OI() {
@@ -26,6 +30,17 @@ OI::OI() {
 	intakeSpinButton->WhileHeld(new ArmMotorIntake());
 	liftToggleButton = new JoystickButton(rightPhysicalStick, liftButtonAssignment);
 	liftToggleButton->WhenPressed(new ToggleLift());
+	boxZeroButton = new JoystickButton(leftStick, 6);
+	boxZeroButton->WhenPressed(new SetLiftPositionCommand(LIFT_ZERO_BOX));
+	boxOneButton = new JoystickButton(leftStick, 7);
+	boxOneButton->WhenPressed(new SetLiftPositionCommand(LIFT_ONE_BOX));
+	boxTwoButton = new JoystickButton(leftStick, 8);
+	boxTwoButton->WhenPressed(new SetLiftPositionCommand(LIFT_TWO_BOX));
+	boxThreeButton = new JoystickButton(leftStick, 11);
+	boxThreeButton->WhenPressed(new SetLiftPositionCommand(LIFT_THREE_BOX));
+	boxFourButton = new JoystickButton(leftStick, 12);
+	boxFourButton->WhenPressed(new SetLiftPositionCommand(LIFT_FOUR_BOX));
+
 	// Process operator interface input here.
 }
 float OI::getRightStick(){
