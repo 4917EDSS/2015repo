@@ -1,4 +1,4 @@
-#include "WPILib.h"
+ #include "WPILib.h"
 #include "Commands/Command.h"
 #include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
@@ -13,6 +13,9 @@ private:
 		CommandBase::init();
 		autonomousCommand = new ExampleCommand();
 		lw = LiveWindow::GetInstance();
+	}
+	virtual void DisabledInit() {
+
 	}
 	
 	virtual void AutonomousInit() {

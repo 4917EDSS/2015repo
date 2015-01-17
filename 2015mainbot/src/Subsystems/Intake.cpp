@@ -15,6 +15,10 @@ void Intake::SetArms(bool isout) {
 	openClose->set(isout);
 
 }
+void Intake::ToggleArms() {
+	openClose->toggle();
+
+}
 bool Intake::GetArms() {
 	return openClose->get();
 }

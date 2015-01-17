@@ -3,18 +3,18 @@
 ToggleIntake::ToggleIntake() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
+	Requires(m_intake);
 }
 
 // Called just before this Command runs the first time
 void ToggleIntake::Initialize() {
-	m_intake->SetArms(!m_intake->GetArms());
-	printf("ToggleIntake::Initialize");
 	
+
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ToggleIntake::Execute() {
-	
+	m_intake->ToggleArms();
 }
 
 // Make this return true when this Command no longer needs to run execute()

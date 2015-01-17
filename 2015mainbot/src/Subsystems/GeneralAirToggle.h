@@ -10,7 +10,6 @@ class GeneralAirToggle: public Subsystem
 private:
 	Solenoid* articulationRight;
 	Solenoid* articulationLeft;
-	bool toggleState;
 public:
 	GeneralAirToggle(int channel_1, int channel_2);
 	void toggle();

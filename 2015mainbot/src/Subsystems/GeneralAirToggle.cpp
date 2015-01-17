@@ -3,7 +3,6 @@
 
 GeneralAirToggle::GeneralAirToggle(int channel_1, int channel_2) : Subsystem("GeneralAirToggle")
 {
-	toggleState = false;
 	articulationRight = new Solenoid(channel_1);
 	articulationLeft = new Solenoid(channel_2);
 }
@@ -15,15 +14,9 @@ void GeneralAirToggle::InitDefaultCommand()
 }
 
 void GeneralAirToggle::toggle(){
-	toggleState = !toggleState;
-	if (toggleState){
-		articulationRight->Set(toggleState);
-		articulationLeft->Set(!toggleState);
-	}
-	else {
-		articulationRight->Set(!toggleState);
-		articulationLeft->Set(toggleState);
-	}
+	bool toggleState = !(articulationRight->Get());
+	articulationRight->Set(toggleState);
+	articulationLeft->Set(!toggleState);
 }
 
 void GeneralAirToggle::set(bool setTo){
@@ -32,7 +25,7 @@ void GeneralAirToggle::set(bool setTo){
 }
 
 bool GeneralAirToggle::get(){
-	return articulationRight;
+	return articulationRight->Get();
 }
 
 // Put methods for controlling this subsystem

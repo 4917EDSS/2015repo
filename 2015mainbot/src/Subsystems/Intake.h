@@ -20,6 +20,7 @@ class Intake: public Subsystem {
 		void SetMotor(float speed);
 		void SetArms(bool isout);
 		bool GetArms();
+		void ToggleArms();
 };
 #endif
 
