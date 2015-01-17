@@ -2,6 +2,7 @@
 #define INTAKE_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "Subsystems/GeneralAirToggle.h"
 
 /**
  * 
@@ -12,8 +13,7 @@ class Intake: public Subsystem {
 	private:
 		Talon* armRight;
 		Talon* armLeft;
-		Solenoid* armArticulationRight;
-		Solenoid* armArticulationLeft;
+		GeneralAirToggle* openClose;
 		
 	public:
 		Intake(int armleft_channel, int armright_channel, int solenoidright_channel, int solenoidleft_channel);

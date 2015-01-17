@@ -7,7 +7,9 @@ ManualRaiseCommand::ManualRaiseCommand() {
 
 // Called just before this Command runs the first time
 void ManualRaiseCommand::Initialize() {
-	m_liftSubsystem->liftMotorUp();
+	if (m_liftSubsystem->isMaxHeight()){
+		m_liftSubsystem->liftMotorUp();
+	}
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -17,12 +19,12 @@ void ManualRaiseCommand::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ManualRaiseCommand::IsFinished() {
-	return false;
+	return !m_liftSubsystem->isMaxHeight();
 }
 
 // Called once after isFinished returns true
 void ManualRaiseCommand::End() {
-	
+	m_liftSubsystem->liftMotorStop();
 }
 
 // Called when another command which requires one or more of the same

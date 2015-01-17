@@ -2,26 +2,52 @@
 #include "LiftSubsystem.h"
 #include "../Robotmap.h"
 
-LiftSubsystem::LiftSubsystem(int lift_channel1, int lift_channel2, int lift_talon_channel, int encoder_channel) : Subsystem("LiftSubsystem") {
-	lifterArticulationRight = new Solenoid(lift_channel1);
-	lifterArticulationLeft = new Solenoid(lift_channel2);
-	sensorPower = new Solenoid(7);
-	heightSensor = new DigitalInput(9);
-	isUp = false;
-	liftMotorPosition = 0;
-	targetCounter = 0;
-	onTarget = false;
-	liftMotor = new Talon(lift_talon_channel);
-	boxHeight = new AnalogInput(encoder_channel);
+LiftSubsystem::LiftSubsystem(int lift_channel1, int lift_channel2,  int top_limit_channel, int bottom_limit_channel) : Subsystem("LiftSubsystem") {
+	liftMotor1 = new Talon(lift_channel1);
+	liftMotor2 = new Talon(lift_channel2);
+	maxHeightLimitSwitch = new DigitalInput(top_limit_channel);
+	minHeightLimitSwitch = new DigitalInput(bottom_limit_channel);
+//	sensorPower = new Solenoid(7);
+//	heightSensor = new DigitalInput(9);
+//	isUp = false;
+//	liftMotorPosition = 0;
+///	targetCounter = 0;
+//	onTarget = false;
+//	liftMotor = new Talon(lift_talon_channel);
+//	boxHeight = new AnalogInput(encoder_channel);
 }
     
-void LiftSubsystem::InitDefaultCommand() {
+bool LiftSubsystem::isMaxHeight(){
+	return maxHeightLimitSwitch->Get();
+}
+
+bool LiftSubsystem::isMinHeight(){
+	return minHeightLimitSwitch->Get();
+}
+
+//void LiftSubsystem::InitDefaultCommand() {
 	
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
+//}
+
+
+
+void LiftSubsystem::liftMotorUp(){
+	liftMotor1->Set(-1);
+	liftMotor2->Set(-1);
 }
 
+void LiftSubsystem::liftMotorDown(){
+	liftMotor1->Set(1);
+	liftMotor2->Set(1);
+}
 
+void LiftSubsystem::liftMotorStop(){
+	liftMotor1->Set(0);
+	liftMotor2->Set(0);
+}
+/*
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void LiftSubsystem::toggleUpDown(){
@@ -34,20 +60,9 @@ float LiftSubsystem::getLiftHeight(){
 	return boxHeight->GetAverageVoltage();
 }
 
-void LiftSubsystem::liftMotorUp(){
-	liftMotor->Set(-1);
-}
-
-void LiftSubsystem::liftMotorDown(){
-	liftMotor->Set(1);
-}
 
 void LiftSubsystem::setLiftHeight(float liftHeight){
 	liftMotorPosition = liftHeight;
-}
-
-void LiftSubsystem::liftMotorStop(){
-	liftMotor->Set(0);
 }
 
 void LiftSubsystem::updateLiftHeight(){
@@ -74,3 +89,4 @@ bool LiftSubsystem::isOnTarget(){
 	}
 	return targetCounter > 20;
 }
+*/

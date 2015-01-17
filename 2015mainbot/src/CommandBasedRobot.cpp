@@ -2,7 +2,6 @@
 #include "Commands/Command.h"
 #include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
-#include "Commands/DriveUntilButtonPressedCommand.h"
 
 class CommandBasedRobot : public IterativeRobot {
 private:
@@ -13,12 +12,10 @@ private:
 	virtual void RobotInit() {
 		CommandBase::init();
 		autonomousCommand = new ExampleCommand();
-		driveUntilButtonPressedCommand = new DriveUntilButtonPressedCommand();
 		lw = LiveWindow::GetInstance();
 	}
 	
 	virtual void AutonomousInit() {
-		driveUntilButtonPressedCommand->Start();
 	}
 	
 	virtual void AutonomousPeriodic() {

@@ -8,6 +8,25 @@
 #include "Subsystems/Intake.h"
 #include "OI.h"
 
+//Talons
+#define LEFT_DRIVE_1 0
+#define LEFT_DRIVE_2 1
+#define RIGHT_DRIVE_1 2
+#define RIGHT_DRIVE_2 3
+#define LIFT_MOTOR_1 4
+#define LIFT_MOTOR_2 5
+#define ARM_LEFT_MOTOR 7
+#define ARM_RIGHT_MOTOR 8
+
+//Air Outputs
+#define ARMS_CLOSE 0
+#define ARMS_OPEN 1
+
+//Digital IO
+#define TOP_LIMIT_SWITCH 0
+#define BOTTOM_LIMIT_SWITCH 1
+
+
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
  * CommandBase stores creates and stores each control system. To access a

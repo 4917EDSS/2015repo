@@ -5,18 +5,18 @@
 Intake::Intake(int armleft_channel, int armright_channel, int solenoidright_channel, int solenoidleft_channel) : Subsystem("ArmMotor") {
 	armRight = new Talon(armright_channel);
 	armLeft = new Talon(armleft_channel);
-	armArticulationRight = new Solenoid(solenoidright_channel);
-	armArticulationLeft = new Solenoid(solenoidleft_channel);
+	openClose = new GeneralAirToggle(solenoidright_channel, solenoidleft_channel);
+	printf("Left %d \n", solenoidright_channel);
 	SetMotor(0);
 }
 
     
 void Intake::SetArms(bool isout) {
-	armArticulationRight->Set(isout);
-	armArticulationLeft->Set(!isout);
+	openClose->set(isout);
+
 }
 bool Intake::GetArms() {
-	return armArticulationRight->Get();
+	return openClose->get();
 }
 
 void Intake::SetMotor(float speed) {

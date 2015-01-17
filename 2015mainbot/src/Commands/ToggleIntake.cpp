@@ -8,6 +8,7 @@ ToggleIntake::ToggleIntake() {
 // Called just before this Command runs the first time
 void ToggleIntake::Initialize() {
 	m_intake->SetArms(!m_intake->GetArms());
+	printf("ToggleIntake::Initialize");
 	
 }
 

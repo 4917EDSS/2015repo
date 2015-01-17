@@ -1,4 +1,4 @@
-#include "SetLiftPositionCommand.h"
+/*#include "SetLiftPositionCommand.h"
 
 SetLiftPositionCommand::SetLiftPositionCommand(float position) {
 	// Use Requires() here to declare subsystem dependencies
@@ -32,3 +32,4 @@ void SetLiftPositionCommand::End() {
 void SetLiftPositionCommand::Interrupted() {
 	End();
 }
+*/

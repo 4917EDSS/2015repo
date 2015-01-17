@@ -18,9 +18,8 @@ LiftSubsystem* CommandBase::m_liftSubsystem = NULL;
 void CommandBase::init() {
         // Create a single static instance of all of your subsystems. The following
 	// line should be repeated for each subsystem in the project.
-	m_intake = new Intake(7,8,0,1);
-	m_drivetrain = new Drivetrain(1, 3, 5, 2, 4, 6);
-	m_inputButton = new InputButton(1);
+	m_intake = new Intake(ARM_LEFT_MOTOR, ARM_RIGHT_MOTOR, ARMS_CLOSE, ARMS_OPEN);
+	m_drivetrain = new Drivetrain(LEFT_DRIVE_1, LEFT_DRIVE_2, RIGHT_DRIVE_1,  RIGHT_DRIVE_2);
 	oi = new OI();
-	m_liftSubsystem = new LiftSubsystem(2,3,7,0);
+	m_liftSubsystem = new LiftSubsystem(LIFT_MOTOR_1, LIFT_MOTOR_2, TOP_LIMIT_SWITCH, BOTTOM_LIMIT_SWITCH);
 }
