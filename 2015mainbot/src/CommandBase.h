@@ -6,7 +6,6 @@
 #include "Subsystems/drivetrain.h"
 #include "Subsystems/Intake.h"
 #include "Subsystems/StackingSubsystem.h"
-#include "Subsystems/CameraSubsystem.h"
 #include "OI.h"
 
 //Talons
@@ -26,10 +25,13 @@
 #define SECONDARY_ARMS_CLOSE 1
 
 //Digital IO
-#define TOP_LIMIT_SWITCH 2
-#define BOTTOM_LIMIT_SWITCH 3
-#define INTAKE_LIMIT_SWITCH 1
-#define BOX_HEIGHT_LIMIT_SWITCH 0
+#define TOP_LIMIT_SWITCH 0
+#define BOTTOM_LIMIT_SWITCH 1
+#define INTAKE_LIMIT_SWITCH 2
+#define BOX_HEIGHT_LIMIT_SWITCH 3
+
+//Camera
+#define CAMERA_NAME "cam1"
 
 
 /**
@@ -48,7 +50,6 @@ public:
 	static OI* oi;
 	static LiftSubsystem* m_liftSubsystem;
 	static StackingSubsystem* m_stackingSubsystem;
-	static CameraSubsystem* m_cameraSubsystem;
 };
 
 #endif

@@ -1,6 +1,7 @@
 #include "Intake.h"
 #include "../Robotmap.h"
-#include "../Commands/ArmMotorIntake.h"
+#include "../Commands/SpinIntakeWithJoystick.h"
+#include "../Commands/ManualLowerCommand.h"
 
 Intake::Intake(int armleft_channel, int armright_channel, int solenoidright_channel, int solenoidleft_channel, int limitswitch_channel) :Subsystem("ArmMotor") {
 	armRight = new Talon(armright_channel);
@@ -9,8 +10,9 @@ Intake::Intake(int armleft_channel, int armright_channel, int solenoidright_chan
 	intakeLimit = new DigitalInput(limitswitch_channel);
 	SetMotor(0);
 }
-
-    
+void Intake::InitDefaultCommand(){
+	SetDefaultCommand(new SpinIntakeWithJoystick());
+}
 void Intake::SetArms(bool isout) {
 	openClose->set(isout);
 
@@ -24,7 +26,7 @@ bool Intake::GetArms() {
 }
 
 void Intake::SetMotor(float speed) {
-	speed = speed * 0.5;
+	speed = speed * 0.75;
 	armRight->Set(speed);
 	armLeft->Set(speed);
 }

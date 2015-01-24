@@ -1,35 +1,39 @@
-#include "ManualLowerCommand.h"
+#include "MoveMastWithJoystick.h"
 
-ManualLowerCommand::ManualLowerCommand() {
+MoveMastWithJoystick::MoveMastWithJoystick()
+{
 	Requires(m_liftSubsystem);
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 }
 
 // Called just before this Command runs the first time
-void ManualLowerCommand::Initialize() {
-	//if (m_liftSubsystem->isMinHeight()){
-//	}
+void MoveMastWithJoystick::Initialize()
+{
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ManualLowerCommand::Execute() {
-	m_liftSubsystem->liftMotorDown();
-	
+void MoveMastWithJoystick::Execute()
+{
+	m_liftSubsystem->liftMotorSet(oi->getRightOperatorStick());
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ManualLowerCommand::IsFinished() {
+bool MoveMastWithJoystick::IsFinished()
+{
 	return false;
 }
 
 // Called once after isFinished returns true
-void ManualLowerCommand::End() {
-	m_liftSubsystem->liftMotorStop();
+void MoveMastWithJoystick::End()
+{
+
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ManualLowerCommand::Interrupted() {
-	m_liftSubsystem->liftMotorStop();
+void MoveMastWithJoystick::Interrupted()
+{
+	m_liftSubsystem->liftMotorSet(0.0);
 }

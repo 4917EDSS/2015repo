@@ -1,5 +1,6 @@
 #include "RobotParameters.h"
 #include "LiftSubsystem.h"
+#include "../Commands/MoveMastWithJoystick.h"
 #include "../Robotmap.h"
 
 LiftSubsystem::LiftSubsystem(int lift_channel1, int lift_channel2,  int top_limit_channel, int bottom_limit_channel) : Subsystem("LiftSubsystem") {
@@ -25,68 +26,27 @@ bool LiftSubsystem::isMinHeight(){
 	return minHeightLimitSwitch->Get();
 }
 
-//void LiftSubsystem::InitDefaultCommand() {
-	
-	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
-//}
+void LiftSubsystem::InitDefaultCommand() {
+	SetDefaultCommand(new MoveMastWithJoystick());
+}
 
 
 
 void LiftSubsystem::liftMotorUp(){
-	liftMotor1->Set(-1);
-	liftMotor2->Set(-1);
+	liftMotor1->Set(-1.0);
+	liftMotor2->Set(-1.0);
 }
 
 void LiftSubsystem::liftMotorDown(){
-	liftMotor1->Set(1);
-	liftMotor2->Set(1);
+	liftMotor1->Set(1.0);
+	liftMotor2->Set(1.0);
 }
 
 void LiftSubsystem::liftMotorStop(){
-	liftMotor1->Set(0);
-	liftMotor2->Set(0);
+	liftMotor1->Set(0.0);
+	liftMotor2->Set(0.0);
 }
-/*
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
-void LiftSubsystem::toggleUpDown(){
-	isUp = !isUp;
-	lifterArticulationRight->Set(isUp);
-	lifterArticulationLeft->Set(!isUp);
+void LiftSubsystem::liftMotorSet(float speed){
+	liftMotor1->Set(speed);
+	liftMotor2->Set(speed);
 }
-
-float LiftSubsystem::getLiftHeight(){
-	return boxHeight->GetAverageVoltage();
-}
-
-
-void LiftSubsystem::setLiftHeight(float liftHeight){
-	liftMotorPosition = liftHeight;
-}
-
-void LiftSubsystem::updateLiftHeight(){
-	if(getLiftHeight() > liftMotorPosition + LIFT_TOLERANCE){
-		liftMotorDown();
-	}
-	else if(getLiftHeight() < liftMotorPosition - LIFT_TOLERANCE){
-		liftMotorUp();
-	}
-	else{
-		liftMotorStop();
-	}
-	printf("currentHeight: %f\n desiredHeight: %f\n isOnTarget: %d\n", getLiftHeight(), liftMotorPosition, isOnTarget());
-	printf("heightSensor: %d\n", heightSensor->Get());
-}
-
-bool LiftSubsystem::isOnTarget(){
-	if(getLiftHeight() < liftMotorPosition + LIFT_TOLERANCE &&
-			getLiftHeight() > liftMotorPosition - LIFT_TOLERANCE){
-		targetCounter++;
-	}
-	else{
-		targetCounter = 0;
-	}
-	return targetCounter > 20;
-}
-*/

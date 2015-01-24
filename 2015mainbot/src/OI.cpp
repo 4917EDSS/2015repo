@@ -7,44 +7,42 @@
 #include "Commands/ManualLowerCommand.h"
 #include "Commands/SetLiftPositionCommand.h"
 #include "Commands/StackBox.h"
-#include <cmath>
+#include "Commands/SpinIntakeWithJoystick.h"
 #include "Commands/IntakeSecure.h"
+#include <cmath>
 
 OI::OI() {
-	controller = new Joystick(CONTROLLER_DEFAULT_PORT);
-	intakeToggleButton = new JoystickButton(controller, INTAKE_TOGGLE_BUTTON);
-	intakeToggleButton->WhenPressed(new ToggleIntake());
-	expelSpinButton = new JoystickButton(controller, EXPEL_BUTTON);
-	expelSpinButton->WhileHeld(new ArmMotorExpel());
-	intakeSpinButton = new JoystickButton(controller, INTAKE_BUTTON);
-	intakeSpinButton->WhileHeld(new ArmMotorIntake());
-	liftUpButton = new JoystickButton(controller, LIFT_RAISE_BUTTON);
-	liftUpButton->WhileHeld(new ManualRaiseCommand());
-	liftDownButton = new JoystickButton(controller, LIFT_LOWER_BUTTON);
-	liftDownButton->WhileHeld(new ManualLowerCommand());
-	stackBoxButton = new JoystickButton(controller, STACKER_BUTTON);
-	stackBoxButton->WhenPressed(new StackBox());
-	/*boxZeroButton = new JoystickButton(controller, 6);
-	boxZeroButton->WhenPressed(new SetLiftPositionCommand(LIFT_ZERO_BOX));
-	boxOneButton = new JoystickButton(controller, 7);
-	boxOneButton->WhenPressed(new SetLiftPositionCommand(LIFT_ONE_BOX));
-	boxTwoButton = new JoystickButton(controller, 8);
-	boxTwoButton->WhenPressed(new SetLiftPositionCommand(LIFT_TWO_BOX));
-	boxThreeButton = new JoystickButton(controller, 11);
-	boxThreeButton->WhenPressed(new SetLiftPositionCommand(LIFT_THREE_BOX));
-	boxFourButton = new JoystickButton(controller, 12);
-	boxFourButton->WhenPressed(new SetLiftPositionCommand(LIFT_FOUR_BOX));*/
+	dController = new Joystick(CONTROLLER_DRIVER_PORT);
+	oController = new Joystick(CONTROLLER_OPERATOR_PORT);
+	dIntakeToggleButton = new JoystickButton(dController, INTAKE_TOGGLE_BUTTON);
+	dIntakeToggleButton->WhenPressed(new ToggleIntake());
+	dExpelSpinButton = new JoystickButton(dController, EXPEL_BUTTON);
+	dExpelSpinButton->WhileHeld(new ArmMotorExpel());
+	dIntakeSpinButton = new JoystickButton(dController, INTAKE_BUTTON);
+	dIntakeSpinButton->WhileHeld(new ArmMotorIntake());
+	dLiftUpButton = new JoystickButton(dController, LIFT_RAISE_BUTTON);
+	dLiftUpButton->WhileHeld(new ManualRaiseCommand());
+	dLiftDownButton = new JoystickButton(dController, LIFT_LOWER_BUTTON);
+	dLiftDownButton->WhileHeld(new ManualLowerCommand());
+	dStackBoxButton = new JoystickButton(dController, STACKER_BUTTON);
+	dStackBoxButton->WhenPressed(new StackBox());
+	oIntakeToggleButton = new JoystickButton(oController, INTAKE_TOGGLE_BUTTON);
+	oIntakeToggleButton->WhenPressed(new ToggleIntake());
 
-	// Process operator interface input here.
 }
 float OI::getRightStick(){
-	return getStick(controller, RIGHT_VERTICAL);
-
+	return getStick(dController, RIGHT_VERTICAL);
 }
 float OI::getLeftStick(){
-	return getStick(controller, LEFT_VERTICAL);
+	return getStick(dController, LEFT_VERTICAL);
 }
-float OI::getStick(Joystick* stick, int axis){
-	float rawInput = stick->GetRawAxis(axis);
+float OI::getStick(Joystick* controller, int axis){
+	float rawInput = controller->GetRawAxis(axis);
 	return (rawInput*fabs(rawInput));
+}
+float OI::getRightOperatorStick(){
+	return getStick(oController, RIGHT_VERTICAL);
+}
+float OI::getLeftOperatorStick(){
+	return getStick(oController, LEFT_VERTICAL);
 }

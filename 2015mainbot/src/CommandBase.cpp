@@ -13,7 +13,6 @@ Drivetrain* CommandBase::m_drivetrain = NULL;
 OI* CommandBase::oi = NULL;
 LiftSubsystem* CommandBase::m_liftSubsystem = NULL;
 StackingSubsystem* CommandBase::m_stackingSubsystem = NULL;
-CameraSubsystem* CommandBase::m_cameraSubsystem = NULL;
 
 void CommandBase::init() {
         // Create a single static instance of all of your subsystems. The following
@@ -24,5 +23,4 @@ void CommandBase::init() {
 	m_liftSubsystem = new LiftSubsystem(LIFT_MOTOR_1, LIFT_MOTOR_2, TOP_LIMIT_SWITCH, BOTTOM_LIMIT_SWITCH);
 	m_stackingSubsystem = new StackingSubsystem(SECONDARY_ARMS_OPEN, SECONDARY_ARMS_CLOSE, BOX_HEIGHT_LIMIT_SWITCH);
 	m_stackingSubsystem->setClosed();
-	m_cameraSubsystem = new CameraSubsystem();
 }

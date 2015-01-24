@@ -17,7 +17,7 @@ private:
 
 		CameraServer::GetInstance()->SetQuality(50);
 		//the camera name (ex "cam0") can be found through the roborio web interface
-		CameraServer::GetInstance()->StartAutomaticCapture("cam0");
+		CameraServer::GetInstance()->StartAutomaticCapture(CAMERA_NAME);
 	}
 	virtual void DisabledInit() {
 

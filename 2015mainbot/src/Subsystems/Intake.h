@@ -19,6 +19,7 @@ class Intake: public Subsystem {
 	public:
 		Intake(int armleft_channel, int armright_channel, int solenoidright_channel, int solenoidleft_channel, int limitswitch_channel);
 		void SetMotor(float speed);
+		void InitDefaultCommand();
 		void SetArms(bool isout);
 		bool GetArms();
 		void ToggleArms();

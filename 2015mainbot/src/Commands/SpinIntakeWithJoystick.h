@@ -1,13 +1,13 @@
-#ifndef CameraStartCommand_H
-#define CameraStartCommand_H
+#ifndef SpinIntakeWithJoystick_H
+#define SpinIntakeWithJoystick_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class CameraStartCommand: public CommandBase
+class SpinIntakeWithJoystick: public CommandBase
 {
 public:
-	CameraStartCommand();
+	SpinIntakeWithJoystick();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
