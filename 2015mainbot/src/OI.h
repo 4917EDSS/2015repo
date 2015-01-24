@@ -29,6 +29,7 @@
 #define INTAKE_TOGGLE_BUTTON 4
 #define LEFT_VERTICAL 1
 #define RIGHT_VERTICAL 3
+#define STACKER_BUTTON 2
 
 
 class OI {
@@ -39,6 +40,7 @@ private:
 	JoystickButton* intakeToggleButton;
 	JoystickButton* expelSpinButton;
 	JoystickButton* intakeSpinButton;
+	JoystickButton* stackBoxButton;
 	/*JoystickButton* boxZeroButton;
 	JoystickButton* boxOneButton;
 	JoystickButton* boxTwoButton;

@@ -1,19 +1,18 @@
-#ifndef EXAMPLE_SUBSYSTEM_H
-#define EXAMPLE_SUBSYSTEM_H
+#ifndef CameraSubsystem_H
+#define CameraSubsystem_H
+
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-/**
- *
- *
- * @author ExampleAuthor
- */
-class ExampleSubsystem: public Subsystem {
+class CameraSubsystem: public Subsystem
+{
 private:
+	CameraServer* microsoftCamera;
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
-	ExampleSubsystem();
+	CameraSubsystem();
+	void StartCapture();
 	void InitDefaultCommand();
 };
 

@@ -1,18 +1,23 @@
  #include "WPILib.h"
 #include "Commands/Command.h"
-#include "Commands/ExampleCommand.h"
+#include "Commands/StackBox.h"
 #include "CommandBase.h"
 
 class CommandBasedRobot : public IterativeRobot {
 private:
 	Command *autonomousCommand;
 	Command* driveUntilButtonPressedCommand;
+	Command* cameraStartCommand;
 	LiveWindow *lw; 
 	
 	virtual void RobotInit() {
 		CommandBase::init();
-		autonomousCommand = new ExampleCommand();
+		autonomousCommand = new StackBox();
 		lw = LiveWindow::GetInstance();
+
+		CameraServer::GetInstance()->SetQuality(50);
+		//the camera name (ex "cam0") can be found through the roborio web interface
+		CameraServer::GetInstance()->StartAutomaticCapture("cam0");
 	}
 	virtual void DisabledInit() {
 
@@ -31,6 +36,7 @@ private:
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		autonomousCommand->Cancel();
+
 	}
 	
 	virtual void TeleopPeriodic() {

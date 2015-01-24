@@ -2,11 +2,11 @@
 #include "../Robotmap.h"
 #include "../Commands/ArmMotorIntake.h"
 
-Intake::Intake(int armleft_channel, int armright_channel, int solenoidright_channel, int solenoidleft_channel) : Subsystem("ArmMotor") {
+Intake::Intake(int armleft_channel, int armright_channel, int solenoidright_channel, int solenoidleft_channel, int limitswitch_channel) :Subsystem("ArmMotor") {
 	armRight = new Talon(armright_channel);
 	armLeft = new Talon(armleft_channel);
 	openClose = new GeneralAirToggle(solenoidright_channel, solenoidleft_channel);
-	printf("Left %d \n", solenoidright_channel);
+	intakeLimit = new DigitalInput(limitswitch_channel);
 	SetMotor(0);
 }
 
@@ -24,10 +24,13 @@ bool Intake::GetArms() {
 }
 
 void Intake::SetMotor(float speed) {
+	speed = speed * 0.5;
 	armRight->Set(speed);
 	armLeft->Set(speed);
 }
-
+bool Intake::IsTouched() {
+	return !intakeLimit->Get();
+}
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

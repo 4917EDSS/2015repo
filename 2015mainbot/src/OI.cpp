@@ -6,7 +6,9 @@
 #include "Commands/ManualRaiseCommand.h"
 #include "Commands/ManualLowerCommand.h"
 #include "Commands/SetLiftPositionCommand.h"
+#include "Commands/StackBox.h"
 #include <cmath>
+#include "Commands/IntakeSecure.h"
 
 OI::OI() {
 	controller = new Joystick(CONTROLLER_DEFAULT_PORT);
@@ -20,6 +22,8 @@ OI::OI() {
 	liftUpButton->WhileHeld(new ManualRaiseCommand());
 	liftDownButton = new JoystickButton(controller, LIFT_LOWER_BUTTON);
 	liftDownButton->WhileHeld(new ManualLowerCommand());
+	stackBoxButton = new JoystickButton(controller, STACKER_BUTTON);
+	stackBoxButton->WhenPressed(new StackBox());
 	/*boxZeroButton = new JoystickButton(controller, 6);
 	boxZeroButton->WhenPressed(new SetLiftPositionCommand(LIFT_ZERO_BOX));
 	boxOneButton = new JoystickButton(controller, 7);
