@@ -14,7 +14,7 @@
 OI::OI() {
 	dController = new Joystick(CONTROLLER_DRIVER_PORT);
 	oController = new Joystick(CONTROLLER_OPERATOR_PORT);
-	dIntakeToggleButton = new JoystickButton(dController, INTAKE_TOGGLE_BUTTON);
+	/*dIntakeToggleButton = new JoystickButton(dController, INTAKE_TOGGLE_BUTTON);
 	dIntakeToggleButton->WhenPressed(new ToggleIntake());
 	dExpelSpinButton = new JoystickButton(dController, EXPEL_BUTTON);
 	dExpelSpinButton->WhileHeld(new ArmMotorExpel());
@@ -25,10 +25,14 @@ OI::OI() {
 	dLiftDownButton = new JoystickButton(dController, LIFT_LOWER_BUTTON);
 	dLiftDownButton->WhileHeld(new ManualLowerCommand());
 	dStackBoxButton = new JoystickButton(dController, STACKER_BUTTON);
-	dStackBoxButton->WhenPressed(new StackBox());
+	dStackBoxButton->WhenPressed(new StackBox());*/
 	oIntakeToggleButton = new JoystickButton(oController, INTAKE_TOGGLE_BUTTON);
 	oIntakeToggleButton->WhenPressed(new ToggleIntake());
 
+}
+float OI::getStick(Joystick* controller, int axis){
+	float rawInput = controller->GetRawAxis(axis);
+	return (rawInput*fabs(rawInput));
 }
 float OI::getRightStick(){
 	return getStick(dController, RIGHT_VERTICAL);
@@ -36,10 +40,7 @@ float OI::getRightStick(){
 float OI::getLeftStick(){
 	return getStick(dController, LEFT_VERTICAL);
 }
-float OI::getStick(Joystick* controller, int axis){
-	float rawInput = controller->GetRawAxis(axis);
-	return (rawInput*fabs(rawInput));
-}
+
 float OI::getRightOperatorStick(){
 	return getStick(oController, RIGHT_VERTICAL);
 }
