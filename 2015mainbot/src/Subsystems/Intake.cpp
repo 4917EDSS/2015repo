@@ -26,9 +26,8 @@ bool Intake::GetArms() {
 }
 
 void Intake::SetMotor(float speed) {
-	speed = speed * 0.75;
 	armRight->Set(speed);
-	armLeft->Set(speed);
+	armLeft->Set(-speed);
 }
 bool Intake::IsTouched() {
 	return !intakeLimit->Get();
