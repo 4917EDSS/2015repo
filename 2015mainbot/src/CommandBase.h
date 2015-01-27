@@ -21,8 +21,8 @@
 //Air Outputs
 #define ARMS_CLOSE 0
 #define ARMS_OPEN 1
-#define SECONDARY_ARMS_OPEN 0
-#define SECONDARY_ARMS_CLOSE 1
+#define FLAP_OPEN 2
+#define FLAP_CLOSE 3
 
 //Digital IO
 #define TOP_LIMIT_SWITCH 0

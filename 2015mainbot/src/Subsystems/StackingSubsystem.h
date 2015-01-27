@@ -2,22 +2,23 @@
 #define StackingSubsystem_H
 
 #include "Commands/Subsystem.h"
-#include "Subsystems/GeneralAirToggle.h"
 #include "WPILib.h"
 
 class StackingSubsystem: public Subsystem
 {
 private:
-	GeneralAirToggle* secondaryArms;
 	DigitalInput* armStopLimit;
+	DoubleSolenoid* flapActuator;
+	bool isFlapOpen;
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
-	StackingSubsystem(int secondaryarm_channel1, int secondaryarm_channel2, int armStopLimit_channel);
+	StackingSubsystem(int flap_channelopen, int flap_channelclosed, int armStopLimit_channel);
 	void InitDefaultCommand();
 	bool isPressed();
 	void setOpen();
 	void setClosed();
+	bool getFlapOpen();
 };
 
 #endif

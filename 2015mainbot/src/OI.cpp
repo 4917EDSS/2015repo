@@ -10,6 +10,7 @@
 #include "Commands/SpinIntakeWithJoystick.h"
 #include "Commands/IntakeSecure.h"
 #include <cmath>
+#include "Commands/FlapToggle.h"
 
 OI::OI() {
 	dController = new Joystick(CONTROLLER_DRIVER_PORT);
@@ -28,6 +29,8 @@ OI::OI() {
 	dStackBoxButton->WhenPressed(new StackBox());
 	oIntakeToggleButton = new JoystickButton(oController, INTAKE_TOGGLE_BUTTON);
 	oIntakeToggleButton->WhenPressed(new ToggleIntake());
+	oToggleFlapButton = new JoystickButton(oController, TOGGLE_FLAP_BUTTON);
+	oToggleFlapButton->WhenPressed(new FlapToggle());
 
 }
 float OI::getRightStick(){

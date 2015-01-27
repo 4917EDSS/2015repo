@@ -1,11 +1,13 @@
 #include "StackingSubsystem.h"
 #include "../RobotMap.h"
+#include "WPILib.h"
 
-StackingSubsystem::StackingSubsystem(int secondaryarm_channel1, int secondaryarm_channel2, int armStopLimit_channel):
+StackingSubsystem::StackingSubsystem(int flap_channelopen, int flap_channelclosed, int armStopLimit_channel):
 		Subsystem("StackingSubsystem")
 {
-	secondaryArms = new GeneralAirToggle(secondaryarm_channel1, secondaryarm_channel2);
+	flapActuator = new DoubleSolenoid(flap_channelopen, flap_channelclosed);
 	armStopLimit = new DigitalInput(armStopLimit_channel);
+	isFlapOpen = false;
 }
 
 void StackingSubsystem::InitDefaultCommand()
@@ -20,8 +22,13 @@ bool StackingSubsystem::isPressed() {
 	return armStopLimit->Get();
 }
 void StackingSubsystem::setOpen() {
-	secondaryArms->set(true);
+	flapActuator->Set(DoubleSolenoid::kForward);
+	isFlapOpen = true;
 }
 void StackingSubsystem::setClosed() {
-	secondaryArms->set(false);
+	flapActuator->Set(DoubleSolenoid::kReverse);
+	isFlapOpen = false;
+}
+bool StackingSubsystem::getFlapOpen() {
+	return isFlapOpen;
 }

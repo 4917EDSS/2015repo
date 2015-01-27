@@ -4,15 +4,15 @@
 #include "WPILib.h"
 
 /*
- * ON PS2 CONTROLLER:
- * Triangle = 1
- * Circle = 2
- * X = 3
- * Square = 4
- * L1 = 5
- * R1 = 6
- * L2 = 7
- * R2 = 8
+ * ON LOGITECH CONTROLLER:
+ * X = 1
+ * A = 2
+ * B = 3
+ * Y = 4
+ * LB = 5
+ * RB = 6
+ * LT = 7
+ * RT = 8
  * L3 = 11
  * R3 = 12
  * Left Vertical = 1
@@ -24,11 +24,13 @@
 #define EXPEL_BUTTON 7
 #define INTAKE_BUTTON 8
 #define LIFT_RAISE_BUTTON 6
-#define LIFT_LOWER_BUTTON 5
+#define LIFT_LOWER_BUTTON 9
+#define TOGGLE_FLAP_BUTTON 5
 #define CONTROLLER_DRIVER_PORT 0
 #define CONTROLLER_OPERATOR_PORT 1
 #define INTAKE_TOGGLE_BUTTON 4
 #define STACKER_BUTTON 2
+
 //Axis
 #define LEFT_VERTICAL 1
 #define RIGHT_VERTICAL 3
@@ -45,6 +47,7 @@ private:
 	JoystickButton* dIntakeSpinButton;
 	JoystickButton* dStackBoxButton;
 	JoystickButton* oIntakeToggleButton;
+	JoystickButton* oToggleFlapButton;
 	/*JoystickButton* boxZeroButton;
 	JoystickButton* boxOneButton;
 	JoystickButton* boxTwoButton;
