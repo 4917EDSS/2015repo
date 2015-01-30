@@ -11,6 +11,7 @@ MoveMastWithJoystick::MoveMastWithJoystick()
 void MoveMastWithJoystick::Initialize()
 {
 
+	m_intake->ToggleArms();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -36,4 +37,5 @@ void MoveMastWithJoystick::End()
 void MoveMastWithJoystick::Interrupted()
 {
 	m_liftSubsystem->liftMotorSet(0.0);
+
 }

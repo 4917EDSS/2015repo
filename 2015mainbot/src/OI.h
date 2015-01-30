@@ -25,15 +25,16 @@
 #define INTAKE_BUTTON 8
 #define LIFT_RAISE_BUTTON 6
 #define LIFT_LOWER_BUTTON 9
-#define TOGGLE_FLAP_BUTTON 5
+#define TOGGLE_FLAP_BUTTON 6
 #define CONTROLLER_DRIVER_PORT 0
 #define CONTROLLER_OPERATOR_PORT 1
-#define INTAKE_TOGGLE_BUTTON 4
+#define INTAKE_TOGGLE_BUTTON 5
 #define STACKER_BUTTON 2
 
 //Axis
-#define LEFT_VERTICAL 1
 #define RIGHT_VERTICAL 3
+#define LEFT_VERTICAL 1
+#define RIGHT_HORIZONTAL 2
 
 class OI {
 private:
@@ -60,6 +61,7 @@ public:
 	float getLeftStick();
 	float getRightOperatorStick();
 	float getLeftOperatorStick();
+	float getRightOperatorHorizontalStick();
 };
 
 #endif

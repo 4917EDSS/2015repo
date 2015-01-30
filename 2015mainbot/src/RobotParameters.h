@@ -8,4 +8,6 @@
 #define LIFT_THREE_BOX 3.5
 #define LIFT_FOUR_BOX 4.5
 #define LIFT_TOLERANCE 0.2
+
+#define CONTROLLER_HOR_INTAKE_TOLERANCE 0.8
 #endif

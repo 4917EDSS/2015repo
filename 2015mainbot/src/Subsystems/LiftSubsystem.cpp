@@ -3,9 +3,8 @@
 #include "../Commands/MoveMastWithJoystick.h"
 #include "../Robotmap.h"
 
-LiftSubsystem::LiftSubsystem(int lift_channel1, int lift_channel2,  int top_limit_channel, int bottom_limit_channel) : Subsystem("LiftSubsystem") {
+LiftSubsystem::LiftSubsystem(int lift_channel1, int top_limit_channel, int bottom_limit_channel) : Subsystem("LiftSubsystem") {
 	liftMotor1 = new Talon(lift_channel1);
-	liftMotor2 = new Talon(lift_channel2);
 	maxHeightLimitSwitch = new DigitalInput(top_limit_channel);
 	minHeightLimitSwitch = new DigitalInput(bottom_limit_channel);
 //	sensorPower = new Solenoid(7);
@@ -34,19 +33,15 @@ void LiftSubsystem::InitDefaultCommand() {
 
 void LiftSubsystem::liftMotorUp(){
 	liftMotor1->Set(-1.0);
-	liftMotor2->Set(-1.0);
 }
 
 void LiftSubsystem::liftMotorDown(){
 	liftMotor1->Set(1.0);
-	liftMotor2->Set(1.0);
 }
 
 void LiftSubsystem::liftMotorStop(){
 	liftMotor1->Set(0.0);
-	liftMotor2->Set(0.0);
 }
 void LiftSubsystem::liftMotorSet(float speed){
 	liftMotor1->Set(speed);
-	liftMotor2->Set(speed);
 }

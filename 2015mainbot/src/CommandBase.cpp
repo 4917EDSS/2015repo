@@ -20,7 +20,7 @@ void CommandBase::init() {
 	m_intake = new Intake(ARM_LEFT_MOTOR, ARM_RIGHT_MOTOR, ARMS_CLOSE, ARMS_OPEN, INTAKE_LIMIT_SWITCH);
 	m_drivetrain = new Drivetrain(LEFT_DRIVE_1, LEFT_DRIVE_2, RIGHT_DRIVE_1,  RIGHT_DRIVE_2);
 	oi = new OI();
-	m_liftSubsystem = new LiftSubsystem(LIFT_MOTOR_1, LIFT_MOTOR_2, TOP_LIMIT_SWITCH, BOTTOM_LIMIT_SWITCH);
+	m_liftSubsystem = new LiftSubsystem(LIFT_MOTOR_1, TOP_LIMIT_SWITCH, BOTTOM_LIMIT_SWITCH);
 	m_stackingSubsystem = new StackingSubsystem(FLAP_OPEN, FLAP_CLOSE, BOX_HEIGHT_LIMIT_SWITCH);
 	m_stackingSubsystem->setClosed();
 }

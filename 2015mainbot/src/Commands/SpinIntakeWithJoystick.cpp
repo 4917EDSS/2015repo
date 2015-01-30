@@ -1,4 +1,5 @@
 #include "SpinIntakeWithJoystick.h"
+#include "RobotParameters.h"
 
 SpinIntakeWithJoystick::SpinIntakeWithJoystick()
 {
@@ -16,7 +17,15 @@ void SpinIntakeWithJoystick::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void SpinIntakeWithJoystick::Execute()
 {
-	m_intake->SetMotor(oi->getLeftOperatorStick());
+	if (fabs(oi->getRightOperatorHorizontalStick())>CONTROLLER_HOR_INTAKE_TOLERANCE)
+	{
+		m_intake->RotateBox(oi->getRightOperatorHorizontalStick());
+	}
+	else
+	{
+		m_intake->SetMotor(oi->getLeftOperatorStick());
+	}
+
 }
 
 // Make this return true when this Command no longer needs to run execute()

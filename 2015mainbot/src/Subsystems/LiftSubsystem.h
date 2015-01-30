@@ -12,7 +12,6 @@ class LiftSubsystem: public Subsystem {
 private:
 	//Solenoid* sensorPower;
 	Talon* liftMotor1;
-	Talon* liftMotor2;
 	DigitalInput* maxHeightLimitSwitch;
 	DigitalInput* minHeightLimitSwitch;
 
@@ -35,7 +34,7 @@ public:
 	bool isMinHeight();
 	//void setLiftHeight(float liftHeight);
 	//void toggleUpDown();
-	LiftSubsystem(int lift_channel1, int lift_channel2, int top_limit_channel, int bottom_limit_channel);
+	LiftSubsystem(int lift_channel1, int top_limit_channel, int bottom_limit_channel);
 	void InitDefaultCommand();
 };
 

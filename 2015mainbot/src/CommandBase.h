@@ -13,8 +13,7 @@
 #define LEFT_DRIVE_2 1
 #define RIGHT_DRIVE_1 2
 #define RIGHT_DRIVE_2 3
-#define LIFT_MOTOR_1 7
-#define LIFT_MOTOR_2 8
+#define LIFT_MOTOR_1 6
 #define ARM_LEFT_MOTOR 4
 #define ARM_RIGHT_MOTOR 5
 

@@ -29,6 +29,11 @@ void Intake::SetMotor(float speed) {
 	armRight->Set(speed);
 	armLeft->Set(-speed);
 }
+
+void Intake::RotateBox(float speed) {
+	armRight->Set(speed);
+	armLeft->Set(speed);
+}
 bool Intake::IsTouched() {
 	return !intakeLimit->Get();
 }
