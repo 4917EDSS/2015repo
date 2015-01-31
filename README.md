@@ -38,7 +38,7 @@ public:
 ```
 
 ###CommandGroups
-- All command group names must end with "Grp"
+- All command group names must end with ```Grp```
 - Command groups are to be named imperatively - you are *telling* the robot what to do.
 - It should be a high level description of what the end goal is - for example ```CloseArmsThenIntakeUntilLimitSwitchGrp``` is a bad name, while ```BringBoxToBackGrp``` is good.
 
