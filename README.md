@@ -1,11 +1,17 @@
 #Naming Conventions
 
 [Classes](#classes)
+
 [Commands](#commands)
+
 [Command Groups](#command-groups)
+
 [Subsystems](#subsystems)
+
 [OI](#oi)
+
 [CommandBase](#commmand-base)
+
 [RobotParameters](#robotparameters)
 
 ##Classes
