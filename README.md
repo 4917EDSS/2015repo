@@ -40,6 +40,7 @@ public:
 ###Subsystems
 - All subsystem names must end with "Sub".
 - All functions defined in a subsystem must start with a capital letter. 
+- Whenever possible, avoid variables like ```motor1``` - these are only acceptable when ```1``` and ```2``` will always be tied together
 - Commands should be created with "Right click -> New -> Other -> Subsystem"
 - Channels should be passsed into constructor with form ```internalPrivateVarNameC``` (C stands for Channel)
 
@@ -87,8 +88,21 @@ public:
   * You must append a ```Port``` for a port number (ie ```DControllerPort```)
   * You must append a ```Axis``` for an axis number (ie ```OHorizontalAxis```)
 - For getters on the OI, the format is ```O``` or ```D``` followed by ```Get```
-  * If you are getting a controller's axis, then ```Hor``` or ```Vert``` follow ```Get``` (ie ```float OGetHor()```)
+  * If you are getting a controller's axis, then ```Hor``` or ```Vert``` follow ```GetRight``` or ```GetLeft``` (ie ```float OGetRightHor()```)
   * If you are getting some other analog value, then ```Val``` must follow what you are getting (ie ```float OGetTriggerVal()```)
   * If you are getting a button press (you must ask a mentor before doing this) then the button's name is the end (ie ```bool OGetIntakeToggleBtn```)
 
 ##CommandBase
+- CommandBase holds the acutal robot's subsystems - these variables should follow the naming convention
+  *  ```r``` (for robot) followed by the subsystem's class name (ie ```rDestroyerSub``)
+- ```CameraName``` is the string for the camera
+- All other ```#define``` in CommandBase are ports for I/O
+  * For PWM ports, append ```PWM``` (ie ```#define ArmLeftMotorPWM 1```)
+  * For Digital I/O ports, append ```DIO``` (ie ```#define IntakeLimitSwitchDIO 1```)
+  * For pnuematic outputs ports, append ```PNC``` (ie ```#define LockSolenoidPNC 1```)
+  * For analog inputs, append ```AIN``` (ie ```#define HammerPotentiometerAIN 1```)
+
+##RobotParameters
+- To define parameters that will be used throughout operation, such as constants for encoder heights
+- The naming convention here is to use all caps, with underscores seperating words
+- The name should describe what the constant is (ie ```#define CONTAINER_ON_6_STACK_HEIGHT 1337```)
