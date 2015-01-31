@@ -7,6 +7,7 @@
 **[OI](#oi)**  
 **[CommandBase](#commmand-base)**  
 **[RobotParameters](#robotparameters)**
+**[Misc](#misc)**
 
 ##Classes
 - All class names must be named with a capital letter first.
