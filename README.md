@@ -1,5 +1,13 @@
 #Naming Conventions
 
+[Classes](#classes)
+[Commands](#commands)
+[Command Groups](#command-groups)
+[Subsystems](#subsystems)
+[OI](#oi)
+[CommandBase](#commmand-base)
+[RobotParameters](#robotparameters)
+
 ##Classes
 - All class names must be named with a capital letter first.
 - File names should match class name exactly without their ```.h``` or ```.cpp``` extensions
@@ -37,7 +45,7 @@ public:
 #endif
 ```
 
-###CommandGroups
+###Command Groups
 - All command group names must end with ```Grp```
 - Command groups are to be named imperatively - you are *telling* the robot what to do.
 - It should be a high level description of what the end goal is - for example ```CloseArmsThenIntakeUntilLimitSwitchGrp``` is a bad name, while ```BringBoxToBackGrp``` is good.
