@@ -56,20 +56,20 @@ Example Subsystem ```.h``` file:
 class DestroyerSub: public Subsystem 
 {
 private:
-  Talon* hammerMotor;
-  Talon* chainSawMotor;
-  Encoder* hammerEncoder;
-  int destroyedOpponents;
-  float percentageDestroyed;
-  int hammerTime(int teamNumber);
-  //BE VERY CAREFUL WITH THIS COMMAND!! 02/12/2015 never forget :'(
-  void galinaHammerTime();
+	Talon* hammerMotor;
+	Talon* chainSawMotor;
+	Encoder* hammerEncoder;
+	int destroyedOpponents;
+	float percentageDestroyed;
+	int hammerTime(int teamNumber);
+	//BE VERY CAREFUL WITH THIS COMMAND!! 02/12/2015 never forget :'(
+	void galinaHammerTime();
 public:
 	DestroyerSub(int hammerMotorC, int chainSawMotorC, int hammerEncoderC);
-  void StartUpChainSaw(speed);
-  void ShutDownChainSaw(speed);
-  int DestroyedOpponents();
-  void ObliterateOpponents(bool galinaMode);
+	void StartUpChainSaw(speed);
+	void ShutDownChainSaw(speed);
+	int DestroyedOpponents();
+	void ObliterateOpponents(bool galinaMode);
 	void InitDefaultCommand();
 };
 
