@@ -2,6 +2,7 @@
 
 ##Classes
 - All class names must be named with a capital letter first.
+- File names should match class name exactly without their ```.h``` or ```.cpp``` extensions
 - Memeber variables should only be private and camelcase.
 - Public functions must start with a capital letter
 - Private functions must start with a lowercase letter
