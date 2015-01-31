@@ -6,7 +6,7 @@
 **[Subsystems](#subsystems)**   
 **[OI](#oi)**  
 **[CommandBase](#commmand-base)**  
-**[RobotParameters](#robotparameters)**
+**[RobotParameters](#robotparameters)**  
 **[Misc](#misc)**
 
 ##Classes
