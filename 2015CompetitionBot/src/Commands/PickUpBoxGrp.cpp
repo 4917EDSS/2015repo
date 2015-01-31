@@ -6,13 +6,13 @@
 PickUpBoxGrp::PickUpBoxGrp()
 {
 	AddSequential(new IntakeUntilLimitCmd());
-	AddSequential(new SETMAST(1));
-	AddSequential(new SETLOCK(LOCKS_OPEN));
-	AddSequential(new SETMAST(2));
-	AddSequential(new SETLOCK(LOCKS_CLOSED));
+	AddSequential(new SetLiftHeightCmd(LIFT_HEIGHT_2));
+	AddSequential(new SetLocksCmd(LOCKS_OPEN));
+	AddSequential(new SetLiftHeightCmd(LIFT_HEIGHT_3));
+	AddSequential(new SetLocksCmd(LOCKS_CLOSED));
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
 	AddSequential(new WaitCommand(MOVEMENT_DELAY));
-	AddSequential(new SETMAST(0));
+	AddSequential(new SetLiftHeightCmd(LIFT_HEIGHT_1));
 
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
