@@ -40,7 +40,7 @@ public:
 
 ###Subsystems
 - All subsystem names must end with "Sub".
-- All functions defined in a subsystem must start with a capital letter. 
+- All public functions defined in a subsystem must start with a capital letter. 
 - Whenever possible, avoid variables like ```motor1``` - these are only acceptable when ```1``` and ```2``` will always be tied together
 - Commands should be created with "Right click -> New -> Other -> Subsystem"
 - Channels should be passsed into constructor with form ```internalPrivateVarNameC``` (C stands for Channel)
