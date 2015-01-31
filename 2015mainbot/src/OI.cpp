@@ -50,6 +50,6 @@ float OI::getRightOperatorStick(){
 float OI::getLeftOperatorStick(){
 	return getStick(oController, LEFT_VERTICAL);
 }
-float OI::getRightOperatorHorizontalStick(){
-	return getStick(oController, RIGHT_HORIZONTAL);
+float OI::getLeftOperatorHorizontalStick(){
+	return getStick(oController, LEFT_HORIZONTAL);
 }

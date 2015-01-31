@@ -14,6 +14,7 @@ private:
 	Talon* liftMotor1;
 	DigitalInput* maxHeightLimitSwitch;
 	DigitalInput* minHeightLimitSwitch;
+	Encoder* encoder;
 
 	//AnalogInput* boxHeight;
 	//DigitalInput* heightSensor;
@@ -34,7 +35,7 @@ public:
 	bool isMinHeight();
 	//void setLiftHeight(float liftHeight);
 	//void toggleUpDown();
-	LiftSubsystem(int lift_channel1, int top_limit_channel, int bottom_limit_channel);
+	LiftSubsystem(int lift_channel1, int top_limit_channel, int bottom_limit_channel, int encoderForward_channel, int encoderReverse_channel);
 	void InitDefaultCommand();
 };
 

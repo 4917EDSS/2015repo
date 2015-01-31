@@ -35,6 +35,7 @@
 #define RIGHT_VERTICAL 3
 #define LEFT_VERTICAL 1
 #define RIGHT_HORIZONTAL 2
+#define LEFT_HORIZONTAL 0
 
 class OI {
 private:
@@ -61,7 +62,7 @@ public:
 	float getLeftStick();
 	float getRightOperatorStick();
 	float getLeftOperatorStick();
-	float getRightOperatorHorizontalStick();
+	float getLeftOperatorHorizontalStick();
 };
 
 #endif

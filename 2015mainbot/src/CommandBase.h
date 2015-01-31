@@ -24,6 +24,8 @@
 #define FLAP_CLOSE 3
 
 //Digital IO
+#define ENCODER_1 8
+#define ENCODER_2 9
 #define TOP_LIMIT_SWITCH 0
 #define BOTTOM_LIMIT_SWITCH 1
 #define INTAKE_LIMIT_SWITCH 2

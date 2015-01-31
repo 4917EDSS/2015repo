@@ -17,9 +17,9 @@ void SpinIntakeWithJoystick::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void SpinIntakeWithJoystick::Execute()
 {
-	if (fabs(oi->getRightOperatorHorizontalStick())>CONTROLLER_HOR_INTAKE_TOLERANCE)
+	if (fabs(oi->getLeftOperatorHorizontalStick())>CONTROLLER_HOR_INTAKE_TOLERANCE)
 	{
-		m_intake->RotateBox(oi->getRightOperatorHorizontalStick());
+		m_intake->RotateBox(oi->getLeftOperatorHorizontalStick());
 	}
 	else
 	{
