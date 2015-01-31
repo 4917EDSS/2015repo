@@ -30,7 +30,7 @@ bool ResetLiftEncoderCmd::IsFinished()
 void ResetLiftEncoderCmd::End()
 {
 	rLiftSub->LiftMotorDown(0);
-	rLiftSub->ResetLiftEncoder();
+	rLiftSub->ResetLift();
 }
 
 // Called when another command which requires one or more of the same

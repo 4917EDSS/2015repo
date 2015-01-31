@@ -17,13 +17,13 @@ void SpinIntakeWithJoystick::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void SpinIntakeWithJoystick::Execute()
 {
-	if (fabs(oi->getLeftOperatorHorizontalStick())>CONTROLLER_HOR_INTAKE_TOLERANCE)
+	if (fabs(oi->OGetLeftHor())>CTRLR_HOR_INTAKE_TOLERANCE)
 	{
-		m_intake->RotateBox(oi->getLeftOperatorHorizontalStick());
+		m_intake->RotateBox(oi->OGetLeftHor());
 	}
 	else
 	{
-		m_intake->SetMotor(oi->getLeftOperatorStick());
+		m_intake->SetMotor(oi->OGetLeftVer());
 	}
 
 }

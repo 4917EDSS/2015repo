@@ -26,5 +26,5 @@ void CommandBase::init()
 	oi = new OI();
 	rDrivetrainSub = new DrivetrainSub(RightDrive1PWM, RightDrive2PWM, LeftDrive1PWM, LeftDrive2PWM);
 	rIntakeSub = new IntakeSub(ArmRightMotorPWM, ArmLeftMotorPWM, ArmsSolenoid1PNC, ArmsSolenoid2PNC, IntakeLimitSwitchDIO);
-	rLiftSub = new LiftSub(LiftMotorPWM, LockSolenoid1PNC, LockSolenoid2PNC, Encoder1DIO, Encoder2DIO);
+	rLiftSub = new LiftSub(LiftMotorPWM, LockSolenoid1PNC, LockSolenoid2PNC, Encoder1DIO, Encoder2DIO, BottomLimitSwitchDIO);
 }

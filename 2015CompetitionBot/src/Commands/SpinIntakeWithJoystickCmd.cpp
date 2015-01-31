@@ -1,4 +1,5 @@
 #include "SpinIntakeWithJoystickCmd.h"
+#include "RobotParameters.h"
 
 SpinIntakeWithJoystickCmd::SpinIntakeWithJoystickCmd()
 {
@@ -11,19 +12,19 @@ void SpinIntakeWithJoystickCmd::Initialize()
 
 void SpinIntakeWithJoystickCmd::Execute()
 {
-	if (oi->OGetLeftHor() > CONTROLLER_HOR_INTAKE_TOLERANCE)
+	if (oi->OGetRightHor() > CTRLR_HOR_INTAKE_TOLERANCE)
 	{
-		rIntake->SetBeltsRight(oi->OGetLeftHor());
+		rIntakeSub->SetBeltsRight(oi->OGetRightHor());
 	}
 
-	else if (oi->OGetLeftHor() < -CONTROLLER_HOR_INTAKE_TOLERANCE)
+	else if (oi->OGetRightHor() < -CTRLR_HOR_INTAKE_TOLERANCE)
 	{
-		rIntake->SetBeltsLeft(-oi->OGetLeftHor());
+		rIntakeSub->SetBeltsRight(oi->OGetRightHor());
 	}
 
 	else
 	{
-		rIntake->SetBeltsIn(oi->OGetLeftVer());
+		rIntakeSub->SetBeltsIn(oi->OGetRightVer());
 	}
 }
 

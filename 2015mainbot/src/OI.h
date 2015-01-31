@@ -58,11 +58,11 @@ private:
 	float getStick(Joystick* stick, int axis);
 public:
 	OI();
-	float getRightStick();
-	float getLeftStick();
-	float getRightOperatorStick();
-	float getLeftOperatorStick();
-	float getLeftOperatorHorizontalStick();
+	float DGetRightVer();
+	float DGetLeftVer();
+	float OGetRightVer();
+	float OGetLeftVer();
+	float OGetLeftHor();
 };
 
 #endif

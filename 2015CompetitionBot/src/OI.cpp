@@ -1,4 +1,8 @@
 #include "OI.h"
+#include "Commands/ToggleArmsCmd.h"
+#include "Commands/ToggleLocksCmd.h"
+#include "Commands/PickUpBoxGrp.h"
+#include "Commands/IntakeUntilLimitCmd.h"
 //Remember to include Commands here.
 
 OI::OI()
@@ -21,26 +25,30 @@ OI::OI()
 	//Command here.
 	oDropOnFiveStackBtn = new JoystickButton(oController, ODropOnFiveStackBtn);
 	//Command here.
-
+	oTestBtn = new JoystickButton(oController, OTestBtn);
+	oTestBtn->WhenPressed (new IntakeUntilLimitCmd());
 	// Process operator interface input here.
 }
 float OI::getStick(Joystick* controller, int axis){
 		float rawInput = controller->GetRawAxis(axis);
 		return (rawInput*fabs(rawInput));
 	}
-	float OI::getRightStick(){
+	float OI::DGetRightVer(){
 		return getStick(dController, DRightVerticalAxis);
 	}
-	float OI::getLeftStick(){
+	float OI::DGetLeftVer(){
 		return getStick(dController, DLeftVerticalAxis);
 	}
 
-	float OI::getRightOperatorStick(){
+	float OI::OGetRightVer(){
 		return getStick(oController, ORightVerticalAxis);
 	}
-	float OI::getLeftOperatorStick(){
+	float OI::OGetLeftVer(){
 		return getStick(oController, OLeftVerticalAxis);
 	}
-	float OI::getLeftOperatorHorizontalStick(){
+	float OI::OGetLeftHor(){
 		return getStick(oController, OLeftHorizontalAxis);
+	}
+	float OI::OGetRightHor(){
+			return getStick(oController, ORightHorizontalAxis);
 	}

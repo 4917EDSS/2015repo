@@ -9,7 +9,7 @@ class SetLiftHeightCmd: public CommandBase
 private:
 	int height;
 public:
-	SetLiftHeightCmd();
+	SetLiftHeightCmd(int destination);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

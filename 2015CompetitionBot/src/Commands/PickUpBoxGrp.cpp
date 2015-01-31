@@ -2,6 +2,8 @@
 #include "IntakeUntilLimitCmd.h"
 #include "SetArmsCmd.h"
 #include "RobotParameters.h"
+#include "SetLocksCmd.h"
+#include "SetLiftHeightCmd.h"
 
 PickUpBoxGrp::PickUpBoxGrp()
 {

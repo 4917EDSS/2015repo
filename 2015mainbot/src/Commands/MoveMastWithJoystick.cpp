@@ -16,7 +16,7 @@ void MoveMastWithJoystick::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void MoveMastWithJoystick::Execute()
 {
-	m_liftSubsystem->liftMotorSet(oi->getRightOperatorStick());
+	m_liftSubsystem->liftMotorSet(oi->OGetRightVer());
 }
 
 // Make this return true when this Command no longer needs to run execute()

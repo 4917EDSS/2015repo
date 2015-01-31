@@ -14,17 +14,19 @@ DrivetrainSub::DrivetrainSub(int frontrightC, int backrightC, int frontleftC, in
 
 void DrivetrainSub::InitDefaultCommand()
 {
-	//SetDefaultCommand(new DriveWithJoystickCmd()); Please Comment out once this command exists.
+	SetDefaultCommand(new DriveWithJoystickCmd());
+	//Please Comment out once this command exists.
 	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
+	//SetDefaultCommand(new MySpecialCommand())
 }
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
 void DrivetrainSub::drive(float leftSpeed, float rightSpeed) {
-	frontRight->Set(rightSpeed);
-	backRight->Set(rightSpeed);
+	//because opposite motors are facing outwards, need the negative
+	frontRight->Set(-rightSpeed);
+	backRight->Set(-rightSpeed);
 	frontLeft->Set(leftSpeed);
 	backLeft->Set(leftSpeed);
 }

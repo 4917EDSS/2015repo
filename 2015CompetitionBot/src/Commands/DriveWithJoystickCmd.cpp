@@ -11,7 +11,7 @@ void DriveWithJoystickCmd::Initialize()
 
 void DriveWithJoystickCmd::Execute()
 {
-	rDrivetrainSub->drive(oi->DGetRightVer(), oi->DGetLeftVer());
+	rDrivetrainSub->drive(oi->DGetLeftVer(), oi->DGetRightVer());
 }
 
 bool DriveWithJoystickCmd::IsFinished()

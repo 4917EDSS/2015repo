@@ -1,5 +1,6 @@
 #include "IntakeSub.h"
 #include "../RobotMap.h"
+#include "Commands/SpinIntakeWithJoystickCmd.h"
 
 IntakeSub::IntakeSub(int armRightC, int armLeftC, int armsOpenClose1C, int armsOpenClose2C, int intakeLimitC) :
 		Subsystem("IntakeSub")
@@ -14,6 +15,7 @@ void IntakeSub::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new SpinIntakeWithJoystickCmd());
 }
 void IntakeSub::SetBeltsIn(float speed)
 {

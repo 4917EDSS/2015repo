@@ -37,19 +37,19 @@ float OI::getStick(Joystick* controller, int axis){
 	float rawInput = controller->GetRawAxis(axis);
 	return (rawInput*fabs(rawInput));
 }
-float OI::getRightStick(){
+float OI::DGetRightVer(){
 	return getStick(dController, RIGHT_VERTICAL);
 }
-float OI::getLeftStick(){
+float OI::DGetLeftVer(){
 	return getStick(dController, LEFT_VERTICAL);
 }
 
-float OI::getRightOperatorStick(){
+float OI::OGetRightVer(){
 	return getStick(oController, RIGHT_VERTICAL);
 }
-float OI::getLeftOperatorStick(){
+float OI::OGetLeftVer(){
 	return getStick(oController, LEFT_VERTICAL);
 }
-float OI::getLeftOperatorHorizontalStick(){
+float OI::OGetLeftHor(){
 	return getStick(oController, LEFT_HORIZONTAL);
 }

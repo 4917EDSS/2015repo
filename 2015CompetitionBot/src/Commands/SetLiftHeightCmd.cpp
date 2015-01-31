@@ -23,7 +23,7 @@ void SetLiftHeightCmd::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool SetLiftHeightCmd::IsFinished()
 {
-	return rLiftSub->isOnTarget();
+	return rLiftSub->IsOnTarget();
 }
 
 // Called once after isFinished returns true

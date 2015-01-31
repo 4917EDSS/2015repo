@@ -33,7 +33,7 @@
 #define OLockToggleBtn 6
 #define ODropStackBtn 7
 #define OStackingBtn 8
-
+#define OTestBtn 2
 
 //Axis
 #define ORightVerticalAxis 3
@@ -59,15 +59,17 @@ private:
 	JoystickButton* oDropOnThreeStackBtn;
 	JoystickButton* oDropOnFourStackBtn;
 	JoystickButton* oDropOnFiveStackBtn;
+	JoystickButton* oTestBtn;
 	float getStick(Joystick* stick, int axis);
 
 public:
 	OI();
-	float getRightStick();
-	float getLeftStick();
-	float getRightOperatorStick();
-	float getLeftOperatorStick();
-	float getLeftOperatorHorizontalStick();
+	float DGetRightVer();
+	float DGetLeftVer();
+	float OGetRightVer();
+	float OGetLeftVer();
+	float OGetLeftHor();
+	float OGetRightHor();
 };
 
 #endif

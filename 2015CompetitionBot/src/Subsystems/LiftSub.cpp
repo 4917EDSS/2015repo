@@ -4,7 +4,7 @@
 #include "../RobotParameters.h"
 
 LiftSub::LiftSub(int liftMotorC, int locks1C, int locks2C, int liftEncoder1C, int liftEncoder2C, int resetLimitSwitchC) :
-		Subsystem("ExampleSubsystem")
+		Subsystem("LiftSub")
 {
 	liftMotor = new Talon(liftMotorC);
 	locks = new DoubleSolenoid(locks1C, locks2C);

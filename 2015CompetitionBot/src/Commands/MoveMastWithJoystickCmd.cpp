@@ -11,14 +11,14 @@ void MoveMastWithJoystickCmd::Initialize()
 
 void MoveMastWithJoystickCmd::Execute()
 {
-	if (oi->OGetRightVer() > 0)
+	if (oi->OGetLeftVer() > 0)
 	{
-		rLiftSub->LiftMotorUp(oi->OGetRightVer());
+		rLiftSub->LiftMotorUp(oi->OGetLeftVer());
 	}
 
 	else
 	{
-		rLiftSub->LiftMotorDown(oi->OGetRightVer());
+		rLiftSub->LiftMotorDown(oi->OGetLeftVer());
 	}
 }
 

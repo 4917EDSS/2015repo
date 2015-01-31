@@ -13,7 +13,7 @@ void DriveWithJoystickCommand::Initialize() {
 // Dual Joystick Code
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystickCommand::Execute() {
-	m_drivetrain->drive(oi->getRightStick(), oi->getLeftStick());
+	m_drivetrain->drive(oi->DGetRightVer(), oi->DGetLeftVer());
 }
 
 // PLAYSTATION Controller Code
