@@ -11,7 +11,6 @@ MoveMastWithJoystick::MoveMastWithJoystick()
 void MoveMastWithJoystick::Initialize()
 {
 
-	m_intake->ToggleArms();
 }
 
 // Called repeatedly when this Command is scheduled to run
