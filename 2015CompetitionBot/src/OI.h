@@ -1,6 +1,6 @@
 #ifndef OI_H
 #define OI_H
-
+//prefix o=operator, prefix d=driver
 #include "WPILib.h"
 /*
  * ON LOGITECH CONTROLLER:
@@ -20,27 +20,54 @@
  * Right Horizontal = 2
  *
  */
-#define EXPEL_BUTTON 7
-#define INTAKE_BUTTON 8
-#define LIFT_RAISE_BUTTON 6
-#define LIFT_LOWER_BUTTON 9
-#define TOGGLE_FLAP_BUTTON 6
-#define CONTROLLER_DRIVER_PORT 0
-#define CONTROLLER_OPERATOR_PORT 1
-#define INTAKE_TOGGLE_BUTTON 5
-#define STACKER_BUTTON 2
+//Controllers
+#define DControllerDriverPort 0
+#define OControllerOperatorPort 1
+
+//Buttons
+#define ODropOnTwoStackBtn 2
+#define ODropOnThreeStackBtn 1
+#define ODropOnFourStackBtn 3
+#define ODropOnFiveStackBtn 4
+#define OIntakeToggleBtn 5
+#define OLockToggleBtn 6
+#define ODropStackBtn 7
+#define OStackingBtn 8
+
 
 //Axis
-#define RIGHT_VERTICAL 3
-#define LEFT_VERTICAL 1
-#define RIGHT_HORIZONTAL 2
-#define LEFT_HORIZONTAL 0
+#define ORightVerticalAxis 3
+#define OLeftVerticalAxis 1
+#define ORightHorizontalAxis 2
+#define OLeftHorizontalAxis 0
+
+#define DRightVerticalAxis 3
+#define DLeftVerticalAxis 1
+#define DRightHorizontalAxis 2
+#define DLeftHorizontalAxis 0
 class OI
 {
 private:
 
+	Joystick* dController;
+	Joystick* oController;
+	JoystickButton* oIntakeToggleBtn;
+	JoystickButton* oDropStackBtn;
+	JoystickButton* oStartStackingBtn;
+	JoystickButton* oLockToggleBtn;
+	JoystickButton* oDropOnTwoStackBtn;
+	JoystickButton* oDropOnThreeStackBtn;
+	JoystickButton* oDropOnFourStackBtn;
+	JoystickButton* oDropOnFiveStackBtn;
+	float getStick(Joystick* stick, int axis);
+
 public:
 	OI();
+	float getRightStick();
+	float getLeftStick();
+	float getRightOperatorStick();
+	float getLeftOperatorStick();
+	float getLeftOperatorHorizontalStick();
 };
 
 #endif

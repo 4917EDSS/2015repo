@@ -5,32 +5,35 @@
 #include "Commands/Command.h"
 #include "OI.h"
 #include "WPILib.h"
+#include "Subsystems/DrivetrainSub.h"
+#include "Subsystems/IntakeSub.h"
+#include "Subsystems/LiftSub.h"
 
 //Talons
-#define LEFT_DRIVE_1 0
-#define LEFT_DRIVE_2 1
-#define RIGHT_DRIVE_1 2
-#define RIGHT_DRIVE_2 3
-#define LIFT_MOTOR_1 6
-#define ARM_LEFT_MOTOR 4
-#define ARM_RIGHT_MOTOR 5
+#define LeftDrive1PWM 0
+#define LeftDrive2PWM 1
+#define RightDrive1PWM 2
+#define RightDrive2PWM 3
+#define LiftMotorPWM 4
+#define ArmLeftMotorPWM 7
+#define ArmRightMotorPWM 8
 
 //Air Outputs
-#define ARMS_CLOSE 0
-#define ARMS_OPEN 1
-#define FLAP_OPEN 2
-#define FLAP_CLOSE 3
+#define ArmsSolenoid1PNC 0
+#define ArmsSolenoid2PNC 1
+#define LockSolenoid1PNC 2
+#define LockSolenoid2PNC 3
 
 //Digital IO
-#define ENCODER_1 8
-#define ENCODER_2 9
-#define TOP_LIMIT_SWITCH 0
-#define BOTTOM_LIMIT_SWITCH 1
-#define INTAKE_LIMIT_SWITCH 2
-#define BOX_HEIGHT_LIMIT_SWITCH 3
+#define Encoder1DIO 8
+#define Encoder2DIO 9
+#define TopLimitSwitchDIO 0
+#define BottomLimitSwitchDIO 1
+#define IntakeLimitSwitchDIO 2
+#define BoxHeightLimitSwitchDIO 3
 
 //Camera
-#define CAMERA_NAME "cam1"
+#define CameraName "cam1"
 
 
 /**
@@ -45,6 +48,9 @@ public:
 	CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
+	static DrivetrainSub *rDrivetrainSub;
+	static IntakeSub *rIntakeSub;
+	static LiftSub *rLiftSub;
 	static OI *oi;
 };
 
