@@ -83,9 +83,9 @@ public:
   * You must append a ```Controller``` for a ```Joystick*``` (ie ```JoystickButton* oController```)
 - For ```#define``` (note these rules may cause a seemingly redundant define, that is okay)
   * You must prepend an upper case ```O``` or ```D``` depending on which person will use the ```define```
-  * You must append a ```Btn``` for a button number (ie ```OIntakeToggleBtn``` - this will correspond closely to the var name)
-  * You must append a ```Port``` for a port number (ie ```DControllerPort```)
-  * You must append a ```Axis``` for an axis number (ie ```OHorizontalAxis```)
+  * You must append a ```Btn``` for a button number (ie ```#define OIntakeToggleBtn 2``` - this will correspond closely to the ```JoystickButton*``` variable name, with only the first letter caps difference)
+  * You must append a ```Port``` for a port number (ie ```#define DControllerPort 2```)
+  * You must append a ```Axis``` for an axis number (ie ```#define OHorizontalAxis 2```)
 - For getters on the OI, the format is ```O``` or ```D``` followed by ```Get```
   * If you are getting a controller's axis, then ```Hor``` or ```Vert``` follow ```GetRight``` or ```GetLeft``` (ie ```float OGetRightHor()```)
   * If you are getting some other analog value, then ```Val``` must follow what you are getting (ie ```float OGetTriggerVal()```)
