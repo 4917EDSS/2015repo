@@ -10,7 +10,7 @@
 - Remember - all Commands and Subsystems are classes!
 
 ###Commands
-- All command names must end with "Cmd".
+- All command names must end with ```Cmd```
 - Commands are to be named imperatively - you are *telling* the robot what to do.
 - Commands should be created with "Right click -> New -> Other -> Command" 
 - Don't touch the ```.h``` file unless permission from a mentor is given.
@@ -44,7 +44,7 @@ public:
 
 
 ###Subsystems
-- All subsystem names must end with "Sub".
+- All subsystem names must end with ```Sub```
 - All public functions defined in a subsystem must start with a capital letter. 
 - Whenever possible, avoid variables like ```motor1``` - these are only acceptable when ```1``` and ```2``` will always be tied together
 - Commands should be created with "Right click -> New -> Other -> Subsystem"
