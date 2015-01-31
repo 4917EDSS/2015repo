@@ -11,15 +11,7 @@ void MoveMastWithJoystickCmd::Initialize()
 
 void MoveMastWithJoystickCmd::Execute()
 {
-	if (oi->OGetLeftVer() > 0)
-	{
-		rLiftSub->LiftMotorUp(oi->OGetLeftVer());
-	}
-
-	else
-	{
-		rLiftSub->LiftMotorDown(oi->OGetLeftVer());
-	}
+	rLiftSub->LiftMotorUp(oi->OGetLeftVer());
 }
 
 bool MoveMastWithJoystickCmd::IsFinished()
