@@ -121,6 +121,10 @@ public:
 - To define parameters that will be used throughout operation, such as constants for encoder heights
 - The naming convention here is to use all caps, with underscores seperating words
 - The name should describe what the constant is (ie ```#define CONTAINER_ON_6_STACK_HEIGHT 1337```)
+
+##Misc
+- When passing a left and right parameter, left is **always** the first one you should pass.
+- When passing a top and bottom parameter, top is **always** the first one you should pass.
 ```
                                                                                                  
               @@:                        @@@:                                                    
