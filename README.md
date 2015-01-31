@@ -44,7 +44,7 @@ public:
 - Whenever possible, avoid variables like ```motor1``` - these are only acceptable when ```1``` and ```2``` will always be tied together
 - Commands should be created with "Right click -> New -> Other -> Subsystem"
 - Channels should be passsed into constructor with form ```internalPrivateVarNameC``` (C stands for Channel)
-- ```InitDefaultCommand``` should be removed unless being used.
+- ```void InitDefaultCommand()``` should be removed unless being used.
 
 Example names: ```DrivetrainSub``` ```DestroyerSub```
 
