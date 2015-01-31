@@ -66,8 +66,8 @@ private:
 	void galinaHammerTime();
 public:
 	DestroyerSub(int hammerMotorC, int chainSawMotorC, int hammerEncoderC);
-	void StartUpChainSaw(speed);
-	void ShutDownChainSaw(speed);
+	void StartUpChainSaw(float speed);
+	void ShutDownChainSaw(float speed);
 	int DestroyedOpponents();
 	void ObliterateOpponents(bool galinaMode);
 	void InitDefaultCommand();
