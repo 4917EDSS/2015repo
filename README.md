@@ -100,7 +100,8 @@ public:
   * For PWM ports, append ```PWM``` (ie ```#define ArmLeftMotorPWM 1```)
   * For Digital I/O ports, append ```DIO``` (ie ```#define IntakeLimitSwitchDIO 1```)
   * For pnuematic outputs ports, append ```PNC``` (ie ```#define LockSolenoidPNC 1```)
-  * For analog inputs, append ```AIN``` (ie ```#define HammerPotentiometerAIN 1```)
+  * For analog input ports, append ```AIN``` (ie ```#define HammerPotentiometerAIN 1```)
+  * You can tell which input port type you should be using by looking at where you are plugged into the RoboRIO
 
 ##RobotParameters
 - To define parameters that will be used throughout operation, such as constants for encoder heights
