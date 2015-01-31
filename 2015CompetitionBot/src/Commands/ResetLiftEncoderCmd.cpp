@@ -1,40 +1,41 @@
-#include "MoveMastWithJoystick.h"
+#include "ResetLiftEncoderCmd.h"
 
-MoveMastWithJoystick::MoveMastWithJoystick()
+ResetLiftEncoderCmd::ResetLiftEncoderCmd()
 {
-	Requires(m_liftSubsystem);
+
+	Requires(rLiftSub);
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 }
 
 // Called just before this Command runs the first time
-void MoveMastWithJoystick::Initialize()
+void ResetLiftEncoderCmd::Initialize()
 {
-
+	rLiftSub->LiftMotorDown(1);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void MoveMastWithJoystick::Execute()
+void ResetLiftEncoderCmd::Execute()
 {
-	m_liftSubsystem->liftMotorSet(oi->getRightOperatorStick());
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool MoveMastWithJoystick::IsFinished()
+bool ResetLiftEncoderCmd::IsFinished()
 {
-	return false;
+	return rLiftSub->GetResetLimitSwitch();
 }
 
 // Called once after isFinished returns true
-void MoveMastWithJoystick::End()
+void ResetLiftEncoderCmd::End()
 {
-
+	rLiftSub->LiftMotorDown(0);
+	rLiftSub->ResetLiftEncoder();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void MoveMastWithJoystick::Interrupted()
+void ResetLiftEncoderCmd::Interrupted()
 {
-	m_liftSubsystem->liftMotorSet(0.0);
-
+	End();
 }

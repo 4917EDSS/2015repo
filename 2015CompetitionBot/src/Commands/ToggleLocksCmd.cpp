@@ -1,40 +1,39 @@
-#include "MoveMastWithJoystick.h"
+#include "ToggleLocksCmd.h"
 
-MoveMastWithJoystick::MoveMastWithJoystick()
+ToggleLocksCmd::ToggleLocksCmd()
 {
-	Requires(m_liftSubsystem);
+	Requires(rLiftSub);
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 }
 
 // Called just before this Command runs the first time
-void MoveMastWithJoystick::Initialize()
+void ToggleLocksCmd::Initialize()
 {
-
+	rLiftSub->ToggleLocks();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void MoveMastWithJoystick::Execute()
+void ToggleLocksCmd::Execute()
 {
-	m_liftSubsystem->liftMotorSet(oi->getRightOperatorStick());
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool MoveMastWithJoystick::IsFinished()
+bool ToggleLocksCmd::IsFinished()
 {
-	return false;
+	return true;
 }
 
 // Called once after isFinished returns true
-void MoveMastWithJoystick::End()
+void ToggleLocksCmd::End()
 {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void MoveMastWithJoystick::Interrupted()
+void ToggleLocksCmd::Interrupted()
 {
-	m_liftSubsystem->liftMotorSet(0.0);
 
 }
