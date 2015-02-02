@@ -110,7 +110,6 @@ public:
 ##CommandBase
 - CommandBase holds the acutal robot's subsystems - these variables should follow the naming convention
   *  ```r``` (for robot) followed by the subsystem's class name (ie ```DestroyerSub* rDestroyerSub```)
-- ```CameraName``` is the string for the camera
 - All other ```#define``` in CommandBase are ports for I/O
   * For PWM ports, append ```PWM``` (ie ```#define ArmLeftMotorPWM 1```)
   * For Digital I/O ports, append ```DIO``` (ie ```#define IntakeLimitSwitchDIO 1```)
