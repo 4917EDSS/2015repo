@@ -32,9 +32,6 @@
 #define IntakeLimitSwitchDIO 2
 #define BoxHeightLimitSwitchDIO 3
 
-//Camera
-#define CameraName "cam1"
-
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.

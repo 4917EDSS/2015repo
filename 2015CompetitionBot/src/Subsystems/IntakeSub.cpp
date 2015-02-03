@@ -1,6 +1,7 @@
 #include "IntakeSub.h"
 #include "../RobotMap.h"
 #include "Commands/SpinIntakeWithJoystickCmd.h"
+#include "RobotParameters.h"
 
 IntakeSub::IntakeSub(int armRightC, int armLeftC, int armsOpenClose1C, int armsOpenClose2C, int intakeLimitC) :
 		Subsystem("IntakeSub")
@@ -39,7 +40,7 @@ void IntakeSub::SetBeltsRight(float speed)
 }
 void IntakeSub::SetArms(bool armsOut)
 {
-	if(armsOut) {
+	if(armsOut == ARMS_OPEN) {
 		armsOpenClose->Set(DoubleSolenoid::kForward);
 	}
 	else {
@@ -49,15 +50,19 @@ void IntakeSub::SetArms(bool armsOut)
 bool IntakeSub::GetArms()
 {
 	if(armsOpenClose->Get()==DoubleSolenoid::kForward){
-		return true;
+		return ARMS_OPEN;
 	}
 	else{
-		return false;
+		return ARMS_CLOSED;
 	}
+}
+void IntakeSub::ToggleArms()
+{
+	SetArms(!GetArms());
 }
 bool IntakeSub::IsLimitHit()
 {
-	return intakeLimit->Get();
+	return !intakeLimit->Get();
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

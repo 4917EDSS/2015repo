@@ -17,6 +17,8 @@
 #define ARMS_OPEN false
 #define MOVEMENT_DELAY .1
 
+#define CAMERA_NAME "cam1"
+
 
 #define CTRLR_HOR_INTAKE_TOLERANCE 0.8
 #endif

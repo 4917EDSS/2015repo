@@ -26,6 +26,7 @@ public:
 	void SetBeltsLeft(float speed);
 	void SetArms(bool armsOut);
 	bool GetArms();
+	void ToggleArms();
 	bool IsLimitHit();
 };
 

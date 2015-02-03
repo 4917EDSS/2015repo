@@ -3,20 +3,24 @@
 IntakeUntilLimitCmd::IntakeUntilLimitCmd()
 {
 	Requires (rIntakeSub);
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(chassis);
+	if (rIntakeSub==NULL) {
+		printf("\n\n\n\n\n:(\n\n\n\n");
+	}
+	else {
+		printf("\n\n\n\n\n:)\n\n\n\n");
+	}
 }
 
 // Called just before this Command runs the first time
 void IntakeUntilLimitCmd::Initialize()
 {
-	rIntakeSub->SetBeltsIn(1);
+	rIntakeSub->SetBeltsIn(1.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeUntilLimitCmd::Execute()
 {
-
+	//printf("Button command");
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -35,5 +39,5 @@ void IntakeUntilLimitCmd::End()
 // subsystems is scheduled to run
 void IntakeUntilLimitCmd::Interrupted()
 {
-
+	printf("intakeuntilcmd interrupt \n");
 }
