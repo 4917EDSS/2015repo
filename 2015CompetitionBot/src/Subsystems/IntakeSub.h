@@ -15,6 +15,8 @@ private:
 
 	DigitalInput* intakeLimit;
 
+
+
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
@@ -28,6 +30,7 @@ public:
 	bool GetArms();
 	void ToggleArms();
 	bool IsLimitHit();
+
 };
 
 #endif

@@ -1,14 +1,13 @@
 #include "IntakeUntilLimitCmd.h"
+#include "../Subsystems/IntakeSub.h"
 
 IntakeUntilLimitCmd::IntakeUntilLimitCmd()
 {
-	Requires (rIntakeSub);
-	if (rIntakeSub==NULL) {
-		printf("\n\n\n\n\n:(\n\n\n\n");
-	}
-	else {
-		printf("\n\n\n\n\n:)\n\n\n\n");
-	}
+
+	Requires(rIntakeSub);
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(chassis);
+
 }
 
 // Called just before this Command runs the first time
@@ -32,7 +31,7 @@ bool IntakeUntilLimitCmd::IsFinished()
 // Called once after isFinished returns true
 void IntakeUntilLimitCmd::End()
 {
-	rIntakeSub->SetBeltsIn(0);
+	rIntakeSub->SetBeltsIn(0.0);
 }
 
 // Called when another command which requires one or more of the same

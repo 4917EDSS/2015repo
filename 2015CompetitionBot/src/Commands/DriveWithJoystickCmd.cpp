@@ -12,6 +12,7 @@ void DriveWithJoystickCmd::Initialize()
 void DriveWithJoystickCmd::Execute()
 {
 	rDrivetrainSub->drive(oi->DGetLeftVer(), oi->DGetRightVer());
+	SmartDashboard::PutNumber("leftStickValue", oi->DGetLeftVer());
 }
 
 bool DriveWithJoystickCmd::IsFinished()

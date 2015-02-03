@@ -27,6 +27,12 @@ void CommandBase::init()
 	rIntakeSub = new IntakeSub(ArmRightMotorPWM, ArmLeftMotorPWM, ArmsSolenoid1PNC, ArmsSolenoid2PNC, IntakeLimitSwitchDIO);
 	rLiftSub = new LiftSub(LiftMotorPWM, LockSolenoid1PNC, LockSolenoid2PNC, Encoder1DIO, Encoder2DIO, BottomLimitSwitchDIO);
 
+
+
+
+
+
+
 	//oi should be ALWAYS be the LAST subsystem initialized!
 	oi = new OI();
 }

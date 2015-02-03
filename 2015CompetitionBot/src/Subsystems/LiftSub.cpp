@@ -12,6 +12,7 @@ LiftSub::LiftSub(int liftMotorC, int locks1C, int locks2C, int liftEncoder1C, in
 	onTarget=0;
 	destination=0;
 	resetLimitSwitch = new DigitalInput(resetLimitSwitchC);
+	onTargetCounter = 0;
 }
 
 void LiftSub::InitDefaultCommand()
@@ -68,11 +69,13 @@ int LiftSub::GetArmHeight()
 void LiftSub::LiftMotorUp(float speed)
 {
 	liftMotor->Set(speed);
+	SmartDashboard:: PutNumber("currentPosition", liftEncoder->GetRaw());
 }
 
 void LiftSub::LiftMotorDown(float speed)
 {
 	liftMotor->Set(-speed);
+	SmartDashboard:: PutNumber("currentPosition", liftEncoder->GetRaw());
 }
 
 bool LiftSub::IsOnTarget()
@@ -88,21 +91,31 @@ void LiftSub::SetArmsTarget(int target)
 void LiftSub::Update()
 {
 	int currentPosition = liftEncoder->GetRaw();
+	SmartDashboard:: PutNumber("currentPosition", currentPosition);
+	SmartDashboard:: PutNumber("destination",destination );
 	if (currentPosition > (destination + LIFT_TOLERANCE))
 	{
 		LiftMotorDown(1);
 		onTarget = false;
+		onTargetCounter = 0;
 	}
 	else if (currentPosition < (destination - LIFT_TOLERANCE))
 	{
 		LiftMotorUp(1);
 		onTarget = false;
+		onTargetCounter = 0;
 	}
 	else
 	{
 		liftMotor->Set(0);
-		onTarget = true;
+		onTargetCounter++;
+		if(onTargetCounter > 500)
+		{
+			onTarget = true;
+			onTargetCounter = 0;
+		}
 	}
+
 }
 
 void LiftSub::ResetLift()

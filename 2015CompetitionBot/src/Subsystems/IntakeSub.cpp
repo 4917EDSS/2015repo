@@ -10,6 +10,7 @@ IntakeSub::IntakeSub(int armRightC, int armLeftC, int armsOpenClose1C, int armsO
 	armLeft = new Talon(armLeftC);
 	armsOpenClose = new DoubleSolenoid(armsOpenClose1C, armsOpenClose2C);
 	intakeLimit = new DigitalInput(intakeLimitC);
+
 }
 
 void IntakeSub::InitDefaultCommand()

@@ -7,7 +7,7 @@
 #define LIFT_TWO_BOX 2.5
 #define LIFT_THREE_BOX 3.5
 #define LIFT_FOUR_BOX 4.5
-#define LIFT_TOLERANCE 0.2
+#define LIFT_TOLERANCE 50
 #define LIFT_HEIGHT_1 0
 #define LIFT_HEIGHT_2 100
 #define LIFT_HEIGHT_3 200

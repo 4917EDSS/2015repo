@@ -2,6 +2,8 @@
 #include "Commands/Command.h"
 #include "CommandBase.h"
 #include "RobotParameters.h"
+#include "Commands/IntakeUntilLimitCmd.h"
+#include "Commands/SetLiftHeightCmd.h"
 
 class Robot: public IterativeRobot
 {
@@ -17,6 +19,11 @@ private:
 		CameraServer::GetInstance()->SetQuality(50);
 		//the camera name (ex "cam0") can be found through the roborio web interface
 		CameraServer::GetInstance()->StartAutomaticCapture(CAMERA_NAME);
+		SmartDashboard::PutData("intake Until Limit Command", new IntakeUntilLimitCmd());
+		SmartDashboard:: PutData("set height to 2000", new SetLiftHeightCmd(2000));
+		SmartDashboard:: PutData("set height to -2000", new SetLiftHeightCmd(-2000));
+		SmartDashboard:: PutData("set height to 500", new SetLiftHeightCmd(500));
+		SmartDashboard:: PutData("set height to -500", new SetLiftHeightCmd(-500));
 	}
 	
 	void DisabledPeriodic()
