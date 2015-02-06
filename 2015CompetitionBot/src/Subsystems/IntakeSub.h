@@ -26,6 +26,7 @@ public:
 	void SetBeltsOut(float speed);
 	void SetBeltsRight(float speed);
 	void SetBeltsLeft(float speed);
+	void SetBelts(float leftSpeed, float rightSpeed);
 	void SetArms(bool armsOut);
 	bool GetArms();
 	void ToggleArms();

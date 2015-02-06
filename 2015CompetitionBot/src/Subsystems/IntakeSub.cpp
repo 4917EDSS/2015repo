@@ -21,23 +21,24 @@ void IntakeSub::InitDefaultCommand()
 }
 void IntakeSub::SetBeltsIn(float speed)
 {
-	armRight->Set(-speed);
-	armLeft->Set(speed);
+	SetBelts(speed, -speed);
 }
 void IntakeSub::SetBeltsOut(float speed)
 {
-	armRight->Set(speed);
-	armLeft->Set(-speed);
+	SetBelts(-speed, speed);
 }
 void IntakeSub::SetBeltsLeft(float speed)
 {
-	armRight->Set(-speed);
-	armLeft->Set(-speed);
+	SetBelts(-speed, -speed);
 }
 void IntakeSub::SetBeltsRight(float speed)
 {
-	armRight->Set(speed);
-	armLeft->Set(speed);
+	SetBelts(speed, speed);
+}
+void IntakeSub::SetBelts(float leftSpeed, float rightSpeed )
+{
+	armRight->Set(rightSpeed);
+	armLeft->Set(leftSpeed);
 }
 void IntakeSub::SetArms(bool armsOut)
 {

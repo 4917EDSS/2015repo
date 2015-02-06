@@ -13,12 +13,12 @@ private:
 	Talon* liftMotor;
 	DoubleSolenoid* locks;
 	Encoder* liftEncoder;
-	DigitalInput* resetLimitSwitch;
-
+	DigitalInput* topLimitSwitch;
+	DigitalInput* bottomLimitSwitch;
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
-	LiftSub(int liftMotorC, int locks1C, int locks2C, int liftEncoder1C, int liftEncoder2C, int resetLimitSwitchC);
+	LiftSub(int liftMotorC, int locks1C, int locks2C, int liftEncoder1C, int liftEncoder2C, int topLimitSwitchC, int bottomLimitSwitchC);
 	void InitDefaultCommand();
 	void SetLocks(bool isOut);
 	bool GetLocks();
@@ -30,7 +30,8 @@ public:
 	void SetArmsTarget(int target);
 	void Update();
 	void ResetLift();
-	bool GetResetLimitSwitch();
+	bool GetBottomLimitSwitch();
+	bool GetTopLimitSwitch();
 };
 
 #endif

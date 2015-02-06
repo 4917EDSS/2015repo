@@ -29,26 +29,33 @@ OI::OI()
 	oTestBtn->WhenPressed (new IntakeUntilLimitCmd());
 	// Process operator interface input here.
 }
-float OI::getStick(Joystick* controller, int axis){
-		float rawInput = controller->GetRawAxis(axis);
-		return (rawInput*fabs(rawInput));
-	}
-	float OI::DGetRightVer(){
-		return getStick(dController, DRightVerticalAxis);
-	}
-	float OI::DGetLeftVer(){
-		return getStick(dController, DLeftVerticalAxis);
-	}
 
-	float OI::OGetRightVer(){
-		return getStick(oController, ORightVerticalAxis);
-	}
-	float OI::OGetLeftVer(){
-		return getStick(oController, OLeftVerticalAxis);
-	}
-	float OI::OGetLeftHor(){
-		return getStick(oController, OLeftHorizontalAxis);
-	}
-	float OI::OGetRightHor(){
-			return getStick(oController, ORightHorizontalAxis);
-	}
+float OI::getStick(Joystick* controller, int axis){
+	float rawInput = controller->GetRawAxis(axis);
+	return (rawInput*fabs(rawInput));
+}
+
+//Controller vertical axis are inverted.
+float OI::DGetRightVer(){
+	return -getStick(dController, DRightVerticalAxis);
+}
+
+float OI::DGetLeftVer(){
+	return -getStick(dController, DLeftVerticalAxis);
+}
+
+float OI::OGetRightVer(){
+	return -getStick(oController, ORightVerticalAxis);
+}
+
+float OI::OGetLeftVer(){
+	return -getStick(oController, OLeftVerticalAxis);
+}
+
+float OI::OGetLeftHor(){
+	return getStick(oController, OLeftHorizontalAxis);
+}
+
+float OI::OGetRightHor(){
+	return getStick(oController, ORightHorizontalAxis);
+}

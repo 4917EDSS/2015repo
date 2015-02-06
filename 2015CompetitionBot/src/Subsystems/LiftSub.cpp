@@ -3,7 +3,7 @@
 #include "../Commands/MoveMastWithJoystickCmd.h"
 #include "../RobotParameters.h"
 
-LiftSub::LiftSub(int liftMotorC, int locks1C, int locks2C, int liftEncoder1C, int liftEncoder2C, int resetLimitSwitchC) :
+LiftSub::LiftSub(int liftMotorC, int locks1C, int locks2C, int liftEncoder1C, int liftEncoder2C, int topLimitSwitchC, int bottomLimitSwitchC) :
 		Subsystem("LiftSub")
 {
 	liftMotor = new Talon(liftMotorC);
@@ -11,8 +11,10 @@ LiftSub::LiftSub(int liftMotorC, int locks1C, int locks2C, int liftEncoder1C, in
 	liftEncoder = new Encoder(liftEncoder1C, liftEncoder2C);
 	onTarget=0;
 	destination=0;
-	resetLimitSwitch = new DigitalInput(resetLimitSwitchC);
+	topLimitSwitch = new DigitalInput(topLimitSwitchC);
+	bottomLimitSwitch = new DigitalInput(bottomLimitSwitchC);
 	onTargetCounter = 0;
+
 }
 
 void LiftSub::InitDefaultCommand()
@@ -68,13 +70,27 @@ int LiftSub::GetArmHeight()
 
 void LiftSub::LiftMotorUp(float speed)
 {
-	liftMotor->Set(speed);
+	if ((GetTopLimitSwitch() && (speed > 0)) || (GetBottomLimitSwitch() && (speed < 0)))
+	{
+		liftMotor->Set(0);
+	}
+	else
+	{
+		liftMotor->Set(speed);
+	}
 	SmartDashboard:: PutNumber("currentPosition", liftEncoder->GetRaw());
 }
 
 void LiftSub::LiftMotorDown(float speed)
 {
-	liftMotor->Set(-speed);
+	if ((GetTopLimitSwitch() && (speed < 0)) || (GetBottomLimitSwitch() && (speed > 0)))
+	{
+		liftMotor->Set(0);
+	}
+	else
+	{
+		liftMotor->Set(-speed);
+	}
 	SmartDashboard:: PutNumber("currentPosition", liftEncoder->GetRaw());
 }
 
@@ -91,17 +107,20 @@ void LiftSub::SetArmsTarget(int target)
 void LiftSub::Update()
 {
 	int currentPosition = liftEncoder->GetRaw();
+	float difference = fabs(currentPosition - destination);
+	float speedFactor = difference/LIFT_ENCODER_SLOWDOWN_DISTANCE;
+	speedFactor = speedFactor > 1 ? 1.0 : speedFactor;
 	SmartDashboard:: PutNumber("currentPosition", currentPosition);
 	SmartDashboard:: PutNumber("destination",destination );
 	if (currentPosition > (destination + LIFT_TOLERANCE))
 	{
-		LiftMotorDown(1);
+		LiftMotorDown(speedFactor);
 		onTarget = false;
 		onTargetCounter = 0;
 	}
 	else if (currentPosition < (destination - LIFT_TOLERANCE))
 	{
-		LiftMotorUp(1);
+		LiftMotorUp(speedFactor);
 		onTarget = false;
 		onTargetCounter = 0;
 	}
@@ -109,7 +128,7 @@ void LiftSub::Update()
 	{
 		liftMotor->Set(0);
 		onTargetCounter++;
-		if(onTargetCounter > 500)
+		if(onTargetCounter > 50)
 		{
 			onTarget = true;
 			onTargetCounter = 0;
@@ -123,7 +142,12 @@ void LiftSub::ResetLift()
 	liftEncoder->Reset();
 }
 
-bool LiftSub::GetResetLimitSwitch()
+bool LiftSub::GetBottomLimitSwitch()
 {
-	return resetLimitSwitch->Get();
+	return !bottomLimitSwitch->Get();
+}
+
+bool LiftSub::GetTopLimitSwitch()
+{
+	return !topLimitSwitch->Get();
 }

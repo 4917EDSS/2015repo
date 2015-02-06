@@ -25,10 +25,10 @@ void DrivetrainSub::InitDefaultCommand()
 
 void DrivetrainSub::drive(float leftSpeed, float rightSpeed) {
 	//because opposite motors are facing outwards, need the negative
-	frontRight->Set(-rightSpeed);
-	backRight->Set(-rightSpeed);
-	frontLeft->Set(leftSpeed);
-	backLeft->Set(leftSpeed);
+	frontRight->Set(rightSpeed);
+	backRight->Set(rightSpeed);
+	frontLeft->Set(-leftSpeed);
+	backLeft->Set(-leftSpeed);
 }
 
 

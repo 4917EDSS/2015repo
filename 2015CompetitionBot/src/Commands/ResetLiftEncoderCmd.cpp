@@ -23,7 +23,7 @@ void ResetLiftEncoderCmd::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool ResetLiftEncoderCmd::IsFinished()
 {
-	return rLiftSub->GetResetLimitSwitch();
+	return rLiftSub->GetBottomLimitSwitch();
 }
 
 // Called once after isFinished returns true
