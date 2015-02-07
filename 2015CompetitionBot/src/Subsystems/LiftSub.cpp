@@ -54,24 +54,24 @@ bool LiftSub::GetLocks()
 
 void LiftSub::ToggleJaws()
 {
-	if (jaws->Get() == DoubleSolenoid::kForward)
+	if (jaws->GetJaws() == JAWS_OPEN && !ArmsAboveJaws())
 	{
-		jaws->Set(DoubleSolenoid::kReverse);
+		jaws->SetJaws(JAWS_CLOSED);
 	}
 	else
 	{
-		jaws->Set(DoubleSolenoid::kForward);
+		jaws->SetJaws(JAWS_OPEN);
 	}
 }
 void LiftSub::SetJaws(bool isOut)
 {
-	if (isOut == JAWS_OPEN)
+	if (isOut == JAWS_CLOSED && !ArmsAboveJaws())
 	{
-		jaws->Set(DoubleSolenoid::kForward);
+		jaws->Set(DoubleSolenoid::kReverse);
 	}
 	else
 	{
-		jaws->Set(DoubleSolenoid::kReverse);
+		jaws->Set(DoubleSolenoid::kForward);
 	}
 }
 
@@ -102,11 +102,13 @@ int LiftSub::GetArmHeight()
 {
 	return (int) liftEncoder->GetRaw();
 }
-
 void LiftSub::LiftMotorUp(float speed)
 {
 	if ((GetTopLimitSwitch() && (speed > 0)) || (GetBottomLimitSwitch() && (speed < 0)))
 	{
+		liftMotor->Set(0);
+	}
+	else if(GetArmHeight() >= INTERFERENCE_LOCKOUT_EV && GetJaws() == JAWS_CLOSED && speed > 0){
 		liftMotor->Set(0);
 	}
 	else
@@ -121,6 +123,9 @@ void LiftSub::LiftMotorDown(float speed)
 	if ((GetTopLimitSwitch() && (speed < 0)) || (GetBottomLimitSwitch() && (speed > 0)))
 	{
 		liftMotor->Set(0);
+	}
+	else if(GetArmHeight() >= INTERFERENCE_LOCKOUT_EV && GetJaws() == JAWS_CLOSED && speed < 0){
+			liftMotor->Set(0);
 	}
 	else
 	{
@@ -185,4 +190,14 @@ bool LiftSub::GetBottomLimitSwitch()
 bool LiftSub::GetTopLimitSwitch()
 {
 	return !topLimitSwitch->Get();
+}
+
+bool LiftSub::ArmsAboveJaws()
+{
+	if(GetArmHeight() > INTERFERENCE_LOCKOUT_EV){
+		return true;
+	}
+	else{
+		return false;
+	}
 }

@@ -16,6 +16,7 @@ private:
 	Encoder* liftEncoder;
 	DigitalInput* topLimitSwitch;
 	DigitalInput* bottomLimitSwitch;
+	bool ArmsAboveJaws();
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
