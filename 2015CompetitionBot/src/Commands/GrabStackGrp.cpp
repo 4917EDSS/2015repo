@@ -1,26 +1,13 @@
-#include "PickUpBoxGrp.h"
-#include "IntakeUntilLimitCmd.h"
-#include "SetArmsCmd.h"
+#include "GrabStackGrp.h"
 #include "RobotParameters.h"
 #include "SetLocksCmd.h"
-#include "SetJawsCmd.h"
 #include "SetLiftHeightCmd.h"
 
-PickUpBoxGrp::PickUpBoxGrp()
+GrabStackGrp::GrabStackGrp()
 {
-	AddSequential(new SetArmsCmd(ARMS_CLOSED));
-	AddSequential(new SetJawsCmd(JAWS_CLOSED));
-	//AddSequential(new IntakeUntilLimitCmd());
-	AddSequential(new WaitCommand(MOVEMENT_DELAY));
 	AddSequential(new SetLiftHeightCmd(FIRST_CONTACT_EV));
 	AddSequential(new SetLocksCmd(LOCKS_OPEN));
 	AddSequential(new WaitCommand(MOVEMENT_DELAY));
-	AddSequential(new SetLiftHeightCmd(TRANSFER_EV));
-	AddSequential(new SetLocksCmd(LOCKS_CLOSED));
-	AddSequential(new WaitCommand(MOVEMENT_DELAY));
-	AddSequential(new SetArmsCmd(ARMS_OPEN));
-	AddSequential(new WaitCommand(MOVEMENT_DELAY));
-	AddSequential(new SetLiftHeightCmd(BOTTOM_LIMIT_EV));
 
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

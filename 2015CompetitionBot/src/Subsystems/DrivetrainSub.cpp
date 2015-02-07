@@ -1,6 +1,7 @@
 #include "DrivetrainSub.h"
 #include "../RobotMap.h"
 #include "Commands/DriveWithJoystickCmd.h"
+#include "RobotParameters.h"
 
 DrivetrainSub::DrivetrainSub(int frontrightC, int backrightC, int frontleftC, int backleftC, int leftEncoder1C, int leftEncoder2C, int rightEncoder1C, int rightEncoder2C) :
 		Subsystem("DrivetrainSub")
@@ -26,6 +27,10 @@ void DrivetrainSub::InitDefaultCommand()
 
 void DrivetrainSub::drive(float leftSpeed, float rightSpeed) {
 	//because opposite motors are facing outwards, need the negative
+	if (fabs(leftSpeed - rightSpeed) < DRIVE_DIFFERENCE_TOLERANCE) {
+		leftSpeed = fmax(leftSpeed, rightSpeed);
+		rightSpeed = leftSpeed;
+	}
 	frontRight->Set(rightSpeed);
 	backRight->Set(rightSpeed);
 	frontLeft->Set(-leftSpeed);

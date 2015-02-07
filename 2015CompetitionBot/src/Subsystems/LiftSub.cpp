@@ -105,9 +105,15 @@ int LiftSub::GetArmHeight()
 }
 void LiftSub::LiftMotorUp(float speed)
 {
-	if ((GetTopLimitSwitch() && (speed > 0)) || (GetBottomLimitSwitch() && (speed < 0)))
+
+	SmartDashboard:: PutNumber("Mast Up speed", speed);
+	if (GetTopLimitSwitch() && (speed > 0))
 	{
 		liftMotor->Set(0);
+	}
+	else if (GetBottomLimitSwitch() && (speed < 0)) {
+		liftMotor->Set(0);
+		ResetLift();
 	}
 	else if(GetArmHeight() >= INTERFERENCE_LOCKOUT_EV && GetJaws() == JAWS_CLOSED && speed > 0){
 		liftMotor->Set(0);
@@ -121,9 +127,13 @@ void LiftSub::LiftMotorUp(float speed)
 
 void LiftSub::LiftMotorDown(float speed)
 {
-	if ((GetTopLimitSwitch() && (speed < 0)) || (GetBottomLimitSwitch() && (speed > 0)))
+	if (GetTopLimitSwitch() && (speed < 0))
 	{
 		liftMotor->Set(0);
+	}
+	else if (GetBottomLimitSwitch() && (speed > 0)) {
+		liftMotor->Set(0);
+		ResetLift();
 	}
 	else if(GetArmHeight() >= INTERFERENCE_LOCKOUT_EV && GetJaws() == JAWS_CLOSED && speed < 0){
 			liftMotor->Set(0);
@@ -150,9 +160,9 @@ void LiftSub::Update()
 	int currentPosition = liftEncoder->GetRaw();
 	float difference = fabs(currentPosition - destination);
 	float speedFactor = difference/LIFT_ENCODER_SLOWDOWN_DISTANCE;
-	speedFactor = speedFactor > 1 ? 1.0 : speedFactor;
+	speedFactor = speedFactor > 1 ? 1.0 : (speedFactor + MIN_SPEED_TO_MOVE_MAST);
 	SmartDashboard:: PutNumber("currentPosition", currentPosition);
-	SmartDashboard:: PutNumber("destination",destination );
+	SmartDashboard:: PutNumber("destination", destination);
 	if (currentPosition > (destination + LIFT_TOLERANCE))
 	{
 		LiftMotorDown(speedFactor);

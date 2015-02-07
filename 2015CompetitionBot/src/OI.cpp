@@ -5,6 +5,8 @@
 #include "Commands/IntakeUntilLimitCmd.h"
 #include "Commands/ToggleJawsCmd.h"
 #include "Commands/SetLiftHeightCmd.h"
+#include "Commands/DropStackGrp.h"
+#include "Commands/GrabStackGrp.h"
 #include "RobotParameters.h"
 
 //Remember to include Commands here.
@@ -29,8 +31,12 @@ OI::OI()
 	oDropOnFourStackBtn->WhenPressed(new SetLiftHeightCmd(FOUR_STACK_EV));
 	oDropOnFiveStackBtn = new JoystickButton(oController, ODropOnFiveStackBtn);
 	oDropOnFiveStackBtn->WhenPressed(new SetLiftHeightCmd(FIVE_STACK_EV));
-	oTestBtn = new JoystickButton(oController, OTestBtn);
-	oTestBtn->WhenPressed (new IntakeUntilLimitCmd());
+	oDropStackBtn = new JoystickButton(oController, ODropStackBtn);
+	oDropStackBtn->WhenPressed(new DropStackGrp());
+	oGrabStackBtn = new JoystickButton(oController, OGrabStackBtn);
+	oGrabStackBtn->WhenPressed(new GrabStackGrp());
+	//oTestBtn = new JoystickButton(oController, OTestBtn);
+	//oTestBtn->WhenPressed (new IntakeUntilLimitCmd());
 	// Process operator interface input here.
 }
 

@@ -1,7 +1,10 @@
 #ifndef OI_H
 #define OI_H
-//prefix o=operator, prefix d=driver
+
 #include "WPILib.h"
+
+//prefix o=operator, prefix d=driver
+
 /*
  * ON LOGITECH CONTROLLER:
  * X = 1
@@ -12,6 +15,8 @@
  * RB = 6
  * LT = 7
  * RT = 8
+ * Select = 9
+ * Start = 10
  * L3 = 11
  * R3 = 12
  * Left Vertical = 1
@@ -31,9 +36,10 @@
 #define ODropOnFiveStackBtn 4
 #define OIntakeToggleBtn 5
 #define OLockToggleBtn 6
-#define OToggleJawsBtn 7
-#define OStackingBtn 8
-#define OTestBtn 2
+#define OToggleJawsBtn 8
+#define OStackingBtn 7
+#define OGrabStackBtn 9
+#define ODropStackBtn 10
 
 //Axis
 #define ORightVerticalAxis 3
@@ -59,6 +65,8 @@ private:
 	JoystickButton* oDropOnThreeStackBtn;
 	JoystickButton* oDropOnFourStackBtn;
 	JoystickButton* oDropOnFiveStackBtn;
+	JoystickButton* oDropStackBtn;
+	JoystickButton* oGrabStackBtn;
 	JoystickButton* oTestBtn;
 	float getStick(Joystick* stick, int axis);
 

@@ -23,6 +23,7 @@ public:
 	void ResetDrive(); //reset both drive encoders
 	int GetLeftEnc();
 	int GetRightEnc();
+
 };
 
 #endif
