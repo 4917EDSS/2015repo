@@ -27,6 +27,10 @@
 #define JawsSolenoid2PNC 5
 
 //Digital IO
+#define LeftDriveEncoder1DIO 4
+#define LeftDriveEncoder2DIO 5
+#define RightDriveEncoder1DIO 6
+#define RightDriveEncoder2DIO 7
 #define Encoder1DIO 8
 #define Encoder2DIO 9
 #define TopLimitSwitchDIO 0
