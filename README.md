@@ -120,7 +120,8 @@ public:
 ##RobotParameters
 - To define parameters that will be used throughout operation, such as constants for encoder heights
 - The naming convention here is to use all caps, with underscores seperating words
-- The name should describe what the constant is (ie ```#define CONTAINER_ON_6_STACK_HEIGHT 1337```)
+- The name should describe what the constant is (ie ```#define ARMS_OPEN_TIME 1337```)
+- For Encoder values, append ```_EV``` (ie ```#define EXCHANGE_TOTE_LEVEL_EV 12345```)
 
 ##Misc
 - When passing a left and right parameter, left is **always** the first one you should pass.
