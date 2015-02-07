@@ -23,6 +23,8 @@
 #define ArmsSolenoid2PNC 1
 #define LockSolenoid1PNC 2
 #define LockSolenoid2PNC 3
+#define JawsSolenoid1PNC 4
+#define JawsSolenoid2PNC 5
 
 //Digital IO
 #define Encoder1DIO 8

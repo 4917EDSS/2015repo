@@ -29,6 +29,9 @@ private:
 		SmartDashboard::PutData("Set Locks Open", new SetLocksCmd(LOCKS_OPEN));
 		SmartDashboard::PutData("Set Locks Closed", new SetLocksCmd(LOCKS_CLOSED));
 		SmartDashboard::PutData("Set Arms Closed", new SetArmsCmd(ARMS_CLOSED));
+
+		// TODO: initialize all air solenoids to values
+
 	}
 	
 	void DisabledPeriodic()

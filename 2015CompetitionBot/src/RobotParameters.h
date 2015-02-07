@@ -17,6 +17,8 @@
 #define ARMS_CLOSED true
 #define ARMS_OPEN false
 #define MOVEMENT_DELAY .3
+#define JAWS_OPEN false
+#define JAWS_CLOSED true
 
 #define CAMERA_NAME "cam1"
 

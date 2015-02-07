@@ -29,11 +29,11 @@ void IntakeSub::SetBeltsOut(float speed)
 }
 void IntakeSub::SetBeltsLeft(float speed)
 {
-	SetBelts(-speed, -speed);
+	SetBelts(speed, speed);
 }
 void IntakeSub::SetBeltsRight(float speed)
 {
-	SetBelts(speed, speed);
+	SetBelts(-speed, -speed);
 }
 void IntakeSub::SetBelts(float leftSpeed, float rightSpeed )
 {

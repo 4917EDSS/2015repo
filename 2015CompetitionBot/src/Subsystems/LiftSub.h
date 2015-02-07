@@ -12,17 +12,21 @@ private:
 	int onTargetCounter;
 	Talon* liftMotor;
 	DoubleSolenoid* locks;
+	DoubleSolenoid* jaws;
 	Encoder* liftEncoder;
 	DigitalInput* topLimitSwitch;
 	DigitalInput* bottomLimitSwitch;
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
-	LiftSub(int liftMotorC, int locks1C, int locks2C, int liftEncoder1C, int liftEncoder2C, int topLimitSwitchC, int bottomLimitSwitchC);
+	LiftSub(int liftMotorC, int locks1C, int locks2C, int jaws1C, int jaws2C, int liftEncoder1C, int liftEncoder2C, int topLimitSwitchC, int bottomLimitSwitchC);
 	void InitDefaultCommand();
 	void SetLocks(bool isOut);
 	bool GetLocks();
 	void ToggleLocks();
+	void SetJaws(bool isOut);
+	bool GetJaws();
+	void ToggleJaws();
 	int GetArmHeight();
 	void LiftMotorUp(float speed);
 	void LiftMotorDown(float speed);

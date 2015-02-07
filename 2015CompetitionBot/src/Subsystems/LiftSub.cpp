@@ -3,11 +3,12 @@
 #include "../Commands/MoveMastWithJoystickCmd.h"
 #include "../RobotParameters.h"
 
-LiftSub::LiftSub(int liftMotorC, int locks1C, int locks2C, int liftEncoder1C, int liftEncoder2C, int topLimitSwitchC, int bottomLimitSwitchC) :
+LiftSub::LiftSub(int liftMotorC, int locks1C, int locks2C, int jaws1C, int jaws2C, int liftEncoder1C, int liftEncoder2C, int topLimitSwitchC, int bottomLimitSwitchC) :
 		Subsystem("LiftSub")
 {
 	liftMotor = new Talon(liftMotorC);
 	locks = new DoubleSolenoid(locks1C, locks2C);
+	jaws = new DoubleSolenoid(jaws1C, jaws2C);
 	liftEncoder = new Encoder(liftEncoder1C, liftEncoder2C);
 	onTarget=0;
 	destination=0;
@@ -43,11 +44,46 @@ bool LiftSub::GetLocks()
 {
 	if (locks->Get() == DoubleSolenoid::kForward)
 	{
-		return true;
+		return LOCKS_OPEN;
 	}
 	else
 	{
-		return false;
+		return LOCKS_CLOSED;
+	}
+}
+
+void LiftSub::ToggleJaws()
+{
+	if (jaws->Get() == DoubleSolenoid::kForward)
+	{
+		jaws->Set(DoubleSolenoid::kReverse);
+	}
+	else
+	{
+		jaws->Set(DoubleSolenoid::kForward);
+	}
+}
+void LiftSub::SetJaws(bool isOut)
+{
+	if (isOut == JAWS_OPEN)
+	{
+		jaws->Set(DoubleSolenoid::kForward);
+	}
+	else
+	{
+		jaws->Set(DoubleSolenoid::kReverse);
+	}
+}
+
+bool LiftSub::GetJaws()
+{
+	if (jaws->Get() == DoubleSolenoid::kForward)
+	{
+		return JAWS_OPEN;
+	}
+	else
+	{
+		return JAWS_CLOSED;
 	}
 }
 
@@ -62,7 +98,6 @@ void LiftSub::ToggleLocks()
 		locks->Set(DoubleSolenoid::kForward);
 	}
 }
-
 int LiftSub::GetArmHeight()
 {
 	return (int) liftEncoder->GetRaw();

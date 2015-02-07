@@ -31,7 +31,7 @@
 #define ODropOnFiveStackBtn 4
 #define OIntakeToggleBtn 5
 #define OLockToggleBtn 6
-#define ODropStackBtn 7
+#define OToggleJawsBtn 7
 #define OStackingBtn 8
 #define OTestBtn 2
 
@@ -52,7 +52,7 @@ private:
 	Joystick* dController;
 	Joystick* oController;
 	JoystickButton* oIntakeToggleBtn;
-	JoystickButton* oDropStackBtn;
+	JoystickButton* oToggleJawsBtn;
 	JoystickButton* oStartStackingBtn;
 	JoystickButton* oLockToggleBtn;
 	JoystickButton* oDropOnTwoStackBtn;
