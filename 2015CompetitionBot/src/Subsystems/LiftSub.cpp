@@ -52,15 +52,27 @@ bool LiftSub::GetLocks()
 	}
 }
 
-void LiftSub::ToggleJaws()
+void LiftSub::ToggleLocks()
 {
-	if (jaws->GetJaws() == JAWS_OPEN && !ArmsAboveJaws())
+	if (GetLocks() == LOCKS_OPEN)
 	{
-		jaws->SetJaws(JAWS_CLOSED);
+		SetLocks(LOCKS_CLOSED);
 	}
 	else
 	{
-		jaws->SetJaws(JAWS_OPEN);
+		SetLocks(LOCKS_OPEN);
+	}
+}
+
+void LiftSub::ToggleJaws()
+{
+	if (GetJaws() == JAWS_OPEN && !ArmsAboveJaws())
+	{
+		SetJaws(JAWS_CLOSED);
+	}
+	else
+	{
+		SetJaws(JAWS_OPEN);
 	}
 }
 void LiftSub::SetJaws(bool isOut)
@@ -87,17 +99,6 @@ bool LiftSub::GetJaws()
 	}
 }
 
-void LiftSub::ToggleLocks()
-{
-	if (locks->Get() == DoubleSolenoid::kForward)
-	{
-		locks->Set(DoubleSolenoid::kReverse);
-	}
-	else
-	{
-		locks->Set(DoubleSolenoid::kForward);
-	}
-}
 int LiftSub::GetArmHeight()
 {
 	return (int) liftEncoder->GetRaw();
