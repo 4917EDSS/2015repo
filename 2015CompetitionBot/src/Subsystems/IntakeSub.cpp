@@ -21,7 +21,7 @@ void IntakeSub::InitDefaultCommand()
 }
 void IntakeSub::SetBeltsIn(float speed)
 {
-	SetBelts(speed, -speed);
+	SetBelts(-speed, speed);
 }
 void IntakeSub::SetBeltsOut(float speed)
 {

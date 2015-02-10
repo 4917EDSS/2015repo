@@ -31,7 +31,7 @@ void SpinIntakeWithJoystickCmd::Execute()
 
 	else
 	{
-		rIntakeSub->SetBeltsIn(oi->OGetRightVer());
+		rIntakeSub->SetBeltsIn(-oi->OGetRightVer());
 	}
 }
 

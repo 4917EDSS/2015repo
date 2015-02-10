@@ -1,14 +1,7 @@
-#include "GrabStackGrp.h"
-#include "RobotParameters.h"
-#include "SetLocksCmd.h"
-#include "SetLiftHeightCmd.h"
+#include "PickUpFirstBoxGrp.h"
 
-GrabStackGrp::GrabStackGrp()
+PickUpFirstBoxGrp::PickUpFirstBoxGrp()
 {
-	AddSequential(new SetLiftHeightCmd(FIRST_CONTACT_EV));
-	AddSequential(new SetLocksCmd(LOCKS_OPEN));
-	AddSequential(new WaitCommand(LOCKS_OPEN_DELAY));
-
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

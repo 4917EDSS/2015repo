@@ -5,24 +5,23 @@
 #include "SetLocksCmd.h"
 #include "SetJawsCmd.h"
 #include "SetLiftHeightCmd.h"
+#include "GrabStackGrp.h"
 
 PickUpBoxGrp::PickUpBoxGrp()
 {
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
 	AddSequential(new SetJawsCmd(JAWS_CLOSED));
-	//AddSequential(new IntakeUntilLimitCmd());
-	AddSequential(new WaitCommand(MOVEMENT_DELAY));
-	AddSequential(new SetLiftHeightCmd(FIRST_CONTACT_EV));
-	AddSequential(new SetLocksCmd(LOCKS_OPEN));
-	AddSequential(new WaitCommand(MOVEMENT_DELAY));
+	AddSequential(new IntakeUntilLimitCmd());
+	AddSequential(new GrabStackGrp());
 	AddSequential(new SetLiftHeightCmd(TRANSFER_EV));
 	AddSequential(new SetLocksCmd(LOCKS_CLOSED));
-	AddSequential(new WaitCommand(MOVEMENT_DELAY));
+	AddSequential(new WaitCommand(LOCKS_CLOSE_DELAY));
 	AddSequential(new SetArmsCmd(ARMS_OPEN));
-	AddSequential(new WaitCommand(MOVEMENT_DELAY));
+	AddSequential(new WaitCommand(ARMS_OPEN_DELAY));
 	AddSequential(new SetLiftHeightCmd(BOTTOM_LIMIT_EV));
 
 	// Add Commands here:
+
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.

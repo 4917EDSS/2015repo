@@ -12,9 +12,15 @@
 #define LOCKS_CLOSED true
 #define ARMS_CLOSED true
 #define ARMS_OPEN false
-#define MOVEMENT_DELAY .3
 #define JAWS_OPEN false
 #define JAWS_CLOSED true
+
+#define LOCKS_OPEN_DELAY .01
+#define LOCKS_CLOSE_DELAY .3
+#define ARMS_OPEN_DELAY .3
+
+#define ENCODER_ZERO_IN_CYCLES 10
+
 #define DRIVE_DIFFERENCE_TOLERANCE 0.4
 #define MIN_SPEED_TO_MOVE_MAST 0.35
 

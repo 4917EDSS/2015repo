@@ -179,7 +179,7 @@ void LiftSub::Update()
 	{
 		liftMotor->Set(0);
 		onTargetCounter++;
-		if(onTargetCounter > 50)
+		if(onTargetCounter > ENCODER_ZERO_IN_CYCLES)
 		{
 			onTarget = true;
 			onTargetCounter = 0;
