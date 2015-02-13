@@ -65,6 +65,10 @@ private:
 	void TeleopPeriodic()
 	{
 		Scheduler::GetInstance()->Run();
+		SmartDashboard::PutBoolean("Locks",CommandBase::rLiftSub->GetLocks());
+		SmartDashboard::PutBoolean("Jaws",CommandBase::rLiftSub->GetJaws());
+		SmartDashboard::PutBoolean("Arms",CommandBase::rIntakeSub->GetArms());
+
 	}
 
 	void TestPeriodic()
