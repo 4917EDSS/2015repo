@@ -38,6 +38,7 @@
 #define FIVE_STACK_EV 6296
 #define SIX_STACK_EV 6296
 #define TOP_LIMIT_EV 6296 //5 and 6 stacks not tested.
+#define ONE_METER_EV 5000
 
 
 

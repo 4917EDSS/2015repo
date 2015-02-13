@@ -6,6 +6,7 @@
 #include "Commands/SetLiftHeightCmd.h"
 #include "Commands/SetLocksCmd.h"
 #include "Commands/SetArmsCmd.h"
+#include "Commands/DriveStraightCmd.h"
 
 class Robot: public IterativeRobot
 {
@@ -17,6 +18,7 @@ private:
 	{
 		CommandBase::init();
 		lw = LiveWindow::GetInstance();
+		autonomousCommand = new DriveStraightCmd(ONE_METER_EV);
 
 		CameraServer::GetInstance()->SetQuality(50);
 		//the camera name (ex "cam0") can be found through the roborio web interface

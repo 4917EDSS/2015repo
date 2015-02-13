@@ -41,6 +41,10 @@
 #define OGrabStackBtn 9
 #define ODropStackBtn 10
 
+//These two buttons are used on both controllers.
+#define ODEmergencyStopBtn1 11
+#define ODEmergencyStopBtn2 12
+
 //Axis
 #define ORightVerticalAxis 3
 #define OLeftVerticalAxis 1
@@ -68,6 +72,10 @@ private:
 	JoystickButton* oDropStackBtn;
 	JoystickButton* oGrabStackBtn;
 	JoystickButton* oTestBtn;
+	JoystickButton* oEmergencyStopBtn1;
+	JoystickButton* oEmergencyStopBtn2;
+	JoystickButton* dEmergencyStopBtn1;
+	JoystickButton* dEmergencyStopBtn2;
 	float getStick(Joystick* stick, int axis);
 
 public:

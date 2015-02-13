@@ -7,6 +7,7 @@
 #include "Commands/SetLiftHeightCmd.h"
 #include "Commands/DropStackGrp.h"
 #include "Commands/GrabStackGrp.h"
+#include "Commands/EmergencyStopCmd.h"
 #include "RobotParameters.h"
 
 //Remember to include Commands here.
@@ -35,6 +36,14 @@ OI::OI()
 	oDropStackBtn->WhenPressed(new DropStackGrp());
 	oGrabStackBtn = new JoystickButton(oController, OGrabStackBtn);
 	oGrabStackBtn->WhenPressed(new GrabStackGrp());
+	oEmergencyStopBtn1 = new JoystickButton(oController, ODEmergencyStopBtn1);
+	oEmergencyStopBtn1->WhenPressed(new EmergencyStopCmd());
+	oEmergencyStopBtn2 = new JoystickButton(oController, ODEmergencyStopBtn2);
+	oEmergencyStopBtn2->WhenPressed(new EmergencyStopCmd());
+	dEmergencyStopBtn1 = new JoystickButton(dController, ODEmergencyStopBtn1);
+	dEmergencyStopBtn1->WhenPressed(new EmergencyStopCmd());
+	dEmergencyStopBtn2 = new JoystickButton(dController, ODEmergencyStopBtn2);
+	dEmergencyStopBtn2->WhenPressed(new EmergencyStopCmd());
 	//oTestBtn = new JoystickButton(oController, OTestBtn);
 	//oTestBtn->WhenPressed (new IntakeUntilLimitCmd());
 	// Process operator interface input here.

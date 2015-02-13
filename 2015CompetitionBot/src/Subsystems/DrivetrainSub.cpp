@@ -27,10 +27,6 @@ void DrivetrainSub::InitDefaultCommand()
 
 void DrivetrainSub::drive(float leftSpeed, float rightSpeed) {
 	//because opposite motors are facing outwards, need the negative
-	if (fabs(leftSpeed - rightSpeed) < DRIVE_DIFFERENCE_TOLERANCE) {
-		leftSpeed = fmax(leftSpeed, rightSpeed);
-		rightSpeed = leftSpeed;
-	}
 	frontRight->Set(rightSpeed);
 	backRight->Set(rightSpeed);
 	frontLeft->Set(-leftSpeed);
