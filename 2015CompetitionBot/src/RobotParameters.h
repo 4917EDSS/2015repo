@@ -24,7 +24,7 @@
 #define DRIVE_DIFFERENCE_TOLERANCE 0.4
 #define MIN_SPEED_TO_MOVE_MAST 0.35
 
-//ENCODER VALUES
+//LIFT ENCODER VALUES
 #define LIFT_ENCODER_SLOWDOWN_DISTANCE 200
 #define BOTTOM_LIMIT_EV 0
 #define SCORE_HEIGHT_EV 355  //step?
@@ -39,6 +39,12 @@
 #define SIX_STACK_EV 6296
 #define TOP_LIMIT_EV 6296 //5 and 6 stacks not tested.
 #define ONE_METER_EV 5000
+
+//DRIVE ENCODER VALS
+//millimeters/tick
+#define MM_PER_EV_TICK 2.75
+//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
+#define NINETY_DEGREE_TURN_EV 2700
 
 
 
