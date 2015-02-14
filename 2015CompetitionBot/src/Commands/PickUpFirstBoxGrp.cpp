@@ -6,9 +6,11 @@
 #include "SetJawsCmd.h"
 #include "SetLiftHeightCmd.h"
 #include "GrabStackGrp.h"
+#include "ResetLiftEncoderCmd.h"
 
 PickUpFirstBoxGrp::PickUpFirstBoxGrp()
 {
+	AddParallel(new ResetLiftEncoderCmd());
 	AddSequential(new SetLocksCmd(LOCKS_OPEN));
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
 	AddSequential(new SetJawsCmd(JAWS_CLOSED));

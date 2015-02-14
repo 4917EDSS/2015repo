@@ -7,17 +7,25 @@
 #include "Commands/SetLocksCmd.h"
 #include "Commands/SetArmsCmd.h"
 #include "Commands/DriveStraightCmd.h"
+#include "Commands/PickUpBoxGrp.h"
+#include "Commands/ToggleJawsCmd.h"
 
 class Robot: public IterativeRobot
 {
 private:
-	Command *autonomousCommand;
 	LiveWindow *lw;
+	SendableChooser *autoOptions;
+	CommandGroup *autoCommand;
 
 	void RobotInit()
 	{
 		CommandBase::init();
 		lw = LiveWindow::GetInstance();
+
+		autoOptions = new SendableChooser();
+		autoOptions->AddDefault("Pick Up Box Default Test", new PickUpBoxGrp());
+		autoOptions->AddObject("Toggle Jaws Object Test", new ToggleJawsCmd());
+		SmartDashboard::PutData("Autonomous Delay Options", autoOptions);
 
 		CameraServer::GetInstance()->SetQuality(50);
 		//the camera name (ex "cam0") can be found through the roborio web interface
@@ -42,8 +50,8 @@ private:
 
 	void AutonomousInit()
 	{
-		if (autonomousCommand != NULL)
-			autonomousCommand->Start();
+		autoCommand = (CommandGroup*)autoOptions->GetSelected();
+		autoCommand->Start();
 	}
 
 	void AutonomousPeriodic()
@@ -57,8 +65,8 @@ private:
 		// teleop starts running. If you want the autonomous to 
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != NULL)
-			autonomousCommand->Cancel();
+		if (autoCommand != NULL)
+			autoCommand->Cancel();
 	}
 
 	void TeleopPeriodic()

@@ -7,7 +7,6 @@ GrabStackGrp::GrabStackGrp()
 {
 	AddSequential(new SetLiftHeightCmd(FIRST_CONTACT_EV));
 	AddSequential(new SetLocksCmd(LOCKS_OPEN));
-	AddSequential(new WaitCommand(LOCKS_OPEN_DELAY));
 
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
