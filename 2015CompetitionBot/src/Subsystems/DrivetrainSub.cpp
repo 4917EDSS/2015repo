@@ -12,6 +12,7 @@ DrivetrainSub::DrivetrainSub(int frontrightC, int backrightC, int frontleftC, in
 	backLeft = new Talon(backleftC);
 	leftEncoder = new Encoder(leftEncoder1C, leftEncoder2C);
 	rightEncoder = new Encoder(rightEncoder1C, rightEncoder2C);
+	controlState = TANK_DRIVE_CONTROLS;
 }
 
 void DrivetrainSub::InitDefaultCommand()

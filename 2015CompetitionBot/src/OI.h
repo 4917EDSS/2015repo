@@ -72,7 +72,6 @@ private:
 	JoystickButton* oDropOnFiveStackBtn;
 	JoystickButton* oDropStackBtn;
 	JoystickButton* oGrabStackBtn;
-	JoystickButton* oTestBtn;
 	JoystickButton* dToggleDriveControlBtn;
 	JoystickButton* oEmergencyStopBtn1;
 	JoystickButton* oEmergencyStopBtn2;
