@@ -14,7 +14,7 @@ DriveStraightCmd::DriveStraightCmd(int driveDistance)
 void DriveStraightCmd::Initialize()
 {
 	rDrivetrainSub->ResetDrive();
-	rDrivetrainSub->drive(1, 1);
+	rDrivetrainSub->Drive(1, 1);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -53,5 +53,5 @@ void DriveStraightCmd::End()
 // subsystems is scheduled to run
 void DriveStraightCmd::Interrupted()
 {
-	rDrivetrainSub->drive(0,0);
+	rDrivetrainSub->Drive(0,0);
 }

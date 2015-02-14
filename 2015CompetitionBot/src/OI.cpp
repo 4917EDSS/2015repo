@@ -8,7 +8,9 @@
 #include "Commands/DropStackGrp.h"
 #include "Commands/GrabStackGrp.h"
 #include "Commands/EmergencyStopCmd.h"
+#include "Commands/ToggleDriveStyleCmd.h"
 #include "RobotParameters.h"
+
 
 //Remember to include Commands here.
 
@@ -36,6 +38,8 @@ OI::OI()
 	oDropStackBtn->WhenPressed(new DropStackGrp());
 	oGrabStackBtn = new JoystickButton(oController, OGrabStackBtn);
 	oGrabStackBtn->WhenPressed(new GrabStackGrp());
+	dToggleDriveControlBtn = new JoystickButton(dController, DToggleDriveControlBtn);
+	dToggleDriveControlBtn->WhenPressed(new ToggleDriveStyleCmd());
 	oEmergencyStopBtn1 = new JoystickButton(oController, ODEmergencyStopBtn1);
 	oEmergencyStopBtn1->WhenPressed(new EmergencyStopCmd());
 	oEmergencyStopBtn2 = new JoystickButton(oController, ODEmergencyStopBtn2);
@@ -61,6 +65,14 @@ float OI::DGetRightVer(){
 
 float OI::DGetLeftVer(){
 	return -getStick(dController, DLeftVerticalAxis);
+}
+
+float OI::DGetLeftHor(){
+	return getStick(oController, DLeftHorizontalAxis);
+}
+
+float OI::DGetRightHor(){
+	return getStick(oController, DRightHorizontalAxis);
 }
 
 float OI::OGetRightVer(){

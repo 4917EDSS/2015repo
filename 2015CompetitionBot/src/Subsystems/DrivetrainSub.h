@@ -13,16 +13,19 @@ private:
 	Talon* backLeft;
 	Encoder* leftEncoder;
 	Encoder* rightEncoder;
+	int controlState;
 
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
 	DrivetrainSub(int frontrightC, int backrightC, int frontleftC, int backleftC, int leftEncoder1C, int leftEncoder2C, int rightEncoder1C, int rightEncoder2C);
-	void drive(float leftSpeed, float rightSpeed);
+	void Drive(float leftSpeed, float rightSpeed);
 	void InitDefaultCommand();
 	void ResetDrive(); //reset both drive encoders
 	int GetLeftEnc();
 	int GetRightEnc();
+	void ToggleControls();
+	int GetControls();
 
 };
 

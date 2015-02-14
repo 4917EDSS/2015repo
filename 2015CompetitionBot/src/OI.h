@@ -40,6 +40,7 @@
 #define OStackingBtn 7
 #define OGrabStackBtn 9
 #define ODropStackBtn 10
+#define DToggleDriveControlBtn 6
 
 //These two buttons are used on both controllers.
 #define ODEmergencyStopBtn1 11
@@ -72,6 +73,7 @@ private:
 	JoystickButton* oDropStackBtn;
 	JoystickButton* oGrabStackBtn;
 	JoystickButton* oTestBtn;
+	JoystickButton* dToggleDriveControlBtn;
 	JoystickButton* oEmergencyStopBtn1;
 	JoystickButton* oEmergencyStopBtn2;
 	JoystickButton* dEmergencyStopBtn1;
@@ -82,6 +84,8 @@ public:
 	OI();
 	float DGetRightVer();
 	float DGetLeftVer();
+	float DGetLeftHor();
+	float DGetRightHor();
 	float OGetRightVer();
 	float OGetLeftVer();
 	float OGetLeftHor();

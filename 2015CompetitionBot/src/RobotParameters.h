@@ -40,6 +40,9 @@
 #define TOP_LIMIT_EV 6296 //5 and 6 stacks not tested.
 #define ONE_METER_EV 5000
 
+#define TANK_DRIVE_CONTROLS 1
+#define FPS_DRIVE_CONTROLS 2
+
 //DRIVE ENCODER VALS
 //millimeters/tick
 #define MM_PER_EV_TICK 2.75

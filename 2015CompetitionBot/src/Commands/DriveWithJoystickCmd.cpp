@@ -1,4 +1,5 @@
 #include "DriveWithJoystickCmd.h"
+#include "RobotParameters.h"
 
 DriveWithJoystickCmd::DriveWithJoystickCmd()
 {
@@ -11,8 +12,17 @@ void DriveWithJoystickCmd::Initialize()
 
 void DriveWithJoystickCmd::Execute()
 {
-	rDrivetrainSub->drive(oi->DGetLeftVer(), oi->DGetRightVer());
-	SmartDashboard::PutNumber("leftStickValue", oi->DGetLeftVer());
+	if(rDrivetrainSub->GetControls() == TANK_DRIVE_CONTROLS)
+	{
+		rDrivetrainSub->Drive(oi->DGetLeftVer(), oi->DGetRightVer());
+		SmartDashboard::PutNumber("leftStickValue", oi->DGetLeftVer());
+	}
+
+	else
+	{
+		rDrivetrainSub->Drive(oi->DGetLeftVer() + oi->DGetRightHor(), oi->DGetLeftVer() - oi->DGetRightHor());
+		SmartDashboard::PutNumber("leftStickValue", oi->DGetLeftVer());
+	}
 }
 
 bool DriveWithJoystickCmd::IsFinished()

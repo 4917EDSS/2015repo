@@ -18,7 +18,6 @@ private:
 	{
 		CommandBase::init();
 		lw = LiveWindow::GetInstance();
-		autonomousCommand = new DriveStraightCmd(ONE_METER_EV);
 
 		CameraServer::GetInstance()->SetQuality(50);
 		//the camera name (ex "cam0") can be found through the roborio web interface
@@ -68,7 +67,8 @@ private:
 		SmartDashboard::PutBoolean("Locks",CommandBase::rLiftSub->GetLocks());
 		SmartDashboard::PutBoolean("Jaws",CommandBase::rLiftSub->GetJaws());
 		SmartDashboard::PutBoolean("Arms",CommandBase::rIntakeSub->GetArms());
-
+		SmartDashboard::PutNumber("Left Wheel Encoder",CommandBase::rDrivetrainSub->GetLeftEnc());
+		SmartDashboard::PutNumber("Right Wheel Encoder",CommandBase::rDrivetrainSub->GetRightEnc());
 	}
 
 	void TestPeriodic()

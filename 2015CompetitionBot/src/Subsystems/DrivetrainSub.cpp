@@ -25,13 +25,27 @@ void DrivetrainSub::InitDefaultCommand()
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void DrivetrainSub::drive(float leftSpeed, float rightSpeed) {
+void DrivetrainSub::Drive(float leftSpeed, float rightSpeed) {
 	//because opposite motors are facing outwards, need the negative
+	if(leftSpeed > 1.0){
+		leftSpeed = 1.0;
+	}
+	else if(leftSpeed < -1.0){
+		leftSpeed = -1.0;
+	}
+	if(rightSpeed > 1.0){
+		rightSpeed = 1.0;
+	}
+	else if(rightSpeed < -1.0){
+		rightSpeed = -1.0;
+	}
+
 	frontRight->Set(rightSpeed);
 	backRight->Set(rightSpeed);
 	frontLeft->Set(-leftSpeed);
 	backLeft->Set(-leftSpeed);
 }
+
 int DrivetrainSub::GetLeftEnc(){
 
 	return (int) leftEncoder->GetRaw();
@@ -45,4 +59,16 @@ void DrivetrainSub::ResetDrive(){
 
 	leftEncoder->Reset();
 	rightEncoder->Reset();
+}
+void DrivetrainSub::ToggleControls(){
+	if(controlState == FPS_DRIVE_CONTROLS){
+		controlState = TANK_DRIVE_CONTROLS;
+	}
+	else{
+		controlState = FPS_DRIVE_CONTROLS;
+	}
+}
+int DrivetrainSub::GetControls()
+{
+	return controlState;
 }
