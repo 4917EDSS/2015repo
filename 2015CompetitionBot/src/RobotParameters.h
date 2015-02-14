@@ -15,7 +15,6 @@
 #define JAWS_OPEN false
 #define JAWS_CLOSED true
 
-#define LOCKS_OPEN_DELAY .01
 #define LOCKS_CLOSE_DELAY .3
 #define ARMS_OPEN_DELAY .3
 
