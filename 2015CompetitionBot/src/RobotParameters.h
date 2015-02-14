@@ -41,10 +41,12 @@
 #define ONE_METER_EV 5000
 
 //DRIVE ENCODER VALS
-//millimeters/tick
+//millimeters/tick and centimeters/tick
 #define MM_PER_EV_TICK 2.75
 //go forward this much on one side and reverse the same amount on the other for a 90 degree turn
 #define NINETY_DEGREE_TURN_EV 2700
+//So 30 ticks on the encoder forward and back means 1 degree of the entire robot turning.
+#define DEGREE_ROTATE_TO_ENCODER_FACTOR 30
 
 
 

@@ -9,8 +9,9 @@ class DriveStraightCmd: public CommandBase
 private:
 	int currentDrive;
 	int targetDistance;
+	float driveSpeed;
 public:
-	DriveStraightCmd(int driveDistance);
+	DriveStraightCmd(int driveDistanceMillimeters, float driveSpeedParam);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

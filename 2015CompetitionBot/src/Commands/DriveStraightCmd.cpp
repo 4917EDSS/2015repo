@@ -1,9 +1,17 @@
 #include "DriveStraightCmd.h"
 #include "RobotParameters.h"
 
-DriveStraightCmd::DriveStraightCmd(int driveDistance)
+DriveStraightCmd::DriveStraightCmd(int driveDistanceMillimeters, float driveSpeedParam)
 {
-	targetDistance = driveDistance;
+	driveSpeed = driveSpeedParam;
+	if (driveSpeed > 0)
+	{
+		targetDistance = abs(driveDistanceMillimeters);
+	}
+	else
+	{
+		targetDistance = -abs(driveDistanceMillimeters);
+	}
 	currentDrive = 0;
 	Requires(rDrivetrainSub);
 	// Use Requires() here to declare subsystem dependencies
@@ -14,39 +22,68 @@ DriveStraightCmd::DriveStraightCmd(int driveDistance)
 void DriveStraightCmd::Initialize()
 {
 	rDrivetrainSub->ResetDrive();
-	rDrivetrainSub->drive(1, 1);
+	rDrivetrainSub->drive(driveSpeed, driveSpeed);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveStraightCmd::Execute()
 {
-	if (rDrivetrainSub->GetRightEnc() > rDrivetrainSub->GetLeftEnc())
+	if (driveSpeed > 0)
 	{
-		currentDrive = rDrivetrainSub->GetRightEnc();
+		if (rDrivetrainSub->GetRightEnc() > rDrivetrainSub->GetLeftEnc())
+		{
+			currentDrive = rDrivetrainSub->GetRightEnc();
+		}
+		else
+		{
+			currentDrive = rDrivetrainSub->GetLeftEnc();
+		}
 	}
 	else
 	{
-		currentDrive = rDrivetrainSub->GetLeftEnc();
+		if (rDrivetrainSub->GetRightEnc() < rDrivetrainSub->GetLeftEnc())
+		{
+			currentDrive = rDrivetrainSub->GetRightEnc();
+		}
+		else
+		{
+			currentDrive = rDrivetrainSub->GetLeftEnc();
+		}
 	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveStraightCmd::IsFinished()
 {
-	if (currentDrive >= targetDistance)
+	if (driveSpeed > 0)
 	{
-		return true;
+		if (currentDrive >= targetDistance)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	else
 	{
-		return false;
+		if (currentDrive <= targetDistance)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
+
 }
 
 // Called once after isFinished returns true
 void DriveStraightCmd::End()
 {
-
+	rDrivetrainSub->drive(0,0);
 }
 
 // Called when another command which requires one or more of the same

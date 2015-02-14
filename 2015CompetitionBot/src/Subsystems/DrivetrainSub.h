@@ -21,7 +21,9 @@ public:
 	void drive(float leftSpeed, float rightSpeed);
 	void InitDefaultCommand();
 	void ResetDrive(); //reset both drive encoders
+	int GetRawLeftEnc();
 	int GetLeftEnc();
+	int GetRawRightEnc();
 	int GetRightEnc();
 
 };
