@@ -15,7 +15,8 @@ LiftSub::LiftSub(int liftMotorC, int locks1C, int locks2C, int jaws1C, int jaws2
 	topLimitSwitch = new DigitalInput(topLimitSwitchC);
 	bottomLimitSwitch = new DigitalInput(bottomLimitSwitchC);
 	onTargetCounter = 0;
-
+	stalledCycles = 0;
+	cycles = 0;
 }
 
 void LiftSub::InitDefaultCommand()
@@ -157,10 +158,22 @@ void LiftSub::SetArmsTarget(int target)
 
 void LiftSub::Update()
 {
+	cycles++;
 	int currentPosition = liftEncoder->GetRaw();
+	if (cycles >= STALL_RECHECK_RATE){
+		if (oldLiftHeight == currentPosition)
+		{
+				stalledCycles++;
+		}
+		else
+		{
+			oldLiftHeight = liftEncoder->GetRaw();
+			cycles = 0;
+		}
+	}
 	float difference = fabs(currentPosition - destination);
 	float speedFactor = difference/LIFT_ENCODER_SLOWDOWN_DISTANCE;
-	speedFactor = speedFactor > 1 ? 1.0 : (speedFactor + MIN_SPEED_TO_MOVE_MAST);
+	speedFactor = speedFactor > 1 ? 1.0 : (speedFactor + MIN_SPEED_TO_MOVE_MAST + STALLED_SPEED_BONUS*stalledCycles);
 	SmartDashboard:: PutNumber("currentPosition", currentPosition);
 	SmartDashboard:: PutNumber("destination", destination);
 	if (currentPosition > (destination + LIFT_TOLERANCE))
@@ -179,6 +192,7 @@ void LiftSub::Update()
 	{
 		liftMotor->Set(0);
 		onTargetCounter++;
+		stalledCycles = 0;
 		if(onTargetCounter > ENCODER_ZERO_IN_CYCLES)
 		{
 			onTarget = true;

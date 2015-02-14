@@ -17,6 +17,9 @@ private:
 	DigitalInput* topLimitSwitch;
 	DigitalInput* bottomLimitSwitch;
 	bool ArmsAboveJaws();
+	int cycles;
+	int oldLiftHeight;
+	int stalledCycles;
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
