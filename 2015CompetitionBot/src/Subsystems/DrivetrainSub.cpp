@@ -45,15 +45,19 @@ void DrivetrainSub::Drive(float leftSpeed, float rightSpeed) {
 	frontLeft->Set(-leftSpeed);
 	backLeft->Set(-leftSpeed);
 }
-
-int DrivetrainSub::GetLeftEnc(){
-
+int DrivetrainSub::GetRawLeftEnc(){
 	return (int) leftEncoder->GetRaw();
 }
-
-int DrivetrainSub::GetRightEnc(){
-
+int DrivetrainSub::GetLeftEnc(){
+	leftEncoder->SetDistancePerPulse(2.75);
+	return (int) leftEncoder->GetDistance();
+}
+int DrivetrainSub::GetRawRightEnc(){
 	return (int) rightEncoder->GetRaw();
+}
+int DrivetrainSub::GetRightEnc(){
+	rightEncoder->SetDistancePerPulse(2.75);
+	return (int) rightEncoder->GetDistance();
 }
 void DrivetrainSub::ResetDrive(){
 
