@@ -11,6 +11,10 @@
 #include "Commands/ToggleJawsCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/DriveWithJoystickCmd.h"
+#include "Commands/AutoThreeToteGrp.h"
+#include "Commands/AutoDriveForwardsGrp.h"
+#include "Commands/AutoOneBinGrp.h"
+#include "Commands/AutoOneToteOneBinGrp.h"
 
 class Robot: public IterativeRobot
 {
@@ -41,10 +45,16 @@ private:
 		SmartDashboard::PutData("Set Locks Closed", new SetLocksCmd(LOCKS_CLOSED));
 		SmartDashboard::PutData("Set Arms Closed", new SetArmsCmd(ARMS_CLOSED));
 		SmartDashboard::PutData("Go forward 2 meters half speed", new DriveStraightCmd(2000, 0.5));
+		SmartDashboard::PutData("Go backward 2 meters half speed", new DriveStraightCmd(-2000, 0.5));
 		SmartDashboard::PutData("Go forward 3 meters full speed", new DriveStraightCmd(3000, 1.0));
 		SmartDashboard::PutData("clockwise half speed 90 degrees", new DriveTurnCmd(90,true,0.5));
 		SmartDashboard::PutData("counterclockwise full speed 180 deg",new DriveTurnCmd(180,false,1.0));
 		SmartDashboard::PutData("Go backwards 4 meters half speed", new DriveStraightCmd(4000, -0.5));
+		SmartDashboard::PutData("counterclockwise full speed 180 deg", new DriveTurnCmd(180,false,1.0));
+		SmartDashboard::PutData("AUTO: Three tote, drive to auto zone, and drop", new AutoThreeToteGrp());
+		SmartDashboard::PutData("AUTO: Basic Drive forward two meters", new AutoDriveForwardsGrp());
+		SmartDashboard::PutData("AUTO: Drives straight, moves a bin", new AutoOneBinGrp());
+		SmartDashboard::PutData("AUTO: picks up one tote and bin, drives to auto zone", new AutoOneToteOneBinGrp());
 
 
 		// TODO: initialize all air solenoids to values

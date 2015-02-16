@@ -9,7 +9,12 @@ class DriveStraightCmd: public CommandBase
 private:
 	int currentDrive;
 	int targetDistance;
-	float driveSpeed;
+	float rightSpeed;
+	float leftSpeed;
+	bool forward;
+	PIDController* rightController;
+	PIDController* leftController;
+
 public:
 	DriveStraightCmd(int driveDistanceMillimeters, float driveSpeedParam);
 	void Initialize();

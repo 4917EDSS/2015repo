@@ -120,7 +120,7 @@ void LiftSub::LiftMotorUp(float speed)
 	else if(GetArmHeight() >= INTERFERENCE_LOCKOUT_EV && GetJaws() == JAWS_CLOSED && speed > 0){
 		liftMotor->Set(0);
 	}
-	else if ((speed < 0) && (GetArmHeight() <= SCORE_HEIGHT_EV)){
+	else if ((speed < 0) && (GetArmHeight() <= LIFT_ENCODER_SLOWDOWN_DISTANCE)){
 		liftMotor->Set(-SLOW_MAST_SPEED);
 	}
 	else
