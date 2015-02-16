@@ -17,11 +17,15 @@ void DriveTurnCmd::Initialize()
 	rDrivetrainSub->ResetDrive();
 	if (isClockwiseTurn)
 	{
-		rDrivetrainSub->Drive(driveSpeed, -driveSpeed);
+//		rDrivetrainSub->Drive(driveSpeed, -driveSpeed);
+		rDrivetrainSub->SetRightSetpoint(-turnEncoderValues, driveSpeed);
+		rDrivetrainSub->SetLeftSetpoint(turnEncoderValues, driveSpeed);
 	}
 	else
 	{
-		rDrivetrainSub->Drive(-driveSpeed, driveSpeed);
+//		rDrivetrainSub->Drive(-driveSpeed, driveSpeed);
+		rDrivetrainSub->SetRightSetpoint(turnEncoderValues, driveSpeed);
+		rDrivetrainSub->SetLeftSetpoint(-turnEncoderValues, driveSpeed);
 	}
 }
 
@@ -34,7 +38,7 @@ void DriveTurnCmd::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool DriveTurnCmd::IsFinished()
 {
-	if (isClockwiseTurn)
+	/*if (isClockwiseTurn)
 	{
 		if (rDrivetrainSub->GetRawLeftEnc() > turnEncoderValues && rDrivetrainSub->GetRawRightEnc() < -turnEncoderValues)
 		{
@@ -55,7 +59,8 @@ bool DriveTurnCmd::IsFinished()
 		{
 			return false;
 		}
-	}
+	}*/
+	return rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();
 
 }
 
