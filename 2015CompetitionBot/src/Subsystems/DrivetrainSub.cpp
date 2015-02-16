@@ -10,7 +10,9 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	leftMotor = new Talon(leftMotorC);
 	leftEncoder = new Encoder(leftEncoder1C, leftEncoder2C);
 	rightEncoder = new Encoder(rightEncoder1C, rightEncoder2C);
-	controlState = TANK_DRIVE_CONTROLS;
+
+	controlState = FPS_DRIVE_CONTROLS;
+
 	leftController = new PIDController(1,0,0, leftEncoder, leftMotor);
 	rightController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
 	rightController->SetOutputRange(-1,1);
