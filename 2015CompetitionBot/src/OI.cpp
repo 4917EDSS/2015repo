@@ -69,11 +69,11 @@ float OI::DGetLeftVer(){
 }
 
 float OI::DGetLeftHor(){
-	return getStick(oController, DLeftHorizontalAxis);
+	return getStick(dController, DLeftHorizontalAxis);
 }
 
 float OI::DGetRightHor(){
-	return getStick(oController, DRightHorizontalAxis);
+	return getStick(dController, DRightHorizontalAxis);
 }
 
 float OI::OGetRightVer(){

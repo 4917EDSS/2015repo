@@ -13,6 +13,10 @@ DrivetrainSub::DrivetrainSub(int frontrightC, int backrightC, int frontleftC, in
 	leftEncoder = new Encoder(leftEncoder1C, leftEncoder2C);
 	rightEncoder = new Encoder(rightEncoder1C, rightEncoder2C);
 	controlState = TANK_DRIVE_CONTROLS;
+	lastSpeed = 0;
+
+	rightEncoder->SetDistancePerPulse(DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
+	leftEncoder->SetDistancePerPulse(DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
 }
 
 void DrivetrainSub::InitDefaultCommand()
@@ -50,14 +54,12 @@ int DrivetrainSub::GetRawLeftEnc(){
 	return (int) leftEncoder->GetRaw();
 }
 int DrivetrainSub::GetLeftEnc(){
-	leftEncoder->SetDistancePerPulse(2.75);
 	return (int) leftEncoder->GetDistance();
 }
 int DrivetrainSub::GetRawRightEnc(){
 	return (int) rightEncoder->GetRaw();
 }
 int DrivetrainSub::GetRightEnc(){
-	rightEncoder->SetDistancePerPulse(2.75);
 	return (int) rightEncoder->GetDistance();
 }
 void DrivetrainSub::ResetDrive(){

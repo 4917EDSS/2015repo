@@ -9,6 +9,8 @@
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/PickUpBoxGrp.h"
 #include "Commands/ToggleJawsCmd.h"
+#include "Commands/DriveTurnCmd.h"
+#include "Commands/DriveWithJoystickCmd.h"
 
 class Robot: public IterativeRobot
 {
@@ -38,6 +40,11 @@ private:
 		SmartDashboard::PutData("Set Locks Open", new SetLocksCmd(LOCKS_OPEN));
 		SmartDashboard::PutData("Set Locks Closed", new SetLocksCmd(LOCKS_CLOSED));
 		SmartDashboard::PutData("Set Arms Closed", new SetArmsCmd(ARMS_CLOSED));
+		SmartDashboard::PutData("Go forward 2 meters half speed", new DriveStraightCmd(2000, 0.5));
+		SmartDashboard::PutData("Go forward 3 meters full speed", new DriveStraightCmd(3000, 1.0));
+		SmartDashboard::PutData("clockwise half speed 90 degrees", new DriveTurnCmd(90,true,0.5));
+		SmartDashboard::PutData("counterclockwise full speed 180 deg",new DriveTurnCmd(180,false,1.0));
+
 
 		// TODO: initialize all air solenoids to values
 
@@ -67,16 +74,22 @@ private:
 		// this line or comment it out.
 		if (autoCommand != NULL)
 			autoCommand->Cancel();
+		SmartDashboard::PutData("drivetrain", CommandBase::rDrivetrainSub);
 	}
 
 	void TeleopPeriodic()
 	{
 		Scheduler::GetInstance()->Run();
-		SmartDashboard::PutBoolean("Locks",CommandBase::rLiftSub->GetLocks());
-		SmartDashboard::PutBoolean("Jaws",CommandBase::rLiftSub->GetJaws());
-		SmartDashboard::PutBoolean("Arms",CommandBase::rIntakeSub->GetArms());
-		SmartDashboard::PutNumber("Left Wheel Encoder",CommandBase::rDrivetrainSub->GetLeftEnc());
-		SmartDashboard::PutNumber("Right Wheel Encoder",CommandBase::rDrivetrainSub->GetRightEnc());
+		SmartDashboard::PutBoolean("Locks Open",CommandBase::rLiftSub->GetLocks()==LOCKS_OPEN);
+		SmartDashboard::PutBoolean("Jaws open",CommandBase::rLiftSub->GetJaws()==JAWS_OPEN);
+		SmartDashboard::PutBoolean("Arms open",CommandBase::rIntakeSub->GetArms()==ARMS_OPEN);
+		SmartDashboard::PutBoolean("top limit",CommandBase::rLiftSub->GetTopLimitSwitch());
+		SmartDashboard::PutBoolean("bottom limit",CommandBase::rLiftSub->GetBottomLimitSwitch());
+		SmartDashboard::PutBoolean("intake limit",CommandBase::rIntakeSub->IsLimitHit());
+		SmartDashboard::PutNumber("Left Wheel raw Encoder",CommandBase::rDrivetrainSub->GetRawLeftEnc());
+		SmartDashboard::PutNumber("Right Wheel raw Encoder",CommandBase::rDrivetrainSub->GetRawRightEnc());
+		SmartDashboard::PutNumber("Left Wheel dis Encoder",CommandBase::rDrivetrainSub->GetLeftEnc());
+		SmartDashboard::PutNumber("Right Wheel dis Encoder",CommandBase::rDrivetrainSub->GetRightEnc());
 	}
 
 	void TestPeriodic()

@@ -14,6 +14,7 @@ private:
 	Encoder* leftEncoder;
 	Encoder* rightEncoder;
 	int controlState;
+	float lastSpeed;
 
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
