@@ -40,6 +40,16 @@
 #define DRIVE_DIFFERENCE_TOLERANCE 0.2
 #define MIN_SPEED_TO_MOVE_MAST 0.35
 
+//AUTO DEFINES
+#define DRIVE_INTO_AUTON_ZONE_MM 2000
+#define DRIVE_CENTER_TO_CENTER 3251
+#define DRIVE_ONE_GREEN_BIN 533
+#define DRIVE_ONE_TOTE 711
+#define DISTANCE_BETWEEN_TOTES 2089
+#define STAGING_TO_AUTO_DISTANCE 2178
+#define BACK_OFF_DISTANCE 700
+
+//ONLY FOR BOT SPECIFIC STUFF
 #ifdef PRACTICE_BOT
 
 //LIFT ENCODER VALUES
@@ -68,8 +78,12 @@
 	#define NINETY_DEGREE_TURN_EV 2700
 	//So 30 ticks on the encoder forward and back means 1 degree of the entire robot turning.
 	#define DEGREE_ROTATE_TO_ENCODER_FACTOR 30
+
+	//AUTO DEFINES
+	#define DISTANCE_BETWEEN_TOTES 2089
 #endif
 
+//ONLY FOR BOT SPECIFIC STUFF
 #ifdef COMPETITION_BOT
 	//LIFT ENCODER VALUES
 	#define BOTTOM_LIMIT_EV 0
@@ -95,10 +109,7 @@
 	//So 30 ticks on the encoder forward and back means 1 degree of the entire robot turning.
 	#define DEGREE_ROTATE_TO_ENCODER_FACTOR 45.56
 	#define ENCODER_CONVERSION_FACTOR 4
-	#define DRIVE_INTO_AUTON_ZONE_MM 2000
-	#define DRIVE_CENTER_TO_CENTER 3251
-	#define DRIVE_ONE_GREEN_BIN 533
-	#define DRIVE_ONE_TOTE 711
+
 #endif
 
 
