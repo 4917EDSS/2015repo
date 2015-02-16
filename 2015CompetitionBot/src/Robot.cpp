@@ -12,6 +12,9 @@
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/DriveWithJoystickCmd.h"
 #include "Commands/AutoThreeToteGrp.h"
+#include "Commands/AutoDriveForwardsGrp.h"
+#include "Commands/AutoOneBinGrp.h"
+#include "Commands/AutoOneToteOneBinGrp.h"
 
 class Robot: public IterativeRobot
 {
@@ -48,7 +51,7 @@ private:
 		SmartDashboard::PutData("AUTO: Three tote, drive to auto zone, and drop", new AutoThreeToteGrp());
 		SmartDashboard::PutData("AUTO: Basic Drive forward two meters", new AutoDriveForwardsGrp());
 		SmartDashboard::PutData("AUTO: Drives straight, moves a bin", new AutoOneBinGrp());
-		SmartDashboard::PutData("AUTO: picks up one tote and bin, drives to auto zone", new AutoOneBinOneToteGrp());
+		SmartDashboard::PutData("AUTO: picks up one tote and bin, drives to auto zone", new AutoOneToteOneBinGrp());
 
 
 		// TODO: initialize all air solenoids to values
