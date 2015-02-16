@@ -10,10 +10,8 @@
 #include "Subsystems/LiftSub.h"
 
 //Talons
-#define LeftDrive1PWM 0
-#define LeftDrive2PWM 1
-#define RightDrive1PWM 2
-#define RightDrive2PWM 3
+#define LeftDrivePWM 1
+#define RightDrivePWM 3
 #define LiftMotorPWM 4
 #define ArmLeftMotorPWM 7
 #define ArmRightMotorPWM 8
