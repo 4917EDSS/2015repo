@@ -30,6 +30,7 @@
 
 #define LOCKS_CLOSE_DELAY .3
 #define ARMS_OPEN_DELAY .3
+#define ARMS_CLOSE_DELAY .3
 
 #define ENCODER_ZERO_IN_CYCLES 10
 #define STALL_RECHECK_RATE 4
@@ -94,6 +95,10 @@
 	//So 30 ticks on the encoder forward and back means 1 degree of the entire robot turning.
 	#define DEGREE_ROTATE_TO_ENCODER_FACTOR 45.56
 	#define ENCODER_CONVERSION_FACTOR 4
+	#define DRIVE_INTO_AUTON_ZONE_MM 2000
+	#define DRIVE_CENTER_TO_CENTER 3251
+	#define DRIVE_ONE_GREEN_BIN 533
+	#define DRIVE_ONE_TOTE 711
 #endif
 
 
