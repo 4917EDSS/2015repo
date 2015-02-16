@@ -30,7 +30,6 @@ void DriveStraightCmd::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveStraightCmd::Execute()
 {
-	float averageSpeed = (leftSpeed + rightSpeed)/2;
 	if (forward)
 	{
 		if (rDrivetrainSub->GetRightEnc() > rDrivetrainSub->GetLeftEnc())

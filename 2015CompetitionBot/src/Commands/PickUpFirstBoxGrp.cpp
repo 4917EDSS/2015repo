@@ -10,7 +10,7 @@
 
 PickUpFirstBoxGrp::PickUpFirstBoxGrp()
 {
-	AddParallel(new ResetLiftEncoderCmd());
+	AddSequential(new ResetLiftEncoderCmd());
 	AddSequential(new SetLocksCmd(LOCKS_OPEN));
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
 	AddSequential(new SetJawsCmd(JAWS_CLOSED));
