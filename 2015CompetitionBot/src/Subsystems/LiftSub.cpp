@@ -14,6 +14,7 @@ LiftSub::LiftSub(int liftMotorC, int locks1C, int locks2C, int jaws1C, int jaws2
 	destination=0;
 	topLimitSwitch = new DigitalInput(topLimitSwitchC);
 	bottomLimitSwitch = new DigitalInput(bottomLimitSwitchC);
+	oldLiftHeight = 0;
 	onTargetCounter = 0;
 	stalledCycles = 0;
 	cycles = 0;
@@ -120,7 +121,7 @@ void LiftSub::LiftMotorUp(float speed)
 		liftMotor->Set(0);
 	}
 	else if ((speed < 0) && (GetArmHeight <= SCORE_HEIGHT_EV)){
-		liftMotor->Set(SLOW_MAST_SPEED);
+		liftMotor->Set(-SLOW_MAST_SPEED);
 	}
 	else
 	{
@@ -141,6 +142,9 @@ void LiftSub::LiftMotorDown(float speed)
 	}
 	else if(GetArmHeight() >= INTERFERENCE_LOCKOUT_EV && GetJaws() == JAWS_CLOSED && speed < 0){
 			liftMotor->Set(0);
+	}
+	else if ((speed > 0) && (GetArmHeight <= SCORE_HEIGHT_EV)){
+		liftMotor->Set(-SLOW_MAST_SPEED);
 	}
 	else
 	{

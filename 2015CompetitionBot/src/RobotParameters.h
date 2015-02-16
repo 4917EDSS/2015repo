@@ -56,13 +56,13 @@
 	#define TOP_LIMIT_EV 6296 //5 and 6 stacks not tested.
 	#define ONE_METER_EV 5000
 
-	#define DISTANCE_PER_PULSE 0.277
+
 	#define ENCODER_CONVERSION_FACTOR 4
 	#define LIFT_ENCODER_SLOWDOWN_DISTANCE 200
 
 	//DRIVE ENCODER VALS
-	//millimeters/tick and centimeters/tick
-	#define MM_PER_EV_TICK 0.275
+	//millimeters/tick
+	#define DISTANCE_PER_PULSE 0.277
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
 	#define NINETY_DEGREE_TURN_EV 2700
 	//So 30 ticks on the encoder forward and back means 1 degree of the entire robot turning.
@@ -87,13 +87,12 @@
 
 
 	//DRIVE ENCODER VALS
-	//millimeters/tick and centimeters/tick
-	#define MM_PER_EV_TICK 2000.0/10700.0
+	//millimeters/tick
+	#define DISTANCE_PER_PULSE 2000.0/10700.0
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
 	#define NINETY_DEGREE_TURN_EV 4100
 	//So 30 ticks on the encoder forward and back means 1 degree of the entire robot turning.
 	#define DEGREE_ROTATE_TO_ENCODER_FACTOR 45.56
-	#define DISTANCE_PER_PULSE 2000.0/10700.0
 	#define ENCODER_CONVERSION_FACTOR 4
 #endif
 
