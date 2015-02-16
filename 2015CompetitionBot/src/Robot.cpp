@@ -44,6 +44,7 @@ private:
 		SmartDashboard::PutData("Go forward 3 meters full speed", new DriveStraightCmd(3000, 1.0));
 		SmartDashboard::PutData("clockwise half speed 90 degrees", new DriveTurnCmd(90,true,0.5));
 		SmartDashboard::PutData("counterclockwise full speed 180 deg",new DriveTurnCmd(180,false,1.0));
+		SmartDashboard::PutData("Go backwards 4 meters half speed", new DriveStraightCmd(4000, -0.5));
 
 
 		// TODO: initialize all air solenoids to values

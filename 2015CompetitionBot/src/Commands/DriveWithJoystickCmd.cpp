@@ -3,6 +3,8 @@
 
 DriveWithJoystickCmd::DriveWithJoystickCmd()
 {
+	previousRightSpeed = 0;
+	previousLeftSpeed = 0;
 	Requires(rDrivetrainSub);
 }
 
@@ -14,13 +16,50 @@ void DriveWithJoystickCmd::Execute()
 {
 	if(rDrivetrainSub->GetControls() == TANK_DRIVE_CONTROLS)
 	{
-		rDrivetrainSub->Drive(oi->DGetLeftVer(), oi->DGetRightVer());
+		if (oi->DGetLeftVer() - previousLeftSpeed > ACCELERATION_THRESHOLD)
+		{
+			previousLeftSpeed += ACCELERATION_THRESHOLD;
+		}
+		else if (oi->DGetLeftVer()-previousLeftSpeed < -ACCELERATION_THRESHOLD)
+		{
+			previousLeftSpeed -= ACCELERATION_THRESHOLD;
+		}
+		else
+		{
+			previousLeftSpeed = oi->DGetLeftVer();
+		}
+
+		if (oi->DGetRightVer()-previousRightSpeed > ACCELERATION_THRESHOLD)
+		{
+			previousRightSpeed += ACCELERATION_THRESHOLD;
+		}
+		else if (oi->DGetRightVer()-previousRightSpeed < -ACCELERATION_THRESHOLD)
+		{
+			previousRightSpeed -= ACCELERATION_THRESHOLD;
+		}
+		else
+		{
+			previousRightSpeed = oi->DGetRightVer();
+		}
+		rDrivetrainSub->Drive(previousLeftSpeed, previousRightSpeed);
 		SmartDashboard::PutNumber("leftStickValue", oi->DGetLeftVer());
 	}
 
 	else
 	{
-		rDrivetrainSub->Drive(oi->DGetLeftVer() + oi->DGetRightHor(), oi->DGetLeftVer() - oi->DGetRightHor());
+		if (oi->DGetLeftVer()-previousLeftSpeed > ACCELERATION_THRESHOLD)
+		{
+			previousLeftSpeed += ACCELERATION_THRESHOLD;
+		}
+		else if (oi->DGetLeftVer()-previousLeftSpeed < -ACCELERATION_THRESHOLD)
+		{
+			previousLeftSpeed -= ACCELERATION_THRESHOLD;
+		}
+		else
+		{
+			previousLeftSpeed = oi->DGetLeftVer();
+		}
+		rDrivetrainSub->Drive(previousLeftSpeed + oi->DGetRightHor(), previousLeftSpeed - oi->DGetRightHor());
 		SmartDashboard::PutNumber("leftStickValue", oi->DGetLeftVer());
 	}
 }

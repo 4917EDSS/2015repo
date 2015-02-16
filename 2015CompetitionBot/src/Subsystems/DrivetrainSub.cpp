@@ -49,6 +49,8 @@ void DrivetrainSub::Drive(float leftSpeed, float rightSpeed) {
 	backRight->Set(rightSpeed);
 	frontLeft->Set(-leftSpeed);
 	backLeft->Set(-leftSpeed);
+	SmartDashboard::PutNumber("Right Wheel Speed", rightSpeed);
+	SmartDashboard::PutNumber("Left Wheel Speed", leftSpeed);
 }
 int DrivetrainSub::GetRawLeftEnc(){
 	return (int) leftEncoder->GetRaw();
