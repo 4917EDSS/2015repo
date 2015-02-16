@@ -67,6 +67,9 @@
 	#define NINETY_DEGREE_TURN_EV 2700
 	//So 30 ticks on the encoder forward and back means 1 degree of the entire robot turning.
 	#define DEGREE_ROTATE_TO_ENCODER_FACTOR 30
+
+	//AUTO DEFINES
+	#define DISTANCE_BETWEEN_TOTES 2089
 #endif
 
 #ifdef COMPETITION_BOT
@@ -94,6 +97,11 @@
 	//So 30 ticks on the encoder forward and back means 1 degree of the entire robot turning.
 	#define DEGREE_ROTATE_TO_ENCODER_FACTOR 45.56
 	#define ENCODER_CONVERSION_FACTOR 4
+
+	//AUTO DEFINES
+	#define DISTANCE_BETWEEN_TOTES 2089
+	#define STAGING_TO_AUTO_DISTANCE 2178
+	#define BACK_OFF_DISTANCE 700
 #endif
 
 
