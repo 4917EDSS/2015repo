@@ -7,19 +7,19 @@
 class DrivetrainSub: public Subsystem
 {
 private:
-	Talon* frontRight;
-	Talon* backRight;
-	Talon* frontLeft;
-	Talon* backLeft;
+	Talon* rightMotor;
+	Talon* leftMotor;
 	Encoder* leftEncoder;
 	Encoder* rightEncoder;
+	PIDController* rightController;
+	PIDController* leftController;
 	int controlState;
 	float lastSpeed;
 
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
-	DrivetrainSub(int frontrightC, int backrightC, int frontleftC, int backleftC, int leftEncoder1C, int leftEncoder2C, int rightEncoder1C, int rightEncoder2C);
+	DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C, int leftEncoder2C, int rightEncoder1C, int rightEncoder2C);
 	void Drive(float leftSpeed, float rightSpeed);
 	void InitDefaultCommand();
 	void ResetDrive(); //reset both drive encoders
@@ -29,6 +29,12 @@ public:
 	int GetRightEnc();
 	void ToggleControls();
 	int GetControls();
+	void EnablePID();
+	void DisablePID();
+	void SetLeftSetpoint(int setpoint);
+	void SetRightSetpoint(int setpoint);
+	bool isLeftOnTarget();
+	bool isRightOnTarget();
 
 };
 
