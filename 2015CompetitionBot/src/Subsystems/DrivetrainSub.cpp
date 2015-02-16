@@ -92,10 +92,12 @@ void DrivetrainSub::DisablePID(){
 	leftController->Disable();
 	rightController->Disable();
 }
-void DrivetrainSub::SetLeftSetpoint(int setpoint){
+void DrivetrainSub::SetLeftSetpoint(int setpoint, float speed){
+	leftController->SetOutputRange(-speed, speed);
 	leftController->SetSetpoint(setpoint);
 }
-void DrivetrainSub::SetRightSetpoint(int setpoint){
+void DrivetrainSub::SetRightSetpoint(int setpoint, float speed){
+	rightController->SetOutputRange(-speed, speed);
 	rightController->SetSetpoint(setpoint);
 }
 bool DrivetrainSub::isLeftOnTarget(){

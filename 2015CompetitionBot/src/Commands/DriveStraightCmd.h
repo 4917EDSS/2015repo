@@ -12,8 +12,6 @@ private:
 	float rightSpeed;
 	float leftSpeed;
 	bool forward;
-	PIDController* rightController;
-	PIDController* leftController;
 
 public:
 	DriveStraightCmd(int driveDistanceMillimeters, float driveSpeedParam);

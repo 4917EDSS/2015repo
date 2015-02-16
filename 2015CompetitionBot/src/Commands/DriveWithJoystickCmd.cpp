@@ -10,6 +10,7 @@ DriveWithJoystickCmd::DriveWithJoystickCmd()
 
 void DriveWithJoystickCmd::Initialize()
 {
+	rDrivetrainSub->DisablePID();
 }
 
 void DriveWithJoystickCmd::Execute()

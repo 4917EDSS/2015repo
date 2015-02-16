@@ -31,8 +31,8 @@ public:
 	int GetControls();
 	void EnablePID();
 	void DisablePID();
-	void SetLeftSetpoint(int setpoint);
-	void SetRightSetpoint(int setpoint);
+	void SetLeftSetpoint(int setpoint, float speed);
+	void SetRightSetpoint(int setpoint, float speed);
 	bool isLeftOnTarget();
 	bool isRightOnTarget();
 

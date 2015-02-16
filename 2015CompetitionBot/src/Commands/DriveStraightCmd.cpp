@@ -23,13 +23,18 @@ DriveStraightCmd::DriveStraightCmd(int driveDistanceMillimeters, float driveSpee
 // Called just before this Command runs the first time
 void DriveStraightCmd::Initialize()
 {
-	rDrivetrainSub->ResetDrive();
-	rDrivetrainSub->Drive(leftSpeed, rightSpeed);
+	/*rDrivetrainSub->ResetDrive();
+	rDrivetrainSub->Drive(leftSpeed, rightSpeed);*/
+	rDrivetrainSub->EnablePID();
+	rDrivetrainSub->SetRightSetpoint(targetDistance, rightSpeed);
+	rDrivetrainSub->SetLeftSetpoint(targetDistance, leftSpeed);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveStraightCmd::Execute()
 {
+	/*float averageSpeed = (leftSpeed + rightSpeed)/2;
+>>>>>>> origin/master
 	if (forward)
 	{
 		if (rDrivetrainSub->GetRightEnc() > rDrivetrainSub->GetLeftEnc())
@@ -53,13 +58,13 @@ void DriveStraightCmd::Execute()
 		}
 	}
 	currentDrive = (rDrivetrainSub->GetLeftEnc() + rDrivetrainSub->GetRightEnc())/2;
-	rDrivetrainSub->Drive(leftSpeed, rightSpeed);
+	rDrivetrainSub->Drive(leftSpeed, rightSpeed);*/
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveStraightCmd::IsFinished()
 {
-	if (forward)
+	/*if (forward)
 	{
 		if (currentDrive >= targetDistance)
 		{
@@ -80,7 +85,8 @@ bool DriveStraightCmd::IsFinished()
 		{
 			return false;
 		}
-	}
+	}*/
+	return rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();
 
 }
 
