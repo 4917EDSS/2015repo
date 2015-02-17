@@ -14,9 +14,9 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	controlState = FPS_DRIVE_CONTROLS;
 
 	leftController = new PIDController(1,0,0, leftEncoder, leftMotor);
+	rightController = new PIDController(1,0,0, righttEncoder, righttMotor);
 	rightController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
 	rightController->SetOutputRange(-1,1);
-	rightController = new PIDController(1,0,0, leftEncoder, leftMotor);
 	leftController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
 	leftController->SetOutputRange(-1,1);
 	lastSpeed = 0;
