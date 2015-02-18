@@ -101,6 +101,7 @@ private:
 		SmartDashboard::PutNumber("Right Wheel raw Encoder",CommandBase::rDrivetrainSub->GetRawRightEnc());
 		SmartDashboard::PutNumber("Left Wheel dis Encoder",CommandBase::rDrivetrainSub->GetLeftEnc());
 		SmartDashboard::PutNumber("Right Wheel dis Encoder",CommandBase::rDrivetrainSub->GetRightEnc());
+		SmartDashboard::PutBoolean("Drive Style", CommandBase::rDrivetrainSub->GetControls());
 	}
 
 	void TestPeriodic()

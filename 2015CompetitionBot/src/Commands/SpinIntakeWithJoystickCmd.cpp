@@ -19,6 +19,7 @@ void SpinIntakeWithJoystickCmd::Initialize()
 void SpinIntakeWithJoystickCmd::Execute()
 {
 	//printf("Default command");
+
 	if (oi->OGetRightHor() > CTRLR_HOR_INTAKE_TOLERANCE)
 	{
 		rIntakeSub->SetBeltsRight(oi->OGetRightHor());
@@ -33,6 +34,7 @@ void SpinIntakeWithJoystickCmd::Execute()
 	{
 		rIntakeSub->SetBeltsIn(-oi->OGetRightVer());
 	}
+
 }
 
 bool SpinIntakeWithJoystickCmd::IsFinished()

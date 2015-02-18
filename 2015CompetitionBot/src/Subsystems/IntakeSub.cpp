@@ -21,7 +21,12 @@ void IntakeSub::InitDefaultCommand()
 }
 void IntakeSub::SetBeltsIn(float speed)
 {
+	if (IsLimitHit() && speed > 0 && CommandBase::rLiftSub->GetArmHeight() < SCORE_HEIGHT_EV)
+	{
+		speed = 0;
+	}
 	SetBelts(-speed, speed);
+
 }
 void IntakeSub::SetBeltsOut(float speed)
 {
@@ -37,6 +42,7 @@ void IntakeSub::SetBeltsRight(float speed)
 }
 void IntakeSub::SetBelts(float leftSpeed, float rightSpeed )
 {
+
 	armRight->Set(rightSpeed);
 	armLeft->Set(leftSpeed);
 }

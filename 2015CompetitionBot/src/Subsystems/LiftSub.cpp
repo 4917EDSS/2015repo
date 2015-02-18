@@ -75,6 +75,7 @@ void LiftSub::ToggleJaws()
 	else
 	{
 		SetJaws(JAWS_OPEN);
+		SetLocks(LOCKS_OPEN);
 	}
 }
 void LiftSub::SetJaws(bool isOut)
