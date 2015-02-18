@@ -25,6 +25,7 @@ void DriveStraightCmd::Initialize()
 {
 	/*rDrivetrainSub->ResetDrive();
 	rDrivetrainSub->Drive(leftSpeed, rightSpeed);*/
+	rDrivetrainSub->ResetDrive();
 	rDrivetrainSub->EnablePID();
 	rDrivetrainSub->SetRightSetpoint(targetDistance, rightSpeed);
 	rDrivetrainSub->SetLeftSetpoint(targetDistance, leftSpeed);
@@ -93,6 +94,7 @@ bool DriveStraightCmd::IsFinished()
 // Called once after isFinished returns true
 void DriveStraightCmd::End()
 {
+	rDrivetrainSub->DisablePID();
 	rDrivetrainSub->Drive(0,0);
 }
 
@@ -100,5 +102,5 @@ void DriveStraightCmd::End()
 // subsystems is scheduled to run
 void DriveStraightCmd::Interrupted()
 {
-	rDrivetrainSub->Drive(0,0);
+	End();
 }

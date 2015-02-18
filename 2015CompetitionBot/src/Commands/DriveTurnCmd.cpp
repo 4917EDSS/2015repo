@@ -15,9 +15,12 @@ DriveTurnCmd::DriveTurnCmd(int turnDegrees, bool isClockwiseTurnParam, float dri
 void DriveTurnCmd::Initialize()
 {
 	rDrivetrainSub->ResetDrive();
+	rDrivetrainSub->EnablePID();
 	if (isClockwiseTurn)
 	{
-		rDrivetrainSub->Drive(driveSpeed, -driveSpeed);
+//		rDrivetrainSub->Drive(driveSpeed, -driveSpeed);
+		rDrivetrainSub->SetRightSetpoint(-turnEncoderValues, driveSpeed);
+		rDrivetrainSub->SetLeftSetpoint(turnEncoderValues, driveSpeed);
 	}
 	else
 	{
@@ -66,11 +69,12 @@ bool DriveTurnCmd::IsFinished()
 void DriveTurnCmd::End()
 {
 	rDrivetrainSub->Drive(0, 0);
+	rDrivetrainSub->DisablePID();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveTurnCmd::Interrupted()
 {
-	rDrivetrainSub->Drive(0, 0);
+	End();
 }
