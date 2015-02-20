@@ -13,8 +13,8 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 
 	controlState = FPS_DRIVE_CONTROLS;
 
-	leftController = new PIDController(1,0,0, leftEncoder, leftMotor);
-	rightController = new PIDController(1,0,0, rightEncoder, rightMotor);
+	leftController = new PIDController(0.01,0,0, leftEncoder, leftMotor);
+	rightController = new PIDController(0.01,0,0, rightEncoder, rightMotor);
 	rightController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
 	rightController->SetOutputRange(-1,1);
 	leftController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);

@@ -30,8 +30,8 @@
 #define LeftDriveEncoder2DIO 5
 #define RightDriveEncoder1DIO 6
 #define RightDriveEncoder2DIO 7
-#define Encoder1DIO 8
-#define Encoder2DIO 9
+#define LiftEncoder1DIO 8
+#define LiftEncoder2DIO 9
 #define TopLimitSwitchDIO 0
 #define BottomLimitSwitchDIO 1
 #define IntakeLimitSwitchDIO 2

@@ -87,7 +87,7 @@ bool DriveStraightCmd::IsFinished()
 			return false;
 		}
 	}*/
-	return rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();
+	return false;//rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();
 
 }
 
