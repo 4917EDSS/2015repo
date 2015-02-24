@@ -18,7 +18,7 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	rightController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
 	rightController->SetOutputRange(-1,1);
 	leftController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
-	leftController->SetOutputRange(1,-1);
+	leftController->SetOutputRange(-1,1);
 	lastSpeed = 0;
 
 	rightEncoder->SetDistancePerPulse(DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
@@ -52,7 +52,7 @@ void DrivetrainSub::Drive(float leftSpeed, float rightSpeed) {
 	}
 
 	rightMotor->Set(rightSpeed);
-	leftMotor->Set(-leftSpeed);
+	leftMotor->Set(leftSpeed);
 
 }
 int DrivetrainSub::GetRawLeftEnc(){
@@ -93,7 +93,7 @@ void DrivetrainSub::DisablePID(){
 	rightController->Disable();
 }
 void DrivetrainSub::SetLeftSetpoint(int setpoint, float speed){
-	leftController->SetOutputRange(speed, -speed);
+	leftController->SetOutputRange(-speed, speed);
 	leftController->SetSetpoint(setpoint);
 }
 void DrivetrainSub::SetRightSetpoint(int setpoint, float speed){
