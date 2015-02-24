@@ -8,17 +8,24 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 {
 	rightMotor = new Talon(rightMotorC);
 	leftMotor = new Talon(leftMotorC);
-	leftEncoder = new Encoder(leftEncoder1C, leftEncoder2C);
-	rightEncoder = new Encoder(rightEncoder1C, rightEncoder2C);
+	leftEncoderSpeed = new Encoder4917(leftEncoder1C, leftEncoder2C);
+	rightEncoderSpeed = new Encoder4917(rightEncoder1C, rightEncoder2C);
+	leftEncoder  = leftEncoderSpeed->GetEncoder();
+	rightEncoder = rightEncoderSpeed->GetEncoder();
 
 	controlState = FPS_DRIVE_CONTROLS;
 
-	leftController = new PIDController(0.01,0,0, leftEncoder, leftMotor);
-	rightController = new PIDController(0.01,0,0, rightEncoder, rightMotor);
+	leftDoubleController = new DoublePIDController(leftEncoderSpeed, leftMotor);
+	rightDoubleController = new DoublePIDController(rightEncoderSpeed, rightMotor);
+	rightDoubleController->SetAbsoluteTolerance(5);
+	rightDoubleController->SetOutputRange(-1,1);
+	leftDoubleController->SetAbsoluteTolerance(5);
+	leftDoubleController->SetOutputRange(-1,1);
+
+	leftController = new PIDController(0.00000001,0.5,0, leftEncoder, leftDoubleController);
+	rightController = new PIDController(0.00000001,0.5,0, rightEncoder, rightDoubleController);
 	rightController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
-	rightController->SetOutputRange(-1,1);
 	leftController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
-	leftController->SetOutputRange(1,-1);
 	lastSpeed = 0;
 
 	rightEncoder->SetDistancePerPulse(DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
@@ -37,24 +44,31 @@ void DrivetrainSub::InitDefaultCommand()
 // here. Call these from Commands.
 
 void DrivetrainSub::Drive(float leftSpeed, float rightSpeed) {
-	//because opposite motors are facing outwards, need the negative
-	if(leftSpeed > 1.0){
-		leftSpeed = 1.0;
-	}
-	else if(leftSpeed < -1.0){
-		leftSpeed = -1.0;
-	}
-	if(rightSpeed > 1.0){
-		rightSpeed = 1.0;
-	}
-	else if(rightSpeed < -1.0){
-		rightSpeed = -1.0;
-	}
 
 	rightMotor->Set(rightSpeed);
-	leftMotor->Set(-leftSpeed);
-
+	leftMotor->Set(leftSpeed);
 }
+
+void DrivetrainSub::PIDDrive(float leftSpeed, float rightSpeed) {
+	leftDoubleController->PIDWrite(1000*leftSpeed);
+	rightDoubleController->PIDWrite(1000*rightSpeed);
+}
+
+void DrivetrainSub::SetP(float p){
+	leftDoubleController->GetPIDController()->SetPID(p,leftDoubleController->GetPIDController()->GetI(),leftDoubleController->GetPIDController()->GetD());
+	rightDoubleController->GetPIDController()->SetPID(p,rightDoubleController->GetPIDController()->GetI(),rightDoubleController->GetPIDController()->GetD());
+}
+float DrivetrainSub::GetP(){
+	return leftDoubleController->GetPIDController()->GetP();
+}
+void DrivetrainSub::SetI(float i){
+	leftDoubleController->GetPIDController()->SetPID(leftDoubleController->GetPIDController()->GetP(),i,leftDoubleController->GetPIDController()->GetD());
+	rightDoubleController->GetPIDController()->SetPID(rightDoubleController->GetPIDController()->GetP(),i,rightDoubleController->GetPIDController()->GetD());
+}
+float DrivetrainSub::GetI(){
+	return leftDoubleController->GetPIDController()->GetI();
+}
+
 int DrivetrainSub::GetRawLeftEnc(){
 	return (int) leftEncoder->GetRaw();
 }
@@ -87,17 +101,23 @@ int DrivetrainSub::GetControls()
 void DrivetrainSub::EnablePID(){
 	leftController->Enable();
 	rightController->Enable();
+	leftDoubleController->Enable();
+	rightDoubleController->Enable();
 }
 void DrivetrainSub::DisablePID(){
 	leftController->Disable();
 	rightController->Disable();
+	leftDoubleController->Disable();
+	rightDoubleController->Disable();
 }
 void DrivetrainSub::SetLeftSetpoint(int setpoint, float speed){
-	leftController->SetOutputRange(speed, -speed);
+	// Negatives here are to fix a strange bug where different output ranges resulted in different speeds on either side
+	leftController->SetOutputRange(-fabs(speed), fabs(speed));
+	//leftController->SetSetpoint(-setpoint);
 	leftController->SetSetpoint(setpoint);
 }
 void DrivetrainSub::SetRightSetpoint(int setpoint, float speed){
-	rightController->SetOutputRange(-speed, speed);
+	rightController->SetOutputRange(-fabs(speed), fabs(speed));
 	rightController->SetSetpoint(setpoint);
 }
 bool DrivetrainSub::isLeftOnTarget(){
@@ -105,4 +125,10 @@ bool DrivetrainSub::isLeftOnTarget(){
 }
 bool DrivetrainSub::isRightOnTarget(){
 	return rightController->OnTarget();
+}
+double DrivetrainSub::GetLeftEncoderRate(){
+	return leftEncoder->GetRate();
+}
+double DrivetrainSub::GetRightEncoderRate(){
+	return rightEncoder->GetRate();
 }

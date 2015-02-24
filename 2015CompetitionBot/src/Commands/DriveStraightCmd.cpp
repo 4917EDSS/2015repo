@@ -4,18 +4,14 @@
 DriveStraightCmd::DriveStraightCmd(int driveDistanceMillimeters, float driveSpeedParam)
 {
 	leftSpeed = driveSpeedParam;
-	rightSpeed = driveSpeedParam;
-	forward = driveSpeedParam > 0;
-	if (driveSpeedParam > 0)
-	{
-		targetDistance = abs(driveDistanceMillimeters);
-	}
-	else
-	{
-		targetDistance = -abs(driveDistanceMillimeters);
-	}
+	rightSpeed = leftSpeed;
+	forward = driveDistanceMillimeters > 0;
+	targetDistance = driveDistanceMillimeters;
 	currentDrive = 0;
+	previousRightEncoder = 0;
+	previousLeftEncoder = 0;
 	Requires(rDrivetrainSub);
+	counter = 0;
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 }
@@ -29,66 +25,31 @@ void DriveStraightCmd::Initialize()
 	rDrivetrainSub->EnablePID();
 	rDrivetrainSub->SetRightSetpoint(targetDistance, rightSpeed);
 	rDrivetrainSub->SetLeftSetpoint(targetDistance, leftSpeed);
+
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveStraightCmd::Execute()
 {
-	/*float averageSpeed = (leftSpeed + rightSpeed)/2;
->>>>>>> origin/master
-	if (forward)
-	{
-		if (rDrivetrainSub->GetRightEnc() > rDrivetrainSub->GetLeftEnc())
-		{
-			currentDrive = rDrivetrainSub->GetRightEnc();
-		}
-		else
-		{
-			currentDrive = rDrivetrainSub->GetLeftEnc();
-		}
-	}
-	else
-	{
-		if (rDrivetrainSub->GetRightEnc() < rDrivetrainSub->GetLeftEnc())
-		{
-			currentDrive = rDrivetrainSub->GetRightEnc();
-		}
-		else
-		{
-			currentDrive = rDrivetrainSub->GetLeftEnc();
-		}
-	}
-	currentDrive = (rDrivetrainSub->GetLeftEnc() + rDrivetrainSub->GetRightEnc())/2;
-	rDrivetrainSub->Drive(leftSpeed, rightSpeed);*/
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveStraightCmd::IsFinished()
 {
-	/*if (forward)
-	{
-		if (currentDrive >= targetDistance)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	else
-	{
-		if (currentDrive <= targetDistance)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}*/
-	return false;//rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();
+	counter++;
+	if (counter>50){
 
+		if (rDrivetrainSub->GetRightEnc() == previousRightEncoder
+				&& rDrivetrainSub->GetLeftEnc() == previousLeftEncoder) {
+			return true;
+		}
+
+		previousLeftEncoder = rDrivetrainSub->GetLeftEnc();
+		previousRightEncoder = rDrivetrainSub->GetRightEnc();
+
+		counter = 0;
+	}
+	return false;
 }
 
 // Called once after isFinished returns true
