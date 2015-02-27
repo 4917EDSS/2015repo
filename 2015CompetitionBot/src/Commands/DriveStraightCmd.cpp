@@ -22,7 +22,7 @@ void DriveStraightCmd::Initialize()
 	/*rDrivetrainSub->ResetDrive();
 	rDrivetrainSub->Drive(leftSpeed, rightSpeed);*/
 	rDrivetrainSub->ResetDrive();
-	rDrivetrainSub->EnablePID();
+	rDrivetrainSub->EnableDistancePID();
 	rDrivetrainSub->SetRightSetpoint(targetDistance, rightSpeed);
 	rDrivetrainSub->SetLeftSetpoint(targetDistance, leftSpeed);
 
@@ -37,7 +37,7 @@ void DriveStraightCmd::Execute()
 bool DriveStraightCmd::IsFinished()
 {
 	counter++;
-	if (counter>50){
+	if (counter>5000){
 
 		if (rDrivetrainSub->GetRightEnc() == previousRightEncoder
 				&& rDrivetrainSub->GetLeftEnc() == previousLeftEncoder) {
@@ -55,7 +55,7 @@ bool DriveStraightCmd::IsFinished()
 // Called once after isFinished returns true
 void DriveStraightCmd::End()
 {
-	rDrivetrainSub->DisablePID();
+	rDrivetrainSub->DisableDistancePID();
 	rDrivetrainSub->Drive(0,0);
 }
 

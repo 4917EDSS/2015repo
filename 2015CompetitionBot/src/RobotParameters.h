@@ -29,7 +29,7 @@
 #define CAMERA_NAME "cam1"
 
 #define CTRLR_HOR_INTAKE_TOLERANCE 0.8
-#define DRIVE_DIST_TOLERANCE 10
+#define DRIVE_DIST_TOLERANCE 30
 
 #define LOCKS_CLOSE_DELAY .3
 #define ARMS_OPEN_DELAY .3
@@ -80,8 +80,7 @@
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
 	#define DISTANCE_PER_DEGREE 745.0/90.0
 
-	//AUTO DEFINES
-	#define DISTANCE_BETWEEN_TOTES 2089
+	#define MAX_SPEED_EV 2700
 #endif
 
 //ONLY FOR BOT SPECIFIC STUFF
@@ -106,8 +105,8 @@
 	//millimeters/tick
 	#define DISTANCE_PER_PULSE 2000.0/10700.0
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
-	//AUTO DEFINES
-	#define DISTANCE_BETWEEN_TOTES 2089
+	#define DISTANCE_PER_DEGREE
+	#define MAX_SPEED_EV 2700
 
 #endif
 

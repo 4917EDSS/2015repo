@@ -22,14 +22,18 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	leftDoubleController->SetAbsoluteTolerance(5);
 	leftDoubleController->SetOutputRange(-1,1);
 
-	leftController = new PIDController(0.00000001,0.5,0, leftEncoder, leftDoubleController);
-	rightController = new PIDController(0.00000001,0.5,0, rightEncoder, rightDoubleController);
+	leftController = new PIDController(1.60,0.00008,0, leftEncoder, leftDoubleController);
+	rightController = new PIDController(1.60,0.00008,0, rightEncoder, rightDoubleController);
 	rightController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
 	leftController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
 	lastSpeed = 0;
 
 	rightEncoder->SetDistancePerPulse(DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
 	leftEncoder->SetDistancePerPulse(DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
+	rightController->Disable();
+	rightDoubleController->Disable();
+	leftController->Disable();
+	leftDoubleController->Disable();
 }
 
 void DrivetrainSub::InitDefaultCommand()
@@ -50,23 +54,23 @@ void DrivetrainSub::Drive(float leftSpeed, float rightSpeed) {
 }
 
 void DrivetrainSub::PIDDrive(float leftSpeed, float rightSpeed) {
-	leftDoubleController->PIDWrite(1000*leftSpeed);
-	rightDoubleController->PIDWrite(1000*rightSpeed);
+	leftDoubleController->PIDWrite(MAX_SPEED_EV*leftSpeed);
+	rightDoubleController->PIDWrite(MAX_SPEED_EV*rightSpeed);
 }
 
 void DrivetrainSub::SetP(float p){
-	leftDoubleController->GetPIDController()->SetPID(p,leftDoubleController->GetPIDController()->GetI(),leftDoubleController->GetPIDController()->GetD());
-	rightDoubleController->GetPIDController()->SetPID(p,rightDoubleController->GetPIDController()->GetI(),rightDoubleController->GetPIDController()->GetD());
+	leftController->SetPID(p,leftController->GetI(),leftController->GetD());
+	rightController->SetPID(p,rightController->GetI(),rightController->GetD());
 }
 float DrivetrainSub::GetP(){
-	return leftDoubleController->GetPIDController()->GetP();
+	return leftController->GetP();
 }
 void DrivetrainSub::SetI(float i){
-	leftDoubleController->GetPIDController()->SetPID(leftDoubleController->GetPIDController()->GetP(),i,leftDoubleController->GetPIDController()->GetD());
-	rightDoubleController->GetPIDController()->SetPID(rightDoubleController->GetPIDController()->GetP(),i,rightDoubleController->GetPIDController()->GetD());
+	leftController->SetPID(leftController->GetP(),i,leftController->GetD());
+	rightController->SetPID(rightController->GetP(),i,rightController->GetD());
 }
 float DrivetrainSub::GetI(){
-	return leftDoubleController->GetPIDController()->GetI();
+	return leftController->GetI();
 }
 
 int DrivetrainSub::GetRawLeftEnc(){
@@ -98,13 +102,26 @@ int DrivetrainSub::GetControls()
 {
 	return controlState;
 }
-void DrivetrainSub::EnablePID(){
+void DrivetrainSub::EnableDistancePID(){
+	leftDoubleController->GetPIDController()->SetPID(leftDoubleController->GetPIDController()->GetP(),leftDoubleController->GetPIDController()->GetI()*2,leftDoubleController->GetPIDController()->GetD());
+	rightDoubleController->GetPIDController()->SetPID(rightDoubleController->GetPIDController()->GetP(),rightDoubleController->GetPIDController()->GetI()*2,rightDoubleController->GetPIDController()->GetD());
 	leftController->Enable();
 	rightController->Enable();
 	leftDoubleController->Enable();
 	rightDoubleController->Enable();
+
 }
-void DrivetrainSub::DisablePID(){
+void DrivetrainSub::EnableSpeedPID(){
+	leftDoubleController->Enable();
+	rightDoubleController->Enable();
+}
+void DrivetrainSub::DisableSpeedPID(){
+	leftDoubleController->Disable();
+	rightDoubleController->Disable();
+}
+void DrivetrainSub::DisableDistancePID(){
+	leftDoubleController->GetPIDController()->SetPID(leftDoubleController->GetPIDController()->GetP(),leftDoubleController->GetPIDController()->GetI()/2.0,leftDoubleController->GetPIDController()->GetD());
+	rightDoubleController->GetPIDController()->SetPID(rightDoubleController->GetPIDController()->GetP(),rightDoubleController->GetPIDController()->GetI()/2.0,rightDoubleController->GetPIDController()->GetD());
 	leftController->Disable();
 	rightController->Disable();
 	leftDoubleController->Disable();

@@ -18,7 +18,7 @@ DriveTurnCmd::DriveTurnCmd(int turnDegrees, bool isClockwiseTurnParam, float dri
 void DriveTurnCmd::Initialize()
 {
 	rDrivetrainSub->ResetDrive();
-	rDrivetrainSub->EnablePID();
+	rDrivetrainSub->EnableDistancePID();
 	if (isClockwiseTurn)
 	{
 //		rDrivetrainSub->Drive(driveSpeed, -driveSpeed);
@@ -62,7 +62,7 @@ bool DriveTurnCmd::IsFinished()
 void DriveTurnCmd::End()
 {
 	rDrivetrainSub->Drive(0, 0);
-	rDrivetrainSub->DisablePID();
+	rDrivetrainSub->DisableDistancePID();
 }
 
 // Called when another command which requires one or more of the same

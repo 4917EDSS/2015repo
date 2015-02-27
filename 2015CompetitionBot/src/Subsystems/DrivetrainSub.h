@@ -41,8 +41,10 @@ public:
 	int GetRightEnc();
 	void ToggleControls();
 	int GetControls();
-	void EnablePID();
-	void DisablePID();
+	void EnableDistancePID();
+	void DisableDistancePID();
+	void EnableSpeedPID();
+	void DisableSpeedPID();
 	void SetLeftSetpoint(int setpoint, float speed);
 	void SetRightSetpoint(int setpoint, float speed);
 	bool isLeftOnTarget();

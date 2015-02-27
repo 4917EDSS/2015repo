@@ -43,9 +43,9 @@ private:
 		SmartDashboard::PutData("Set Locks Open", new SetLocksCmd(LOCKS_OPEN));
 		SmartDashboard::PutData("Set Locks Closed", new SetLocksCmd(LOCKS_CLOSED));
 		SmartDashboard::PutData("Set Arms Closed", new SetArmsCmd(ARMS_CLOSED));
-		SmartDashboard::PutData("Go forward 2 meters half speed", new DriveStraightCmd(2000, 500));
+		SmartDashboard::PutData("Go forward 2 meters half speed", new DriveStraightCmd(2000, MAX_SPEED_EV/2));
 		SmartDashboard::PutData("Go backward 2 meters half speed", new DriveStraightCmd(-2000, 500));
-		SmartDashboard::PutData("Go forward 3 meters full speed", new DriveStraightCmd(3000, 1000));
+		SmartDashboard::PutData("Go forward 3 meters full speed", new DriveStraightCmd(3000, MAX_SPEED_EV));
 		SmartDashboard::PutData("RESET drivetrain encoders", new ResetDrivetrainCmd());
 		SmartDashboard::PutData("clockwise half speed 90 degrees", new DriveTurnCmd(90,true,0.5));
 		SmartDashboard::PutData("counterclockwise full speed 180 deg",new DriveTurnCmd(180,false,1.0));
@@ -56,14 +56,9 @@ private:
 		SmartDashboard::PutData("AUTO: Basic Drive forward two meters", new AutoDriveForwardsGrp());
 		SmartDashboard::PutData("AUTO: Drives straight, moves a bin", new AutoOneBinGrp());
 		SmartDashboard::PutData("AUTO: picks up one tote and bin, drives to auto zone", new AutoOneToteOneBinGrp());
-		SmartDashboard::PutData("inc p big", new AdjustPIDCmd('p',10));
-		SmartDashboard::PutData("inc p small", new AdjustPIDCmd('p',2));
-		SmartDashboard::PutData("dec p small", new AdjustPIDCmd('p', 0.5));
-		SmartDashboard::PutData("dec p big", new AdjustPIDCmd('p', 0.1));
-		SmartDashboard::PutData("inc i big", new AdjustPIDCmd('i', 10));
-		SmartDashboard::PutData("inc i small", new AdjustPIDCmd('i', 2));
-		SmartDashboard::PutData("dec i small", new AdjustPIDCmd('i', 0.5));
-		SmartDashboard::PutData("dec i big", new AdjustPIDCmd('i', 0.1));
+		SmartDashboard::PutData("inc p big", new AdjustPIDCmd());
+		SmartDashboard::PutNumber("p value", CommandBase::rDrivetrainSub->GetP()*1000);
+		SmartDashboard::PutNumber("i value", CommandBase::rDrivetrainSub->GetI()*1000);
 
 
 		// TODO: initialize all air solenoids to values
@@ -113,8 +108,10 @@ private:
 		SmartDashboard::PutNumber("Left Wheel Encoder Speed",CommandBase::rDrivetrainSub->GetLeftEncoderRate());
 		SmartDashboard::PutNumber("Right Wheel Encoder Speed",CommandBase::rDrivetrainSub->GetRightEncoderRate());
 		SmartDashboard::PutBoolean("Drive Style", CommandBase::rDrivetrainSub->GetControls());
-		SmartDashboard::PutFloat("P on drivetrain",CommandBase::rDrivetrainSub->GetP());
+		SmartDashboard::PutNumber("P on drivetrain",CommandBase::rDrivetrainSub->GetP());
 		SmartDashboard::PutNumber("I on drivetrain",CommandBase::rDrivetrainSub->GetI());
+		SmartDashboard::PutBoolean("left on target", CommandBase::rDrivetrainSub->isLeftOnTarget());
+		SmartDashboard::PutBoolean("right on target", CommandBase::rDrivetrainSub->isRightOnTarget());
 	}
 
 	void TestPeriodic()
