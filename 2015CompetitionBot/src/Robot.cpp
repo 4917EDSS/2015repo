@@ -18,6 +18,7 @@
 #include "Commands/ResetDrivetrainCmd.h"
 #include "Commands/AutoOneToteGrp.h"
 #include "Commands/AdjustPIDCmd.h"
+#include "Commands/AutoDropStackGrp.h"
 
 class Robot: public IterativeRobot
 {
@@ -33,13 +34,19 @@ private:
 
 		autoOptions = new SendableChooser();
 		autoOptions->AddDefault("Pick Up Box Default Test", new PickUpBoxGrp());
+		autoOptions->AddObject("Drive forward starting at auto line", new AutoDriveForwardsGrp());
+		autoOptions->AddObject("Takes a stack from the locks and places it on ground", new AutoDropStackGrp());
+		autoOptions->AddObject("Moves one bin to auto zone", new AutoOneBinGrp());
+		autoOptions->AddObject("Moves one tote to auto zone", new AutoOneToteGrp());
+		autoOptions->AddObject("Moves one bin and one tote to auto zone", new AutoOneToteOneBinGrp());
+		autoOptions->AddObject("Moves all three totes to auto zone, assuming two bins are moved", new AutoThreeToteGrp());
 		autoOptions->AddObject("Toggle Jaws Object Test", new ToggleJawsCmd());
 		SmartDashboard::PutData("Autonomous Delay Options", autoOptions);
 
 		CameraServer::GetInstance()->SetQuality(50);
 		//the camera name (ex "cam0") can be found through the roborio web interface
 		CameraServer::GetInstance()->StartAutomaticCapture(CAMERA_NAME);
-		SmartDashboard::PutData("intake Until Limit Command", new IntakeUntilLimitCmd());
+		SmartDashboard::PutData("Intake Until Limit Command", new IntakeUntilLimitCmd());
 		SmartDashboard::PutData("Set Locks Open", new SetLocksCmd(LOCKS_OPEN));
 		SmartDashboard::PutData("Set Locks Closed", new SetLocksCmd(LOCKS_CLOSED));
 		SmartDashboard::PutData("Set Arms Closed", new SetArmsCmd(ARMS_CLOSED));

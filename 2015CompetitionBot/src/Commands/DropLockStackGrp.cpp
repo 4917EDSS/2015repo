@@ -1,14 +1,19 @@
-#include "AutoDriveForwardsGrp.h"
+#include <Commands/DropLockStackGrp.h>
+#include "SetLiftHeightCmd.h"
+#include "SetArmsCmd.h"
+#include "SetLocksCmd.h"
 #include "RobotParameters.h"
-#include "DriveStraightCmd.h"
 
-/*
- * Place on the edge of the auto zone facing the auto zone
- */
-
-AutoDriveForwardsGrp::AutoDriveForwardsGrp()
+DropLockStackGrp::DropLockStackGrp()
 {
-	AddSequential(new DriveStraightCmd(DRIVE_INTO_AUTON_ZONE_MM, MAX_SPEED_EV/2));
+	AddSequential(new SetArmsCmd(ARMS_OPEN));
+	AddSequential(new SetLiftHeightCmd(LOCK_GRAB_STACK_EV));
+	AddSequential(new SetArmsCmd(ARMS_CLOSED));
+	AddSequential(new SetLiftHeightCmd(TRANSFER_EV));
+	AddSequential(new SetLocksCmd(LOCKS_OPEN));
+	AddSequential(new SetLiftHeightCmd(SCORE_HEIGHT_EV));
+
+
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

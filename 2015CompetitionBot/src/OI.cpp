@@ -7,10 +7,10 @@
 #include "Commands/ToggleJawsCmd.h"
 #include "Commands/SetLiftHeightCmd.h"
 #include "Commands/DropStackGrp.h"
-#include "Commands/GrabStackGrp.h"
 #include "Commands/EmergencyStopCmd.h"
 #include "Commands/ToggleDriveStyleCmd.h"
 #include "Commands/QuickStackGrp.h"
+#include "Commands/DropLockStackGrp.h"
 #include "RobotParameters.h"
 
 
@@ -38,8 +38,8 @@ OI::OI()
 	oDropOnFiveStackBtn->WhenPressed(new SetLiftHeightCmd(FIVE_STACK_EV));
 	oDropStackBtn = new JoystickButton(oController, ODropStackBtn);
 	oDropStackBtn->WhenPressed(new DropStackGrp());
-	oGrabStackBtn = new JoystickButton(oController, OGrabStackBtn);
-	oGrabStackBtn->WhenPressed(new GrabStackGrp());
+	oDropLockStackBtn = new JoystickButton(oController, ODropLockStackBtn);
+	oDropLockStackBtn->WhenPressed(new DropLockStackGrp());
 	dToggleDriveControlBtn = new JoystickButton(dController, DToggleDriveControlBtn);
 	dToggleDriveControlBtn->WhenPressed(new ToggleDriveStyleCmd());
 	oEmergencyStopBtn1 = new JoystickButton(oController, ODEmergencyStopBtn1);

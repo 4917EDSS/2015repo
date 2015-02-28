@@ -73,6 +73,8 @@
 	#define SIX_STACK_EV 6296
 	#define TOP_LIMIT_EV 6296 //5 and 6 stacks not tested.
 
+	#define LOCK_GRAB_STACK_EV 2000  //not tested
+
 
 	#define LIFT_ENCODER_SLOWDOWN_DISTANCE 200
 
@@ -101,6 +103,8 @@
 	#define FIVE_STACK_EV 7550
 	#define TOP_LIMIT_EV 7884 //5 and 6 stacks not tested.
 	#define LIFT_ENCODER_SLOWDOWN_DISTANCE 100	//200
+
+	#define LOCK_GRAB_STACK_EV 1900  //not tested
 
 
 
