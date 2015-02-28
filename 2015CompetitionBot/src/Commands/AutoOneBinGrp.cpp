@@ -5,6 +5,7 @@
 #include "SetJawsCmd.h"
 #include "SetLocksCmd.h"
 #include "ResetLiftEncoderCmd.h"
+#include "SetLiftHeightCmd.h"
 
 /*
  * Place the robot beside the bin with the arms towards the bin on the auto zone side. Arms should be just under the handles.
