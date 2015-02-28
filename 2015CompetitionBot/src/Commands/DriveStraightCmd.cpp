@@ -36,6 +36,7 @@ void DriveStraightCmd::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool DriveStraightCmd::IsFinished()
 {
+	/*
 	counter++;
 	if (counter>5000){
 
@@ -48,8 +49,8 @@ bool DriveStraightCmd::IsFinished()
 		previousRightEncoder = rDrivetrainSub->GetRightEnc();
 
 		counter = 0;
-	}
-	return false;
+	}*/
+	return rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();
 }
 
 // Called once after isFinished returns true

@@ -44,8 +44,8 @@ OI::OI()
 	dToggleDriveControlBtn->WhenPressed(new ToggleDriveStyleCmd());
 	oEmergencyStopBtn1 = new JoystickButton(oController, ODEmergencyStopBtn1);
 	oEmergencyStopBtn1->WhenPressed(new EmergencyStopCmd());
-	oQuickStackBtn ->WhenPressed(new QuickStackGrp());
 	oQuickStackBtn = new JoystickButton(oController, OQuickStackBtn);
+	oQuickStackBtn ->WhenPressed(new QuickStackGrp());
 	dEmergencyStopBtn1 = new JoystickButton(dController, ODEmergencyStopBtn1);
 	dEmergencyStopBtn1->WhenPressed(new EmergencyStopCmd());
 	dEmergencyStopBtn2 = new JoystickButton(dController, ODEmergencyStopBtn2);

@@ -9,6 +9,7 @@ DropLockStackGrp::DropLockStackGrp()
 	AddSequential(new SetArmsCmd(ARMS_OPEN));
 	AddSequential(new SetLiftHeightCmd(LOCK_GRAB_STACK_EV));
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
+	AddSequential(new WaitCommand(ARMS_CLOSE_DELAY));
 	AddSequential(new SetLiftHeightCmd(TRANSFER_EV));
 	AddSequential(new SetLocksCmd(LOCKS_OPEN));
 	AddSequential(new SetLiftHeightCmd(SCORE_HEIGHT_EV));

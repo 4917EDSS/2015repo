@@ -1,6 +1,7 @@
 #include "CameraSub.h"
 #include "../RobotMap.h"
 #include "../Commands/CameraUpdateCmd.h"
+#include "RobotParameters.h"
 
 CameraSub::CameraSub() :
 		Subsystem("ExampleSubsystem")
@@ -8,7 +9,7 @@ CameraSub::CameraSub() :
 	 // create an image
 		frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 		//the camera name (ex "cam0") can be found through the roborio web interface
-		imaqError = IMAQdxOpenCamera("cam0", IMAQdxCameraControlModeController, &session);
+		imaqError = IMAQdxOpenCamera(CAMERA_NAME, IMAQdxCameraControlModeController, &session);
 		if(imaqError != IMAQdxErrorSuccess) {
 			DriverStation::ReportError("IMAQdxOpenCamera error: " + std::to_string((long)imaqError) + "\n");
 		}

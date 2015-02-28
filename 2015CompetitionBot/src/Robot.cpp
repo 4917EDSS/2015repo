@@ -33,31 +33,28 @@ private:
 		lw = LiveWindow::GetInstance();
 
 		autoOptions = new SendableChooser();
-		autoOptions->AddDefault("Pick Up Box Default Test", new PickUpBoxGrp());
-		autoOptions->AddObject("Drive forward starting at auto line", new AutoDriveForwardsGrp());
-		autoOptions->AddObject("Takes a stack from the locks and places it on ground", new AutoDropStackGrp());
+		autoOptions->AddDefault("Drive forward starting at auto line", new AutoDriveForwardsGrp());
 		autoOptions->AddObject("Moves one bin to auto zone", new AutoOneBinGrp());
 		autoOptions->AddObject("Moves one tote to auto zone", new AutoOneToteGrp());
 		autoOptions->AddObject("Moves one bin and one tote to auto zone", new AutoOneToteOneBinGrp());
 		autoOptions->AddObject("Moves all three totes to auto zone, assuming two bins are moved", new AutoThreeToteGrp());
-		autoOptions->AddObject("Toggle Jaws Object Test", new ToggleJawsCmd());
-		SmartDashboard::PutData("Autonomous Delay Options", autoOptions);
+		SmartDashboard::PutData("Autonomous selector", autoOptions);
+		autoCommand = 0;
 
-		CameraServer::GetInstance()->SetQuality(50);
-		//the camera name (ex "cam0") can be found through the roborio web interface
-		CameraServer::GetInstance()->StartAutomaticCapture(CAMERA_NAME);
+		//CameraServer::GetInstance()->SetQuality(50);
+		//CameraServer::GetInstance()->StartAutomaticCapture(CAMERA_NAME);
 		SmartDashboard::PutData("Intake Until Limit Command", new IntakeUntilLimitCmd());
 		SmartDashboard::PutData("Set Locks Open", new SetLocksCmd(LOCKS_OPEN));
 		SmartDashboard::PutData("Set Locks Closed", new SetLocksCmd(LOCKS_CLOSED));
 		SmartDashboard::PutData("Set Arms Closed", new SetArmsCmd(ARMS_CLOSED));
 		SmartDashboard::PutData("Go forward 2 meters half speed", new DriveStraightCmd(2000, MAX_SPEED_EV/2));
-		SmartDashboard::PutData("Go backward 2 meters half speed", new DriveStraightCmd(-2000, 500));
+		SmartDashboard::PutData("Go backward 2 meters half speed", new DriveStraightCmd(-2000, MAX_SPEED_EV/2));
 		SmartDashboard::PutData("Go forward 3 meters full speed", new DriveStraightCmd(3000, MAX_SPEED_EV));
 		SmartDashboard::PutData("RESET drivetrain encoders", new ResetDrivetrainCmd());
 		SmartDashboard::PutData("clockwise half speed 90 degrees", new DriveTurnCmd(90,true,MAX_SPEED_EV/2));
 		SmartDashboard::PutData("counterclockwise full speed 180 deg",new DriveTurnCmd(180,false,MAX_SPEED_EV));
-		SmartDashboard::PutData("Go backwards 4 meters half speed", new DriveStraightCmd(-4000, 0.5));
-		SmartDashboard::PutData("counterclockwise full speed 180 deg", new DriveTurnCmd(180,false,1.0));
+		SmartDashboard::PutData("Go backwards 4 meters half speed", new DriveStraightCmd(-4000, MAX_SPEED_EV/2));
+		SmartDashboard::PutData("counterclockwise full speed 180 deg", new DriveTurnCmd(180,false,MAX_SPEED_EV));
 		SmartDashboard::PutData("AUTO: One Tote, Drive to auto zone", new AutoOneToteGrp());
 		SmartDashboard::PutData("AUTO: Three tote, drive to auto zone, and drop", new AutoThreeToteGrp());
 		SmartDashboard::PutData("AUTO: Basic Drive forward two meters", new AutoDriveForwardsGrp());

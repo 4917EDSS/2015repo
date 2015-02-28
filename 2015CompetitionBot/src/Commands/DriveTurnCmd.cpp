@@ -42,6 +42,7 @@ void DriveTurnCmd::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool DriveTurnCmd::IsFinished()
  {
+	/*
 	counter++;
 	if (counter>50){
 
@@ -54,8 +55,8 @@ bool DriveTurnCmd::IsFinished()
 		previousRightEncoder = rDrivetrainSub->GetRightEnc();
 
 		counter = 0;
-	}
-	return false;
+	}*/
+	return rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();;
 }
 
 // Called once after isFinished returns true

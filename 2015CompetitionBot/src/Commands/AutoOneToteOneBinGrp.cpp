@@ -18,12 +18,9 @@ AutoOneToteOneBinGrp::AutoOneToteOneBinGrp()
 {
 	AddParallel(new SetLocksCmd(LOCKS_OPEN));
 	AddSequential(new SetJawsCmd(JAWS_OPEN));
-	AddParallel(new SetArmsCmd(ARMS_CLOSED));
-	AddSequential(new WaitCommand(ARMS_CLOSE_DELAY));
-	AddSequential(new SetLiftHeightCmd(ONE_STACK_EV));
+	AddSequential(new SetJawsCmd(ARMS_OPEN));
+	AddSequential(new SetLiftHeightCmd(GREEN_BIN_ABOVE_TOTE_EV));
 	AddSequential(new DriveStraightCmd(DRIVE_ONE_GREEN_BIN, MAX_SPEED_EV/2));
-	AddSequential(new SetArmsCmd(ARMS_OPEN));
-	AddSequential(new WaitCommand(ARMS_OPEN_DELAY));
 	AddSequential(new ResetLiftEncoderCmd());
 	AddParallel(new IntakeUntilLimitCmd());
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
