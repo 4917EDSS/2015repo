@@ -10,6 +10,7 @@
 #include "Commands/GrabStackGrp.h"
 #include "Commands/EmergencyStopCmd.h"
 #include "Commands/ToggleDriveStyleCmd.h"
+#include "Commands/QuickStackGrp.h"
 #include "RobotParameters.h"
 
 
@@ -43,8 +44,8 @@ OI::OI()
 	dToggleDriveControlBtn->WhenPressed(new ToggleDriveStyleCmd());
 	oEmergencyStopBtn1 = new JoystickButton(oController, ODEmergencyStopBtn1);
 	oEmergencyStopBtn1->WhenPressed(new EmergencyStopCmd());
-	oEmergencyStopBtn2 = new JoystickButton(oController, ODEmergencyStopBtn2);
-	oEmergencyStopBtn2->WhenPressed(new EmergencyStopCmd());
+	oQuickStackBtn ->WhenPressed(new QuickStackGrp());
+	oQuickStackBtn = new JoystickButton(oController, OQuickStackBtn);
 	dEmergencyStopBtn1 = new JoystickButton(dController, ODEmergencyStopBtn1);
 	dEmergencyStopBtn1->WhenPressed(new EmergencyStopCmd());
 	dEmergencyStopBtn2 = new JoystickButton(dController, ODEmergencyStopBtn2);

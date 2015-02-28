@@ -45,6 +45,7 @@
 //These two buttons are used on both controllers.
 #define ODEmergencyStopBtn1 11
 #define ODEmergencyStopBtn2 12
+#define OQuickStackBtn 12
 
 //Axis
 #define ORightVerticalAxis 3
@@ -74,9 +75,10 @@ private:
 	JoystickButton* oGrabStackBtn;
 	JoystickButton* dToggleDriveControlBtn;
 	JoystickButton* oEmergencyStopBtn1;
-	JoystickButton* oEmergencyStopBtn2;
+	//JoystickButton* oEmergencyStopBtn2;
 	JoystickButton* dEmergencyStopBtn1;
 	JoystickButton* dEmergencyStopBtn2;
+	JoystickButton* oQuickStackBtn;
 	float getStick(Joystick* stick, int axis);
 
 public:
