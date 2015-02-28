@@ -4,7 +4,7 @@
 
 // #define COMPETITION_BOT for big green bot
 // #define PRACTICE_BOT for practice one
-#define COMPETITION_BOT
+#define PRACTICE_BOT
 
 
 
@@ -29,7 +29,7 @@
 #define CAMERA_NAME "cam1"
 
 #define CTRLR_HOR_INTAKE_TOLERANCE 0.8
-#define DRIVE_DIST_TOLERANCE 100
+#define DRIVE_DIST_TOLERANCE 30
 
 #define LOCKS_CLOSE_DELAY .3
 #define ARMS_OPEN_DELAY .3
@@ -52,6 +52,8 @@
 #define STAGING_TO_AUTO_DISTANCE 2178
 #define BACK_OFF_DISTANCE 700
 
+#define ENCODER_CONVERSION_FACTOR 4
+
 //ONLY FOR BOT SPECIFIC STUFF
 #ifdef PRACTICE_BOT
 
@@ -68,22 +70,17 @@
 	#define FIVE_STACK_EV 6296
 	#define SIX_STACK_EV 6296
 	#define TOP_LIMIT_EV 6296 //5 and 6 stacks not tested.
-	#define ONE_METER_EV 5000
 
 
-	#define ENCODER_CONVERSION_FACTOR 4
 	#define LIFT_ENCODER_SLOWDOWN_DISTANCE 200
 
 	//DRIVE ENCODER VALS
 	//millimeters/tick
-	#define DISTANCE_PER_PULSE 0.277
+	#define DISTANCE_PER_PULSE 2000.0/7920.0
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
-	#define NINETY_DEGREE_TURN_EV 2700
-	//So 30 ticks on the encoder forward and back means 1 degree of the entire robot turning.
-	#define DEGREE_ROTATE_TO_ENCODER_FACTOR 30
+	#define DISTANCE_PER_DEGREE 745.0/90.0
 
-	//AUTO DEFINES
-	#define DISTANCE_BETWEEN_TOTES 2089
+	#define MAX_SPEED_EV 2700
 #endif
 
 //ONLY FOR BOT SPECIFIC STUFF
@@ -101,17 +98,14 @@
 	#define TOP_LIMIT_EV 7884 //5 and 6 stacks not tested.
 	#define LIFT_ENCODER_SLOWDOWN_DISTANCE 100	//200
 
-	#define ONE_METER_EV 5350
 
 
 	//DRIVE ENCODER VALS
 	//millimeters/tick
 	#define DISTANCE_PER_PULSE 2000.0/10700.0
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
-	#define NINETY_DEGREE_TURN_EV 4100
-	//So 30 ticks on the encoder forward and back means 1 degree of the entire robot turning.
-	#define DEGREE_ROTATE_TO_ENCODER_FACTOR 45.56
-	#define ENCODER_CONVERSION_FACTOR 4
+	#define DISTANCE_PER_DEGREE
+	#define MAX_SPEED_EV 2700
 
 #endif
 

@@ -10,6 +10,9 @@ private:
 	int turnEncoderValues;
 	bool isClockwiseTurn;
 	float driveSpeed;
+	int previousRightEncoder;
+	int previousLeftEncoder;
+	int counter;
 public:
 	DriveTurnCmd(int turnDegrees, bool isClockwiseTurnParam, float driveSpeedParam);
 	void Initialize();

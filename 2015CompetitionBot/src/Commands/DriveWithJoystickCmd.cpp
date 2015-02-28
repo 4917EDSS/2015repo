@@ -10,7 +10,7 @@ DriveWithJoystickCmd::DriveWithJoystickCmd()
 
 void DriveWithJoystickCmd::Initialize()
 {
-	rDrivetrainSub->DisablePID();
+	rDrivetrainSub->EnableSpeedPID();
 }
 
 void DriveWithJoystickCmd::Execute()
@@ -42,7 +42,9 @@ void DriveWithJoystickCmd::Execute()
 		{
 			previousRightSpeed = oi->DGetRightVer();
 		}
-		rDrivetrainSub->Drive(previousLeftSpeed, previousRightSpeed);
+
+		rDrivetrainSub->DisableSpeedPID();
+		rDrivetrainSub->Drive(oi->DGetLeftVer(), oi->DGetRightVer());
 		SmartDashboard::PutNumber("leftStickValue", oi->DGetLeftVer());
 	}
 
@@ -60,7 +62,20 @@ void DriveWithJoystickCmd::Execute()
 		{
 			previousLeftSpeed = oi->DGetLeftVer();
 		}
-		rDrivetrainSub->Drive(previousLeftSpeed + oi->DGetRightHor(), previousLeftSpeed - oi->DGetRightHor());
+		if (oi->DGetRightHor()-previousRightSpeed > ACCELERATION_THRESHOLD)
+		{
+			previousRightSpeed += ACCELERATION_THRESHOLD;
+		}
+		else if (oi->DGetRightHor()-previousRightSpeed < -ACCELERATION_THRESHOLD)
+		{
+			previousRightSpeed -= ACCELERATION_THRESHOLD;
+		}
+		else
+		{
+			previousRightSpeed = oi->DGetRightHor();
+		}
+		rDrivetrainSub->EnableSpeedPID();
+		rDrivetrainSub->PIDDrive(previousLeftSpeed + previousRightSpeed, previousLeftSpeed - previousRightSpeed);
 		SmartDashboard::PutNumber("leftStickValue", oi->DGetLeftVer());
 	}
 }
@@ -72,8 +87,10 @@ bool DriveWithJoystickCmd::IsFinished()
 
 void DriveWithJoystickCmd::End()
 {
+	rDrivetrainSub->DisableSpeedPID();
 }
 
 void DriveWithJoystickCmd::Interrupted()
 {
+	End();
 }

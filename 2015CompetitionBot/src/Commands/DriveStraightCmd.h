@@ -12,6 +12,9 @@ private:
 	float rightSpeed;
 	float leftSpeed;
 	bool forward;
+	int previousLeftEncoder;
+	int previousRightEncoder;
+	int counter;
 
 public:
 	DriveStraightCmd(int driveDistanceMillimeters, float driveSpeedParam);

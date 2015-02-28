@@ -5,8 +5,11 @@ DriveTurnCmd::DriveTurnCmd(int turnDegrees, bool isClockwiseTurnParam, float dri
 {
 	driveSpeed = fabs(driveSpeedParam);
 	isClockwiseTurn = isClockwiseTurnParam;
-	turnEncoderValues = turnDegrees * DEGREE_ROTATE_TO_ENCODER_FACTOR;
+	turnEncoderValues = turnDegrees * DISTANCE_PER_DEGREE;
+	previousRightEncoder = 0;
+	previousLeftEncoder = 0;
 	Requires(rDrivetrainSub);
+	counter = 0;
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 }
@@ -15,7 +18,7 @@ DriveTurnCmd::DriveTurnCmd(int turnDegrees, bool isClockwiseTurnParam, float dri
 void DriveTurnCmd::Initialize()
 {
 	rDrivetrainSub->ResetDrive();
-	rDrivetrainSub->EnablePID();
+	rDrivetrainSub->EnableDistancePID();
 	if (isClockwiseTurn)
 	{
 //		rDrivetrainSub->Drive(driveSpeed, -driveSpeed);
@@ -31,45 +34,35 @@ void DriveTurnCmd::Initialize()
 }
 
 // Called repeatedly when this Command is scheduled to run
+// Called repeatedly when this Command is scheduled to run
 void DriveTurnCmd::Execute()
 {
-
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveTurnCmd::IsFinished()
-{
-	/*if (isClockwiseTurn)
-	{
-		if (rDrivetrainSub->GetRawLeftEnc() > turnEncoderValues && rDrivetrainSub->GetRawRightEnc() < -turnEncoderValues)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	else
-	{
-		if (rDrivetrainSub->GetRawLeftEnc() < -turnEncoderValues && rDrivetrainSub->GetRawRightEnc() > turnEncoderValues)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}*/
-	return rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();
+ {
+	counter++;
+	if (counter>50){
 
+		if (rDrivetrainSub->GetRightEnc() == previousRightEncoder
+				&& rDrivetrainSub->GetLeftEnc() == previousLeftEncoder) {
+			return true;
+		}
+
+		previousLeftEncoder = rDrivetrainSub->GetLeftEnc();
+		previousRightEncoder = rDrivetrainSub->GetRightEnc();
+
+		counter = 0;
+	}
+	return false;
 }
 
 // Called once after isFinished returns true
 void DriveTurnCmd::End()
 {
 	rDrivetrainSub->Drive(0, 0);
-	rDrivetrainSub->DisablePID();
+	rDrivetrainSub->DisableDistancePID();
 }
 
 // Called when another command which requires one or more of the same
