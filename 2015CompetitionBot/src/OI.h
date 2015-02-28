@@ -1,4 +1,4 @@
-#ifndef OI_H
+	#ifndef OI_H
 #define OI_H
 
 #include "WPILib.h"
@@ -38,7 +38,7 @@
 #define OLockToggleBtn 6
 #define OToggleJawsBtn 8
 #define OStackingBtn 7
-#define OGrabStackBtn 9
+#define ODropLockStackBtn 9
 #define ODropStackBtn 10
 #define DToggleDriveControlBtn 6
 
@@ -71,7 +71,7 @@ private:
 	JoystickButton* oDropOnFourStackBtn;
 	JoystickButton* oDropOnFiveStackBtn;
 	JoystickButton* oDropStackBtn;
-	JoystickButton* oGrabStackBtn;
+	JoystickButton* oDropLockStackBtn;
 	JoystickButton* dToggleDriveControlBtn;
 	JoystickButton* oEmergencyStopBtn1;
 	JoystickButton* oEmergencyStopBtn2;
