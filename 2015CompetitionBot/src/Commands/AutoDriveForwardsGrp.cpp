@@ -8,7 +8,7 @@
 
 AutoDriveForwardsGrp::AutoDriveForwardsGrp()
 {
-	AddSequential(new DriveStraightCmd(DRIVE_INTO_AUTON_ZONE_MM, .5));
+	AddSequential(new DriveStraightCmd(DRIVE_INTO_AUTON_ZONE_MM, MAX_SPEED_EV/2));
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
