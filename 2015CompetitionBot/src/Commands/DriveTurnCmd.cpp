@@ -43,7 +43,7 @@ void DriveTurnCmd::Execute()
 bool DriveTurnCmd::IsFinished()
  {
 	counter++;
-	if (counter>5){
+	if (counter>50){
 
 		if (rDrivetrainSub->GetRightEnc() == previousRightEncoder
 				&& rDrivetrainSub->GetLeftEnc() == previousLeftEncoder) {

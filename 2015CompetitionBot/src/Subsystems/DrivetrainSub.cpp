@@ -103,8 +103,8 @@ int DrivetrainSub::GetControls()
 	return controlState;
 }
 void DrivetrainSub::EnableDistancePID(){
-	leftDoubleController->GetPIDController()->SetPID(leftDoubleController->GetPIDController()->GetP(),leftDoubleController->GetPIDController()->GetI()*2,leftDoubleController->GetPIDController()->GetD());
-	rightDoubleController->GetPIDController()->SetPID(rightDoubleController->GetPIDController()->GetP(),rightDoubleController->GetPIDController()->GetI()*2,rightDoubleController->GetPIDController()->GetD());
+	//leftDoubleController->GetPIDController()->SetPID(leftDoubleController->GetPIDController()->GetP(),leftDoubleController->GetPIDController()->GetI()*2,leftDoubleController->GetPIDController()->GetD());
+	//rightDoubleController->GetPIDController()->SetPID(rightDoubleController->GetPIDController()->GetP(),rightDoubleController->GetPIDController()->GetI()*2,rightDoubleController->GetPIDController()->GetD());
 	leftController->Enable();
 	rightController->Enable();
 	leftDoubleController->Enable();
@@ -120,8 +120,8 @@ void DrivetrainSub::DisableSpeedPID(){
 	rightDoubleController->Disable();
 }
 void DrivetrainSub::DisableDistancePID(){
-	leftDoubleController->GetPIDController()->SetPID(leftDoubleController->GetPIDController()->GetP(),leftDoubleController->GetPIDController()->GetI()/2.0,leftDoubleController->GetPIDController()->GetD());
-	rightDoubleController->GetPIDController()->SetPID(rightDoubleController->GetPIDController()->GetP(),rightDoubleController->GetPIDController()->GetI()/2.0,rightDoubleController->GetPIDController()->GetD());
+	//leftDoubleController->GetPIDController()->SetPID(leftDoubleController->GetPIDController()->GetP(),leftDoubleController->GetPIDController()->GetI()/2.0,leftDoubleController->GetPIDController()->GetD());
+	//rightDoubleController->GetPIDController()->SetPID(rightDoubleController->GetPIDController()->GetP(),rightDoubleController->GetPIDController()->GetI()/2.0,rightDoubleController->GetPIDController()->GetD());
 	leftController->Disable();
 	rightController->Disable();
 	leftDoubleController->Disable();

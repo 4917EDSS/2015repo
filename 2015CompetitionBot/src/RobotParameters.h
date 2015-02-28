@@ -70,13 +70,13 @@
 	#define FIVE_STACK_EV 6296
 	#define SIX_STACK_EV 6296
 	#define TOP_LIMIT_EV 6296 //5 and 6 stacks not tested.
-	#define ONE_METER_EV 5000
+
 
 	#define LIFT_ENCODER_SLOWDOWN_DISTANCE 200
 
 	//DRIVE ENCODER VALS
 	//millimeters/tick
-	#define DISTANCE_PER_PULSE 2000.0/7850.0
+	#define DISTANCE_PER_PULSE 2000.0/7920.0
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
 	#define DISTANCE_PER_DEGREE 745.0/90.0
 
@@ -98,7 +98,6 @@
 	#define TOP_LIMIT_EV 7884 //5 and 6 stacks not tested.
 	#define LIFT_ENCODER_SLOWDOWN_DISTANCE 100	//200
 
-	#define ONE_METER_EV 5350
 
 
 	//DRIVE ENCODER VALS

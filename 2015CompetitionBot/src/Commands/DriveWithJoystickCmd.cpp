@@ -16,7 +16,7 @@ void DriveWithJoystickCmd::Initialize()
 void DriveWithJoystickCmd::Execute()
 {
 	if(rDrivetrainSub->GetControls() == TANK_DRIVE_CONTROLS)
-	{/*
+	{
 		if (oi->DGetLeftVer() - previousLeftSpeed > ACCELERATION_THRESHOLD)
 		{
 			previousLeftSpeed += ACCELERATION_THRESHOLD;
@@ -41,7 +41,7 @@ void DriveWithJoystickCmd::Execute()
 		else
 		{
 			previousRightSpeed = oi->DGetRightVer();
-		}*/
+		}
 
 		rDrivetrainSub->DisableSpeedPID();
 		rDrivetrainSub->Drive(oi->DGetLeftVer(), oi->DGetRightVer());
@@ -49,7 +49,7 @@ void DriveWithJoystickCmd::Execute()
 	}
 
 	else
-	{/*
+	{
 		if (oi->DGetLeftVer()-previousLeftSpeed > ACCELERATION_THRESHOLD)
 		{
 			previousLeftSpeed += ACCELERATION_THRESHOLD;
@@ -61,9 +61,21 @@ void DriveWithJoystickCmd::Execute()
 		else
 		{
 			previousLeftSpeed = oi->DGetLeftVer();
-		}*/
+		}
+		if (oi->DGetRightHor()-previousRightSpeed > ACCELERATION_THRESHOLD)
+		{
+			previousRightSpeed += ACCELERATION_THRESHOLD;
+		}
+		else if (oi->DGetRightHor()-previousRightSpeed < -ACCELERATION_THRESHOLD)
+		{
+			previousRightSpeed -= ACCELERATION_THRESHOLD;
+		}
+		else
+		{
+			previousRightSpeed = oi->DGetRightHor();
+		}
 		rDrivetrainSub->EnableSpeedPID();
-		rDrivetrainSub->PIDDrive(oi->DGetLeftVer() + oi->DGetRightHor(), oi->DGetLeftVer() - oi->DGetRightHor());
+		rDrivetrainSub->PIDDrive(previousLeftSpeed + previousRightSpeed, previousLeftSpeed - previousRightSpeed);
 		SmartDashboard::PutNumber("leftStickValue", oi->DGetLeftVer());
 	}
 }
