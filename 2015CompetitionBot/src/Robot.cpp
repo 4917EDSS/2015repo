@@ -12,6 +12,7 @@
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/DriveWithJoystickCmd.h"
 #include "Commands/AutoThreeToteGrp.h"
+#include "Commands/AutoThreeToteOneBinGrp.h"
 #include "Commands/AutoDriveForwardsGrp.h"
 #include "Commands/AutoOneBinGrp.h"
 #include "Commands/AutoOneToteOneBinGrp.h"
@@ -37,6 +38,7 @@ private:
 		autoOptions->AddObject("Moves one bin to auto zone", new AutoOneBinGrp());
 		autoOptions->AddObject("Moves one tote to auto zone", new AutoOneToteGrp());
 		autoOptions->AddObject("Moves one bin and one tote to auto zone", new AutoOneToteOneBinGrp());
+		autoOptions->AddObject("Moves three bin and one tote to auto zone", new AutoThreeToteOneBinGrp());
 		autoOptions->AddObject("Moves all three totes to auto zone, assuming two bins are moved", new AutoThreeToteGrp());
 		SmartDashboard::PutData("Autonomous selector", autoOptions);
 		autoCommand = 0;

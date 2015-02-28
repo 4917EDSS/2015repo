@@ -31,7 +31,6 @@ AutoThreeToteGrp::AutoThreeToteGrp()
 		AddSequential(new WaitCommand(ARMS_OPEN_DELAY));
 		AddSequential(new ResetLiftEncoderCmd());
 
-		AddSequential(new ResetLiftEncoderCmd());
 		AddSequential(new SetArmsCmd(ARMS_CLOSED));
 		AddSequential(new SetJawsCmd(JAWS_CLOSED));
 		AddSequential(new IntakeUntilLimitCmd());
