@@ -10,6 +10,7 @@
 #include "ResetLiftEncoderCmd.h"
 #include "IntakeUntilLimitCmd.h"
 #include "AutoDriveForwardsGrp.h"
+#include "AutoDropStackGrp.h"
 
 
 AutoTwoToteOneBinGrp::AutoTwoToteOneBinGrp()
@@ -22,7 +23,7 @@ AutoTwoToteOneBinGrp::AutoTwoToteOneBinGrp()
 	AddSequential(new ResetLiftEncoderCmd());
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
 	AddSequential(new WaitCommand(ARMS_CLOSE_DELAY));
-	AddParallel(new AutoDriveForwardsGrp(DISTANCE_BETWEEN_TOTES, MAX_SPEED_EV/2));
+	AddParallel(new DriveStraightCmd(DISTANCE_BETWEEN_TOTES, (float)MAX_SPEED_EV/2));
 	AddSequential(new SetLiftHeightCmd(TRANSFER_EV));
 	AddSequential(new SetLocksCmd(LOCKS_CLOSED));
 	AddSequential(new WaitCommand(LOCKS_CLOSE_DELAY));
@@ -34,7 +35,7 @@ AutoTwoToteOneBinGrp::AutoTwoToteOneBinGrp()
 	AddSequential(new IntakeUntilLimitCmd());
 	AddSequential(new SetLiftHeightCmd(SCORE_HEIGHT_EV));
 	AddSequential(new DriveTurnCmd(90, true, MAX_SPEED_EV/2));
-	AddSequential(new DriveStraightCmd(DRIVE_CENTER_TO_CENTER, MAX_SPEED_EV/2));
+	AddSequential(new DriveStraightCmd(DRIVE_CENTER_TO_CENTER, (float)MAX_SPEED_EV/2));
 	AddSequential(new AutoDropStackGrp());
 	AddSequential(new DriveStraightCmd(BACK_OFF_DISTANCE, MAX_SPEED_EV/2));
 
