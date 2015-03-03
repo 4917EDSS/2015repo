@@ -1,10 +1,13 @@
 #ifndef DrivetrainSub_H
 #define DrivetrainSub_H
 
+#include <Components/DriveTurnController.h>
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-#include "../Encoder4917.h"
-#include "../DoublePIDController.h"
+#include "../Components/Encoder4917.h"
+#include "../Components/DoublePIDController.h"
+#include "../Components/DrivetrainRotationMeasure.h"
+#include "../Components/DriveTurnController.h"
 
 class DrivetrainSub: public Subsystem
 {
@@ -19,9 +22,14 @@ private:
 	PIDController* leftController;
 	DoublePIDController* leftDoubleController;
 	DoublePIDController* rightDoubleController;
+	DrivetrainRotationMeasure* rotationMeasure;
+	DriveTurnController* turnOutput;
+	PIDController* turnController;
 
 	int controlState;
 	float lastSpeed;
+	float rightTurnModifier;
+	float leftTurnModifier;
 
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
@@ -51,6 +59,7 @@ public:
 	bool isRightOnTarget();
 	double GetLeftEncoderRate();
 	double GetRightEncoderRate();
+	void SetTurnModifier(float turnModifier);
 
 };
 

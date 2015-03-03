@@ -6,6 +6,9 @@
 DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C, int leftEncoder2C, int rightEncoder1C, int rightEncoder2C) :
 		Subsystem("DrivetrainSub")
 {
+	leftTurnModifier = 0;
+	rightTurnModifier = 0;
+
 	rightMotor = new Talon(rightMotorC);
 	leftMotor = new Talon(leftMotorC);
 	leftEncoderSpeed = new Encoder4917(leftEncoder1C, leftEncoder2C);
@@ -15,8 +18,8 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 
 	controlState = FPS_DRIVE_CONTROLS;
 
-	leftDoubleController = new DoublePIDController(leftEncoderSpeed, leftMotor);
-	rightDoubleController = new DoublePIDController(rightEncoderSpeed, rightMotor);
+	leftDoubleController = new DoublePIDController(leftEncoderSpeed, leftMotor, &leftTurnModifier);
+	rightDoubleController = new DoublePIDController(rightEncoderSpeed, rightMotor, &rightTurnModifier);
 	rightDoubleController->SetAbsoluteTolerance(5);
 	rightDoubleController->SetOutputRange(-1,1);
 	leftDoubleController->SetAbsoluteTolerance(5);
@@ -34,6 +37,14 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	rightDoubleController->Disable();
 	leftController->Disable();
 	leftDoubleController->Disable();
+
+	rotationMeasure = new DrivetrainRotationMeasure(leftEncoder, rightEncoder);
+	turnOutput = new DriveTurnController();
+
+	turnController = new PIDController(1,0,0, rotationMeasure, turnOutput);
+	turnController->SetAbsoluteTolerance(DRIVE_TURN_TOLERANCE);
+	turnController->SetSetpoint(0);
+	turnController->SetOutputRange(-MAX_SPEED_EV/4, MAX_SPEED_EV/44758);
 }
 
 void DrivetrainSub::InitDefaultCommand()
@@ -54,23 +65,29 @@ void DrivetrainSub::Drive(float leftSpeed, float rightSpeed) {
 }
 
 void DrivetrainSub::PIDDrive(float leftSpeed, float rightSpeed) {
+
 	leftDoubleController->PIDWrite(MAX_SPEED_EV*leftSpeed);
 	rightDoubleController->PIDWrite(MAX_SPEED_EV*rightSpeed);
 }
 
 void DrivetrainSub::SetP(float p){
-	leftController->SetPID(p,leftController->GetI(),leftController->GetD());
-	rightController->SetPID(p,rightController->GetI(),rightController->GetD());
+
+	turnController->SetPID(p,turnController->GetI(),turnController->GetD());
+
+//	leftController->SetPID(p,leftController->GetI(),leftController->GetD());
+//	rightController->SetPID(p,rightController->GetI(),rightController->GetD());
 }
 float DrivetrainSub::GetP(){
-	return leftController->GetP();
+	return turnController->GetP();
 }
 void DrivetrainSub::SetI(float i){
-	leftController->SetPID(leftController->GetP(),i,leftController->GetD());
-	rightController->SetPID(rightController->GetP(),i,rightController->GetD());
+	turnController->SetPID(turnController->GetP(),i,turnController->GetD());
+
+//	leftController->SetPID(leftController->GetP(),i,leftController->GetD());
+//	rightController->SetPID(rightController->GetP(),i,rightController->GetD());
 }
 float DrivetrainSub::GetI(){
-	return leftController->GetI();
+	return turnController->GetI();
 }
 
 int DrivetrainSub::GetRawLeftEnc(){
@@ -109,6 +126,10 @@ void DrivetrainSub::EnableDistancePID(){
 	rightController->Enable();
 	leftDoubleController->Enable();
 	rightDoubleController->Enable();
+	turnController->Enable();
+	turnController->SetSetpoint(0);
+	leftTurnModifier = 0;
+	rightTurnModifier = 0;
 
 }
 void DrivetrainSub::EnableSpeedPID(){
@@ -126,6 +147,9 @@ void DrivetrainSub::DisableDistancePID(){
 	rightController->Disable();
 	leftDoubleController->Disable();
 	rightDoubleController->Disable();
+	turnController->Disable();
+	leftTurnModifier = 0;
+	rightTurnModifier = 0;
 }
 void DrivetrainSub::SetLeftSetpoint(int setpoint, float speed){
 	// Negatives here are to fix a strange bug where different output ranges resulted in different speeds on either side
@@ -148,4 +172,11 @@ double DrivetrainSub::GetLeftEncoderRate(){
 }
 double DrivetrainSub::GetRightEncoderRate(){
 	return rightEncoder->GetRate();
+}
+void DrivetrainSub::SetTurnModifier(float turnModifier){
+
+	SmartDashboard::PutNumber("Drivetrain TurnModifier", turnModifier);
+	SmartDashboard::PutNumber("Drivetrain rotation", rotationMeasure->PIDGet());
+	leftTurnModifier = -turnModifier;
+	rightTurnModifier = turnModifier;
 }
