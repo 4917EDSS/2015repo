@@ -8,8 +8,8 @@
 AutoOneToteGrp::AutoOneToteGrp()
 {
 	AddSequential(new PickUpFirstBoxGrp());
-	AddSequential(new DriveTurnCmd( 90, true, .5));
-	AddSequential(new DriveStraightCmd(DRIVE_CENTER_TO_CENTER, .5));
+	AddSequential(new DriveTurnCmd( 90, true, MAX_SPEED_EV/2));
+	AddSequential(new DriveStraightCmd(DRIVE_CENTER_TO_CENTER, MAX_SPEED_EV/2));
 
 
 	// Add Commands here:

@@ -1,0 +1,16 @@
+1 bin and back into autozone(lines up behind bin facing perpendicular to driver station wall): 
+-doesn't release bin
+-too far backwards
+-doesn't intake bin 
+
+1 bin one tote into autozone(lines up on bin side parallel with driver station wall): 
+-turn is inconsistent 
+-distance is bit short
+-first movement is slow
+-slow/stalles after movement
+-doesn't intake tote
+1 tote into auto zone(on tote side facing parallel to driver station wall):
+-doesn't do the move part
+starting on autozone line and moving forward to stay in the zone:
+-add 5-10cm to the distance to acount for a possible loss of traction
+-is finished in 3 seconds

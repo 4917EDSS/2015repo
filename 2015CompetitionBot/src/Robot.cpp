@@ -38,7 +38,7 @@ private:
 		autoOptions->AddObject("Moves one bin to auto zone", new AutoOneBinGrp());
 		autoOptions->AddObject("Moves one tote to auto zone", new AutoOneToteGrp());
 		autoOptions->AddObject("Moves one bin and one tote to auto zone", new AutoOneToteOneBinGrp());
-		autoOptions->AddObject("Moves three bin and one tote to auto zone", new AutoThreeToteOneBinGrp());
+		autoOptions->AddObject("Moves three tote and one bin to auto zone", new AutoThreeToteOneBinGrp());
 		autoOptions->AddObject("Moves all three totes to auto zone, assuming two bins are moved", new AutoThreeToteGrp());
 		SmartDashboard::PutData("Autonomous selector", autoOptions);
 		autoCommand = 0;
@@ -62,7 +62,7 @@ private:
 		SmartDashboard::PutData("AUTO: Basic Drive forward two meters", new AutoDriveForwardsGrp());
 		SmartDashboard::PutData("AUTO: Drives straight, moves a bin", new AutoOneBinGrp());
 		SmartDashboard::PutData("AUTO: picks up one tote and bin, drives to auto zone", new AutoOneToteOneBinGrp());
-		SmartDashboard::PutData("inc p big", new AdjustPIDCmd());
+
 		SmartDashboard::PutNumber("p value", CommandBase::rDrivetrainSub->GetP()*1000);
 		SmartDashboard::PutNumber("i value", CommandBase::rDrivetrainSub->GetI()*1000);
 
