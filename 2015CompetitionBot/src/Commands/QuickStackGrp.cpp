@@ -12,7 +12,7 @@ QuickStackGrp::QuickStackGrp()
 	AddSequential(new WaitCommand(ARMS_OPEN_DELAY));
 	AddSequential(new SetLiftHeightCmd(ONE_STACK_EV));
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
-	AddSequential(new WaitCommand(ARMS_OPEN_DELAY));
+	AddSequential(new WaitCommand(ARMS_CLOSE_DELAY));
 	AddSequential(new SetLiftHeightCmd(TOTE_CHUTE_INTAKE_EV));
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
