@@ -6,6 +6,7 @@
  */
 
 #include "DoublePIDController.h"
+#include "RobotParameters.h"
 
 DoublePIDController::DoublePIDController(PIDSource* source, PIDOutput* output, float* modifier) : PIDOutput(){
 	speedController = new PIDController(0.0003,0.000075,0, source, output);

@@ -57,7 +57,14 @@ OI::OI()
 
 float OI::getStick(Joystick* controller, int axis){
 	float rawInput = controller->GetRawAxis(axis);
-	return (rawInput*fabs(rawInput));
+	if (axis > CONTROLLER_DEADZONE_VALUE)
+	{
+		return (rawInput*fabs(rawInput));
+	}
+	else
+	{
+		return 0.0;
+	}
 }
 
 //Controller vertical axis are inverted.

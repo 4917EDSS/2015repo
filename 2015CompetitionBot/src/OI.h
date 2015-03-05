@@ -57,6 +57,8 @@
 #define DLeftVerticalAxis 1
 #define DRightHorizontalAxis 2
 #define DLeftHorizontalAxis 0
+
+#define CONTROLLER_DEADZONE_VALUE 0.1
 class OI
 {
 private:
