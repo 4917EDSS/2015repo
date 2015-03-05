@@ -201,11 +201,8 @@ void LiftSub::Update()
 		liftMotor->Set(0);
 		onTargetCounter++;
 		stalledCycles = 0;
-		if(onTargetCounter > ENCODER_ZERO_IN_CYCLES)
-		{
-			onTarget = true;
-			onTargetCounter = 0;
-		}
+
+		onTarget = true;
 	}
 
 }

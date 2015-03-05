@@ -2,6 +2,7 @@
 #include "SetLiftHeightCmd.h"
 #include "SetArmsCmd.h"
 #include "SetLocksCmd.h"
+#include "SetJawsCmd.h"
 #include "RobotParameters.h"
 
 DropLockStackGrp::DropLockStackGrp()
@@ -12,6 +13,7 @@ DropLockStackGrp::DropLockStackGrp()
 	AddSequential(new WaitCommand(ARMS_CLOSE_DELAY));
 	AddSequential(new SetLiftHeightCmd(TRANSFER_EV));
 	AddSequential(new SetLocksCmd(LOCKS_OPEN));
+	AddSequential(new SetJawsCmd(JAWS_OPEN));
 	AddSequential(new SetLiftHeightCmd(SCORE_HEIGHT_EV));
 
 

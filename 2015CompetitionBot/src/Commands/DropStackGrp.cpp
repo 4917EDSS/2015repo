@@ -2,11 +2,14 @@
 #include "SetLiftHeightCmd.h"
 #include "GrabStackGrp.h"
 #include "RobotParameters.h"
+#include "SetJawsCmd.h"
 
 
 DropStackGrp::DropStackGrp()
 {
 	AddSequential(new GrabStackGrp());
+	AddSequential(new WaitCommand(LOCKS_OPEN_DELAY));
+	AddSequential(new SetJawsCmd(JAWS_OPEN));
 	AddSequential(new SetLiftHeightCmd(SCORE_HEIGHT_EV));
 
 

@@ -1,5 +1,6 @@
 #include "AutoOneGreyToteGrp.h"
 #include "RobotParameters.h"
+#include "SetLocksCmd.h"
 #include "ResetLiftEncoderCmd.h"
 #include "DriveStraightCmd.h"
 #include "PickUpBoxCmd.h"
@@ -10,9 +11,9 @@ AutoOneGreyToteGrp::AutoOneGreyToteGrp()
 	AddSequential (new ResetLiftEncoderCmd());
 	AddSequential (new SetLocksCmd(LOCKS_OPEN));
 	AddParallel (new IntakeUntilLimitCmd());
-	AddSequential (new DriveStraightCmd(DRIVE_INTO_LANDFILL_DISTANCE));
+	AddSequential (new DriveStraightCmd(DRIVE_INTO_LANDFILL_DISTANCE, MAX_SPEED_EV));
 	AddSequential (new PickUpBoxCmd());
-	AddSequential (new DriveStraightCmd(LANDFILL_TO_AUTO_ZONE_DISTANCE));
+	AddSequential (new DriveStraightCmd(LANDFILL_TO_AUTO_ZONE_DISTANCE, MAX_SPEED_EV));
 
 
 	// Add Commands here:
