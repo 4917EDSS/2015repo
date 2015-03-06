@@ -34,9 +34,9 @@
 
 #define LOCKS_CLOSE_DELAY .3
 #define LOCKS_OPEN_DELAY .4
-#define JAWS_CLOSE_DELAY .6
+#define JAWS_CLOSE_DELAY .8
 #define ARMS_OPEN_DELAY .3
-#define ARMS_CLOSE_DELAY .6
+#define ARMS_CLOSE_DELAY .7
 
 #define ENCODER_ZERO_IN_CYCLES 10
 #define STALL_RECHECK_RATE 4
@@ -80,7 +80,7 @@
 	#define SIX_STACK_EV 6296
 	#define TOP_LIMIT_EV 6296 //5 and 6 stacks not tested.
 
-	#define LOCK_GRAB_STACK_EV 2100
+	#define LOCK_GRAB_STACK_EV 2000
 
 
 	#define LIFT_ENCODER_SLOWDOWN_DISTANCE 200
@@ -113,7 +113,7 @@
 	#define TOP_LIMIT_EV 7884 //5 and 6 stacks not tested.
 	#define LIFT_ENCODER_SLOWDOWN_DISTANCE 100	//200
 
-	#define LOCK_GRAB_STACK_EV 2100  //not tested
+	#define LOCK_GRAB_STACK_EV 2000  //not tested
 
 
 
@@ -121,7 +121,7 @@
 	//millimeters/tick
 	#define DISTANCE_PER_PULSE 2000.0/10700.0
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
-	#define DISTANCE_PER_DEGREE
+	#define DISTANCE_PER_DEGREE 745.0/90.0
 	#define MAX_SPEED_EV 2700
 
 #endif

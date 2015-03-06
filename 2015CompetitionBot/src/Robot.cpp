@@ -66,6 +66,7 @@ private:
 		SmartDashboard::PutData("AUTO: Drives straight, moves a bin", new AutoOneBinGrp());
 		SmartDashboard::PutData("AUTO: picks up one tote and bin, drives to auto zone", new AutoOneToteOneBinGrp());
 
+		SmartDashboard::PutData("Set P and I", new AdjustPIDCmd());
 		SmartDashboard::PutNumber("p value", CommandBase::rDrivetrainSub->GetP()*1000);
 		SmartDashboard::PutNumber("i value", CommandBase::rDrivetrainSub->GetI()*1000);
 
@@ -117,8 +118,8 @@ private:
 		SmartDashboard::PutNumber("Left Wheel Encoder Speed",CommandBase::rDrivetrainSub->GetLeftEncoderRate());
 		SmartDashboard::PutNumber("Right Wheel Encoder Speed",CommandBase::rDrivetrainSub->GetRightEncoderRate());
 		SmartDashboard::PutBoolean("Drive Style", CommandBase::rDrivetrainSub->GetControls());
-		SmartDashboard::PutNumber("P on drivetrain",CommandBase::rDrivetrainSub->GetP());
-		SmartDashboard::PutNumber("I on drivetrain",CommandBase::rDrivetrainSub->GetI());
+		SmartDashboard::PutNumber("P on drivetrain",CommandBase::rDrivetrainSub->GetP()*1000);
+		SmartDashboard::PutNumber("I on drivetrain",CommandBase::rDrivetrainSub->GetI()*1000);
 		SmartDashboard::PutBoolean("left on target", CommandBase::rDrivetrainSub->isLeftOnTarget());
 		SmartDashboard::PutBoolean("right on target", CommandBase::rDrivetrainSub->isRightOnTarget());
 	}
