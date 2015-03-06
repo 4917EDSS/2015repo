@@ -10,7 +10,7 @@ DriveWithJoystickCmd::DriveWithJoystickCmd()
 
 void DriveWithJoystickCmd::Initialize()
 {
-	//rDrivetrainSub->EnableSpeedPID();
+	rDrivetrainSub->EnableSpeedPID();
 }
 
 void DriveWithJoystickCmd::Execute()
@@ -74,9 +74,8 @@ void DriveWithJoystickCmd::Execute()
 		{
 			previousRightSpeed = oi->DGetRightHor();
 		}
-		//Drive here should be PIDrive in order to drive with PIDs, wheneve they work.
-		//rDrivetrainSub->EnableSpeedPID();
-		rDrivetrainSub->Drive(previousLeftSpeed + previousRightSpeed, previousLeftSpeed - previousRightSpeed);
+		rDrivetrainSub->EnableSpeedPID();
+		rDrivetrainSub->PIDDrive(previousLeftSpeed + previousRightSpeed, previousLeftSpeed - previousRightSpeed);
 		SmartDashboard::PutNumber("leftStickValue", oi->DGetLeftVer());
 	}
 }
