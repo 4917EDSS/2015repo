@@ -19,10 +19,10 @@ DriveStraightCmd::DriveStraightCmd(int driveDistanceMillimeters, float driveSpee
 // Called just before this Command runs the first time
 void DriveStraightCmd::Initialize()
 {
+	/*rDrivetrainSub->ResetDrive();
+	rDrivetrainSub->Drive(leftSpeed, rightSpeed);*/
 	rDrivetrainSub->ResetDrive();
-	rDrivetrainSub->Drive(leftSpeed, rightSpeed);
-	rDrivetrainSub->ResetDrive();
-	//rDrivetrainSub->EnableDistancePID();
+	rDrivetrainSub->EnableDistancePID();
 	rDrivetrainSub->SetRightSetpoint(targetDistance, rightSpeed);
 	rDrivetrainSub->SetLeftSetpoint(targetDistance, leftSpeed);
 
@@ -36,7 +36,7 @@ void DriveStraightCmd::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool DriveStraightCmd::IsFinished()
 {
-
+	/*
 	counter++;
 	if (counter>5000){
 
@@ -49,8 +49,8 @@ bool DriveStraightCmd::IsFinished()
 		previousRightEncoder = rDrivetrainSub->GetRightEnc();
 
 		counter = 0;
-	}
-	//return rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();
+	}*/
+	return rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();
 }
 
 // Called once after isFinished returns true
