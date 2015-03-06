@@ -9,7 +9,7 @@
 #include "RobotParameters.h"
 
 DoublePIDController::DoublePIDController(PIDSource* source, PIDOutput* output, float* modifier) : PIDOutput(){
-	speedController = new PIDController(0.0003,0.000075,0, source, output);
+	speedController = new PIDController(DISTANCE_P_VALUE,DISTANCE_I_VALUE,DISTANCE_D_VALUE, source, output);
 	mModifier = modifier;
 
 }

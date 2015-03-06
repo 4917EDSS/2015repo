@@ -25,8 +25,8 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	leftDoubleController->SetAbsoluteTolerance(5);
 	leftDoubleController->SetOutputRange(-1,1);
 
-	leftController = new PIDController(1.60,0.00008,0, leftEncoder, leftDoubleController);
-	rightController = new PIDController(1.60,0.00008,0, rightEncoder, rightDoubleController);
+	leftController = new PIDController(SPEED_P_VALUE,SPEED_I_VALUE,SPEED_D_VALUE, leftEncoder, leftDoubleController);
+	rightController = new PIDController(SPEED_P_VALUE,SPEED_I_VALUE,SPEED_D_VALUE, rightEncoder, rightDoubleController);
 	rightController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
 	leftController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
 	lastSpeed = 0;
