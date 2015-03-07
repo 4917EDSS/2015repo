@@ -45,6 +45,7 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	turnController->SetAbsoluteTolerance(DRIVE_TURN_TOLERANCE);
 	turnController->SetSetpoint(0);
 	turnController->SetOutputRange(-MAX_SPEED_EV, MAX_SPEED_EV);
+	turnController->Disable();
 }
 
 void DrivetrainSub::InitDefaultCommand()
