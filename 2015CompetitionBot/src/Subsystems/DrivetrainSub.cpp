@@ -148,7 +148,7 @@ void DrivetrainSub::DisableDistancePID(){
 	rightController->Disable();
 	leftDoubleController->Disable();
 	rightDoubleController->Disable();
-	//turnController->Disable();
+	turnController->Disable();
 	leftTurnModifier = 0;
 	rightTurnModifier = 0;
 }
