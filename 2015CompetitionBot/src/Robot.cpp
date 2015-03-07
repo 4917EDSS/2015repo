@@ -20,9 +20,23 @@
 #include "Commands/AutoOneToteGrp.h"
 #include "Commands/AdjustPIDCmd.h"
 #include "Commands/AutoDropStackGrp.h"
+#include "Subsystems/IMU.h"
+#include "Subsystems/IMUAdvanced.h"
+#include "Subsystems/AHRS.h"
 
 class Robot: public IterativeRobot
 {
+    NetworkTable *table;
+#if defined(ENABLE_AHRS)
+    AHRS *imu;
+#elif defined(ENABLE_IMU_ADVANCED)
+    IMUAdvanced *imu;
+#else // ENABLE_IMU
+    IMU *imu;
+#endif
+    SerialPort *serial_port;
+    bool first_iteration;
+
 private:
 	LiveWindow *lw;
 	SendableChooser *autoOptions;
@@ -71,6 +85,9 @@ private:
 		SmartDashboard::PutNumber("i value", CommandBase::rDrivetrainSub->GetI()*1000);
 
 
+        serial_port = new SerialPort(4800, SerialPort::kMXP);
+		imu = new IMU(serial_port,60);
+
 		// TODO: initialize all air solenoids to values
 
 	}
@@ -100,6 +117,11 @@ private:
 		if (autoCommand != NULL)
 			autoCommand->Cancel();
 		SmartDashboard::PutData("drivetrain", CommandBase::rDrivetrainSub);
+		bool is_calibrating = imu->IsCalibrating();
+		if ( !is_calibrating ) {
+			Wait( 0.3 );
+			imu->ZeroYaw();
+		}
 	}
 
 	void TeleopPeriodic()
@@ -122,6 +144,11 @@ private:
 		SmartDashboard::PutNumber("I on drivetrain",CommandBase::rDrivetrainSub->GetI()*1000);
 		SmartDashboard::PutBoolean("left on target", CommandBase::rDrivetrainSub->isLeftOnTarget());
 		SmartDashboard::PutBoolean("right on target", CommandBase::rDrivetrainSub->isRightOnTarget());
+		SmartDashboard::PutBoolean( "IMU_Connected", imu->IsConnected());
+		SmartDashboard::PutNumber("IMU_Yaw", imu->GetYaw());
+		SmartDashboard::PutNumber("IMU_Pitch", imu->GetPitch());
+		SmartDashboard::PutNumber("IMU_Roll", imu->GetRoll());
+		SmartDashboard::PutNumber("IMU_CompassHeading", imu->GetCompassHeading());
 	}
 
 	void TestPeriodic()
