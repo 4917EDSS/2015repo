@@ -41,10 +41,10 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	rotationMeasure = new DrivetrainRotationMeasure(leftEncoder, rightEncoder);
 	turnOutput = new DriveTurnController();
 
-	turnController = new PIDController(3,0,0.0001, rotationMeasure, turnOutput);
+	/*turnController = new PIDController(3, 0.0001, 0, rotationMeasure, turnOutput);
 	turnController->SetAbsoluteTolerance(DRIVE_TURN_TOLERANCE);
 	turnController->SetSetpoint(0);
-	turnController->SetOutputRange(-MAX_SPEED_EV, MAX_SPEED_EV);
+	turnController->SetOutputRange(-MAX_SPEED_EV, MAX_SPEED_EV);*/
 }
 
 void DrivetrainSub::InitDefaultCommand()
