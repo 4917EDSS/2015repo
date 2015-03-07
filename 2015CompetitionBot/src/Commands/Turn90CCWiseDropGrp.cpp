@@ -24,7 +24,7 @@ Turn90CCWiseDropGrp::Turn90CCWiseDropGrp()
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddSequential(new DriveTurnCmd(90, false, MAX_SPEED_EV/2));
+	//AddSequential(new DriveTurnCmd(90, false, MAX_SPEED_EV/2));
 	AddSequential(new DriveStraightCmd(DRIVE_CENTER_TO_CENTER, MAX_SPEED_EV/2));
 	AddSequential(new ResetLiftEncoderCmd());
 	AddSequential(new SetArmsCmd(ARMS_OPEN));

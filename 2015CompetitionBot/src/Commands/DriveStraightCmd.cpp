@@ -23,6 +23,7 @@ void DriveStraightCmd::Initialize()
 	rDrivetrainSub->Drive(leftSpeed, rightSpeed);*/
 	rDrivetrainSub->ResetDrive();
 	rDrivetrainSub->EnableDistancePID();
+	rDrivetrainSub->EnableTurnPID();
 	rDrivetrainSub->SetRightSetpoint(targetDistance, rightSpeed);
 	rDrivetrainSub->SetLeftSetpoint(targetDistance, leftSpeed);
 
@@ -57,6 +58,7 @@ bool DriveStraightCmd::IsFinished()
 void DriveStraightCmd::End()
 {
 	rDrivetrainSub->DisableDistancePID();
+	rDrivetrainSub->DisableTurnPID();
 	rDrivetrainSub->Drive(0,0);
 }
 

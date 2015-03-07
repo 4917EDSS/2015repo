@@ -18,6 +18,5 @@ AutoOneBinGrp::AutoOneBinGrp()
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
 	AddSequential(new WaitCommand(ARMS_CLOSE_DELAY));
 	AddSequential(new SetLiftHeightCmd(GREEN_BIN_ABOVE_TOTE_EV));
-	AddSequential(new DriveStraightCmd(-DRIVE_CENTER_TO_CENTER, MAX_SPEED_EV/2));
-	AddSequential(new ResetLiftEncoderCmd());
+	AddSequential(new DriveStraightCmd(-STAGING_TO_AUTO_DISTANCE, MAX_SPEED_EV/2));
 }

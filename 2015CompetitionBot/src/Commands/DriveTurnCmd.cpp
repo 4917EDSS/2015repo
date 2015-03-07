@@ -19,6 +19,7 @@ void DriveTurnCmd::Initialize()
 {
 	rDrivetrainSub->ResetDrive();
 	rDrivetrainSub->EnableDistancePID();
+	rDrivetrainSub->DisableTurnPID();
 	if (isClockwiseTurn)
 	{
 //		rDrivetrainSub->Drive(driveSpeed, -driveSpeed);

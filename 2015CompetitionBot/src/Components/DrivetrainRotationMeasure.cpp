@@ -15,6 +15,6 @@ DrivetrainRotationMeasure::~DrivetrainRotationMeasure() {
 	// TODO Auto-generated destructor stub
 }
 double DrivetrainRotationMeasure::PIDGet(){
-	return fabs(rightEncoder->GetDistance()) - fabs(leftEncoder->GetDistance());
+	return (rightEncoder->GetDistance()) - (leftEncoder->GetDistance());
 }
 

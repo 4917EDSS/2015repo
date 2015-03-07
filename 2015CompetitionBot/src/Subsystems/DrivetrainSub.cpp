@@ -41,11 +41,11 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	rotationMeasure = new DrivetrainRotationMeasure(leftEncoder, rightEncoder);
 	turnOutput = new DriveTurnController();
 
-	turnController = new PIDController(3, 0.0001, 0, rotationMeasure, turnOutput);
+	turnController = new PIDController(.5, 0.0001, 0, rotationMeasure, turnOutput);
 	turnController->SetAbsoluteTolerance(DRIVE_TURN_TOLERANCE);
 	turnController->SetSetpoint(0);
-	turnController->SetOutputRange(-MAX_SPEED_EV, MAX_SPEED_EV);
-	turnController->Disable();
+	turnController->SetOutputRange(-10000, 10000);
+	//turnController->Disable();
 }
 
 void DrivetrainSub::InitDefaultCommand()
@@ -127,7 +127,6 @@ void DrivetrainSub::EnableDistancePID(){
 	rightController->Enable();
 	leftDoubleController->Enable();
 	rightDoubleController->Enable();
-	turnController->Enable();
 	turnController->SetSetpoint(0);
 	leftTurnModifier = 0;
 	rightTurnModifier = 0;
@@ -141,6 +140,12 @@ void DrivetrainSub::DisableSpeedPID(){
 	leftDoubleController->Disable();
 	rightDoubleController->Disable();
 }
+void DrivetrainSub::DisableTurnPID(){
+	turnController->Disable();
+}
+void DrivetrainSub::EnableTurnPID(){
+	turnController->Enable();
+}
 void DrivetrainSub::DisableDistancePID(){
 	//leftDoubleController->GetPIDController()->SetPID(leftDoubleController->GetPIDController()->GetP(),leftDoubleController->GetPIDController()->GetI()/2.0,leftDoubleController->GetPIDController()->GetD());
 	//rightDoubleController->GetPIDController()->SetPID(rightDoubleController->GetPIDController()->GetP(),rightDoubleController->GetPIDController()->GetI()/2.0,rightDoubleController->GetPIDController()->GetD());
@@ -148,7 +153,6 @@ void DrivetrainSub::DisableDistancePID(){
 	rightController->Disable();
 	leftDoubleController->Disable();
 	rightDoubleController->Disable();
-	turnController->Disable();
 	leftTurnModifier = 0;
 	rightTurnModifier = 0;
 }

@@ -38,6 +38,7 @@ AutoThreeToteOneBinGrp::AutoThreeToteOneBinGrp()
 	AddSequential(new IntakeUntilLimitCmd());
 		AddParallel(new DriveStraightCmd(DISTANCE_BETWEEN_TOTES, MAX_SPEED_EV/2));
 	AddSequential(new GrabStackGrp());
+	AddParallel(new DriveTurnCmd(90, false, MAX_SPEED_EV/2));
 	AddSequential(new SetLiftHeightCmd(TRANSFER_EV));
 	AddSequential(new SetLocksCmd(LOCKS_CLOSED));
 	AddSequential(new WaitCommand(LOCKS_CLOSE_DELAY));

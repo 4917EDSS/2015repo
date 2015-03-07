@@ -6,6 +6,7 @@ DriveWithJoystickCmd::DriveWithJoystickCmd()
 	previousRightSpeed = 0;
 	previousLeftSpeed = 0;
 	Requires(rDrivetrainSub);
+	rDrivetrainSub->DisableTurnPID();
 }
 
 void DriveWithJoystickCmd::Initialize()

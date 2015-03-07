@@ -53,6 +53,8 @@ public:
 	void DisableDistancePID();
 	void EnableSpeedPID();
 	void DisableSpeedPID();
+	void DisableTurnPID();
+	void EnableTurnPID();
 	void SetLeftSetpoint(int setpoint, float speed);
 	void SetRightSetpoint(int setpoint, float speed);
 	bool isLeftOnTarget();
