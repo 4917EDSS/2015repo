@@ -12,6 +12,7 @@ void AdjustPIDCmd::Initialize()
 {
 	rDrivetrainSub->SetP(SmartDashboard::GetNumber("p value")/1000);
 	rDrivetrainSub->SetI(SmartDashboard::GetNumber("i value")/1000);
+	rDrivetrainSub->SetD(SmartDashboard::GetNumber("d value")/1000);
 
 }
 

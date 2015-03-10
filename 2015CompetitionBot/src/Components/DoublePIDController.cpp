@@ -8,7 +8,8 @@
 #include "DoublePIDController.h"
 #include "RobotParameters.h"
 
-DoublePIDController::DoublePIDController(PIDSource* source, PIDOutput* output, float* modifier) : PIDOutput(){
+DoublePIDController::DoublePIDController(PIDSource* source, Talon* output, float* modifier) : PIDOutput(){
+	motor = output;
 	speedController = new PIDController(DISTANCE_P_VALUE,DISTANCE_I_VALUE,DISTANCE_D_VALUE, source, output);
 	mModifier = modifier;
 
@@ -19,7 +20,9 @@ DoublePIDController::~DoublePIDController() {
 }
 void DoublePIDController::PIDWrite(float speed){
 	SmartDashboard::PutNumber("speed pid setpoint", speed + *mModifier);
-	speedController->SetSetpoint(speed + *mModifier);
+	//speedController->SetSetpoint(speed + *mModifier);
+	motor->Set(speed + *mModifier);
+
 }
 void DoublePIDController::SetAbsoluteTolerance(double tolerance){
 	speedController->SetAbsoluteTolerance(tolerance);

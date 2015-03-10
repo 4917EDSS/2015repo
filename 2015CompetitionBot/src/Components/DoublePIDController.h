@@ -15,9 +15,10 @@ class PIDSource;
 class DoublePIDController: public PIDOutput {
 private:
 	PIDController* speedController;
+	Talon* motor;
 	float* mModifier;
 public:
-	DoublePIDController(PIDSource* source, PIDOutput* output, float* modifier);
+	DoublePIDController(PIDSource* source, Talon* output, float* modifier);
 	virtual ~DoublePIDController();
 	void PIDWrite(float speed);
 	void SetAbsoluteTolerance(double tolerance);

@@ -12,6 +12,7 @@ DriveWithJoystickCmd::DriveWithJoystickCmd()
 void DriveWithJoystickCmd::Initialize()
 {
 	rDrivetrainSub->EnableSpeedPID();
+	rDrivetrainSub->DisableTurnPID();
 }
 
 void DriveWithJoystickCmd::Execute()

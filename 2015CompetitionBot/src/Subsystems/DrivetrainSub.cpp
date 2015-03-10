@@ -41,10 +41,10 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	rotationMeasure = new DrivetrainRotationMeasure(leftEncoder, rightEncoder);
 	turnOutput = new DriveTurnController();
 
-	turnController = new PIDController(.5, 0.0001, 0, rotationMeasure, turnOutput);
+	turnController = new PIDController(.002, 0.000001, 0, rotationMeasure, turnOutput);
 	turnController->SetAbsoluteTolerance(DRIVE_TURN_TOLERANCE);
 	turnController->SetSetpoint(0);
-	turnController->SetOutputRange(-10000, 10000);
+	turnController->SetOutputRange(-MAX_SPEED_EV, MAX_SPEED_EV);
 	//turnController->Disable();
 }
 
@@ -79,16 +79,25 @@ void DrivetrainSub::SetP(float p){
 //	rightController->SetPID(p,rightController->GetI(),rightController->GetD());
 }
 float DrivetrainSub::GetP(){
-	return turnController->GetP();
+	return leftController->GetP();
 }
 void DrivetrainSub::SetI(float i){
 	turnController->SetPID(turnController->GetP(),i,turnController->GetD());
 
-//	leftController->SetPID(leftController->GetP(),i,leftController->GetD());
-//	rightController->SetPID(rightController->GetP(),i,rightController->GetD());
+	//leftController->SetPID(leftController->GetP(),i,leftController->GetD());
+	//rightController->SetPID(rightController->GetP(),i,rightController->GetD());
 }
 float DrivetrainSub::GetI(){
-	return turnController->GetI();
+	return leftController->GetI();
+}
+void DrivetrainSub::SetD(float d){
+	turnController->SetPID(turnController->GetP(),leftController->GetI(),d);
+
+	//leftController->SetPID(leftController->GetP(),leftController->GetI(),d);
+	//rightController->SetPID(rightController->GetP(),leftController->GetI(),d);
+}
+float DrivetrainSub::GetD(){
+	return leftController->GetD();
 }
 
 int DrivetrainSub::GetRawLeftEnc(){
@@ -125,8 +134,8 @@ void DrivetrainSub::EnableDistancePID(){
 	//rightDoubleController->GetPIDController()->SetPID(rightDoubleController->GetPIDController()->GetP(),rightDoubleController->GetPIDController()->GetI()*2,rightDoubleController->GetPIDController()->GetD());
 	leftController->Enable();
 	rightController->Enable();
-	leftDoubleController->Enable();
-	rightDoubleController->Enable();
+//	leftDoubleController->Enable();
+//	rightDoubleController->Enable();
 	turnController->SetSetpoint(0);
 	leftTurnModifier = 0;
 	rightTurnModifier = 0;
@@ -144,6 +153,7 @@ void DrivetrainSub::DisableTurnPID(){
 	turnController->Disable();
 }
 void DrivetrainSub::EnableTurnPID(){
+	turnController->SetSetpoint(0);
 	turnController->Enable();
 }
 void DrivetrainSub::DisableDistancePID(){
@@ -151,19 +161,19 @@ void DrivetrainSub::DisableDistancePID(){
 	//rightDoubleController->GetPIDController()->SetPID(rightDoubleController->GetPIDController()->GetP(),rightDoubleController->GetPIDController()->GetI()/2.0,rightDoubleController->GetPIDController()->GetD());
 	leftController->Disable();
 	rightController->Disable();
-	leftDoubleController->Disable();
-	rightDoubleController->Disable();
+//	leftDoubleController->Disable();
+//	rightDoubleController->Disable();
 	leftTurnModifier = 0;
 	rightTurnModifier = 0;
 }
 void DrivetrainSub::SetLeftSetpoint(int setpoint, float speed){
 	// Negatives here are to fix a strange bug where different output ranges resulted in different speeds on either side
-	leftController->SetOutputRange(-fabs(speed), fabs(speed));
+	leftController->SetOutputRange(-fabs(speed / MAX_SPEED_EV), fabs(speed / MAX_SPEED_EV));
 	//leftController->SetSetpoint(-setpoint);
 	leftController->SetSetpoint(setpoint);
 }
 void DrivetrainSub::SetRightSetpoint(int setpoint, float speed){
-	rightController->SetOutputRange(-fabs(speed), fabs(speed));
+	rightController->SetOutputRange(-fabs(speed / MAX_SPEED_EV), fabs(speed / MAX_SPEED_EV));
 	rightController->SetSetpoint(setpoint);
 }
 bool DrivetrainSub::isLeftOnTarget(){

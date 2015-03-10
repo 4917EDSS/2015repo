@@ -39,6 +39,8 @@ public:
 	void PIDDrive(float leftSpeed, float rightSpeed);
 	void SetP(float p);
 	float GetP();
+	void SetD(float d);
+	float GetD();
 	void SetI(float i);
 	float GetI();
 	void InitDefaultCommand();
