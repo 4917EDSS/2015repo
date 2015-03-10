@@ -66,7 +66,7 @@ private:
 		SmartDashboard::PutData("Set Locks Open", new SetLocksCmd(LOCKS_OPEN));
 		SmartDashboard::PutData("Set Locks Closed", new SetLocksCmd(LOCKS_CLOSED));
 		SmartDashboard::PutData("Set Arms Closed", new SetArmsCmd(ARMS_CLOSED));
-		SmartDashboard::PutData("Go forward 2 meters half speed", new DriveStraightCmd(2000, MAX_SPEED_EV/2));
+		SmartDashboard::PutData("Go forward 5 meters half speed", new DriveStraightCmd(5000, MAX_SPEED_EV/2));
 		SmartDashboard::PutData("Go backward 2 meters half speed", new DriveStraightCmd(-2000, MAX_SPEED_EV/2));
 		SmartDashboard::PutData("Go forward 3 meters full speed", new DriveStraightCmd(3000, MAX_SPEED_EV));
 		SmartDashboard::PutData("RESET drivetrain encoders", new ResetDrivetrainCmd());
@@ -86,7 +86,7 @@ private:
 		SmartDashboard::PutNumber("d value", CommandBase::rDrivetrainSub->GetD()*1000);
 
 
-        serial_port = new SerialPort(4800, SerialPort::kMXP);
+        serial_port = new SerialPort(57600, SerialPort::kUSB);
 		imu = new IMU(serial_port,60);
 
 		// TODO: initialize all air solenoids to values

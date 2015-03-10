@@ -21,7 +21,7 @@ DoublePIDController::~DoublePIDController() {
 void DoublePIDController::PIDWrite(float speed){
 	SmartDashboard::PutNumber("speed pid setpoint", speed + *mModifier);
 	//speedController->SetSetpoint(speed + *mModifier);
-	motor->Set(speed + *mModifier);
+	motor->Set(speed + (speed/MAX_SPEED_EV)*(*mModifier));
 
 }
 void DoublePIDController::SetAbsoluteTolerance(double tolerance){

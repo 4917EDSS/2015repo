@@ -94,9 +94,9 @@
 	#define MAX_SPEED_EV 2700
 
 	//PID Values
-	#define SPEED_P_VALUE 0.0015
+	#define SPEED_P_VALUE 35
 	#define SPEED_I_VALUE 0
-	#define SPEED_D_VALUE 0.004
+	#define SPEED_D_VALUE 0
 
 	#define DISTANCE_P_VALUE 0.0003
 	#define DISTANCE_I_VALUE 0.000075
