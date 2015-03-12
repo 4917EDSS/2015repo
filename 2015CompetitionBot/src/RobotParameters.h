@@ -29,8 +29,9 @@
 #define CAMERA_NAME "cam0"
 
 #define CTRLR_HOR_INTAKE_TOLERANCE 0.8
-#define DRIVE_DIST_TOLERANCE 50
+#define DRIVE_DIST_TOLERANCE 50			// in mm
 #define DRIVE_TURN_TOLERANCE 10
+#define DRIVE_SPEED_TOLERANCE 100		// in mm/s
 
 #define LOCKS_CLOSE_DELAY .3
 #define LOCKS_OPEN_DELAY .4
@@ -87,16 +88,24 @@
 
 	//DRIVE ENCODER VALS
 	//millimeters/tick
-	#define DISTANCE_PER_PULSE 2000.0/7920.0
+	#define DISTANCE_PER_PULSE (2000.0/7920.0)
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
-	#define DISTANCE_PER_DEGREE 745.0/90.0
+	#define DISTANCE_PER_DEGREE (745.0/90.0)
 
-	#define MAX_SPEED_EV 2700
+	#define MAX_SPEED_EV 2700						// What units?  Encoder resolution, mm/s ???
 
-	//PID Values
+	//PID and other control values
+	#define SOFT_START_ACCEL_VALUE 100				// in mm/s per tick (i.e. per Execute)
+	#define SOFT_START_SPEED_CUTOFF_RATIO 0.90f		// switch to constant speed when [actual speed] / [target speed] >= to this value
+	#define SOFT_START_SPEED_P_VALUE 0.0015
+	#define SOFT_START_SPEED_I_VALUE 0
+	#define SOFT_START_SPEED_D_VALUE 0
+	#define SOFT_START_SPEED_F_VALUE 0
+
 	#define SPEED_P_VALUE 0.0015
 	#define SPEED_I_VALUE 0
 	#define SPEED_D_VALUE 0.004
+	#define SPEED_F_VALUE 0
 
 	#define DISTANCE_P_VALUE 0.0003
 	#define DISTANCE_I_VALUE 0.000075
@@ -128,9 +137,9 @@
 
 	//DRIVE ENCODER VALS
 	//millimeters/tick
-	#define DISTANCE_PER_PULSE 2000.0/10700.0
+	#define DISTANCE_PER_PULSE (2000.0/10700.0)
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
-	#define DISTANCE_PER_DEGREE 745.0/90.0
+	#define DISTANCE_PER_DEGREE (745.0/90.0)
 	#define MAX_SPEED_EV 2700
 
 #endif

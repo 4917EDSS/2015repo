@@ -12,7 +12,7 @@
 
 class Encoder4917 : public PIDSource{
 private:
-	Encoder* mEncoder;
+	Encoder* m_encoder;
 public:
 	Encoder4917(uint32_t channel1 , uint32_t channel2);
 	virtual ~Encoder4917();

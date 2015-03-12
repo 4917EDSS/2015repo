@@ -9,34 +9,43 @@
 #include "../Components/DrivetrainRotationMeasure.h"
 #include "../Components/DriveTurnController.h"
 
+// PID Controller IDs
+// For use with GetP/I/D and SetP/I/D routing
+#define SPEED_CTRL_ID	0
+#define DRIVE_CTRL_ID	1
+#define TURN_CTRL_ID	2
+
+// Speed PID modes
+#define SPEED_MODE_SOFT_START 0
+#define SPEED_MODE_NORMAL 1
+
+
 class DrivetrainSub: public Subsystem
 {
 private:
 	Talon* rightMotor;
 	Talon* leftMotor;
-	Encoder* leftEncoder;
-	Encoder* rightEncoder;
-	Encoder4917* leftEncoderSpeed;
-	PIDController* rightController;
-	Encoder4917* rightEncoderSpeed;
-	PIDController* leftController;
-	DoublePIDController* leftDoubleController;
-	DoublePIDController* rightDoubleController;
+	Encoder* leftDistanceEncoder;
+	Encoder* rightDistanceEncoder;
+	Encoder4917* leftSpeedVirtualEncoder;
+	Encoder4917* rightSpeedVirtualEncoder;
+	PIDController* rightSpeedController;
+	PIDController* leftSpeedController;
 	DrivetrainRotationMeasure* rotationMeasure;
 	DriveTurnController* turnOutput;
 	PIDController* turnController;
 
 	int controlState;
-	float lastSpeed;
-	float rightTurnModifier;
-	float leftTurnModifier;
+	int pidGetSetId;	// which PID controller GetP/I/D and SetP/I/D are connected to
 
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
 	DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C, int leftEncoder2C, int rightEncoder1C, int rightEncoder2C);
 	void Drive(float leftSpeed, float rightSpeed);
+	void PIDDrive(float speed);
 	void PIDDrive(float leftSpeed, float rightSpeed);
+	void SetExternallyAccessiblePid(int id);
 	void SetP(float p);
 	float GetP();
 	void SetD(float d);
@@ -53,6 +62,7 @@ public:
 	int GetControls();
 	void EnableDistancePID();
 	void DisableDistancePID();
+	void SetSpeedPIDMode(int mode);
 	void EnableSpeedPID();
 	void DisableSpeedPID();
 	void DisableTurnPID();

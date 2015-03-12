@@ -1,57 +1,133 @@
 #include "DriveStraightCmd.h"
 #include "RobotParameters.h"
 
+// driveDistanceMillimeters - Negative means drive in reverse
+// driveSpeedParam - Speed in mm/s?  Negative changes the sign of the distance parameter
 DriveStraightCmd::DriveStraightCmd(int driveDistanceMillimeters, float driveSpeedParam)
 {
-	leftSpeed = driveSpeedParam;
-	rightSpeed = leftSpeed;
-	forward = driveDistanceMillimeters > 0;
 	targetDistance = driveDistanceMillimeters;
-	currentDrive = 0;
+	if( driveSpeedParam < 0 )
+	{
+		// Negative speed so change movement direction
+		targetDistance *= -1;
+	}
+	targetSpeed = fabs(driveSpeedParam);
+	currentSpeed = 0;
+	state = 0;			// Always start at beginning of state-machine
+	finished = false;
+
+////////////
 	previousRightEncoder = 0;
 	previousLeftEncoder = 0;
-	Requires(rDrivetrainSub);
 	counter = 0;
+////////////
+
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
+	Requires(rDrivetrainSub);
 }
 
 // Called just before this Command runs the first time
 void DriveStraightCmd::Initialize()
 {
-	/*rDrivetrainSub->ResetDrive();
-	rDrivetrainSub->Drive(leftSpeed, rightSpeed);*/
-	rDrivetrainSub->ResetDrive();
-	rDrivetrainSub->EnableDistancePID();
-	rDrivetrainSub->EnableTurnPID();
-	rDrivetrainSub->SetRightSetpoint(targetDistance, rightSpeed);
-	rDrivetrainSub->SetLeftSetpoint(targetDistance, leftSpeed);
+	// Command state machine:
+	//
+	// [State 0]
+	// Purpose:		Set initial conditions.  Immediately goes to state 1.
+	//
+	// [State 1]
+	// Purpose:		Soft speed ramp-up to minimize slip and to have both motors accelerate at an equal rate (i.e. drive straight)
+	// Control:		P controller on speed with periodic set-point increase (i.e. increase target speed every Execute)
+	// To State 2:	- when close to target speed
+	// To State 3:	- when close to target distance
+	//
+	// [State 2]
+	// Purpose:		Have both motors maintain the same speed (i.e. drive straight)
+	// Control:		PD controller on speed with constant set-point
+	// To State 3:	- when close to the target distance
+	//
+	// [State 3]
+	// Purpose:		Soft speed ramp-down to avoid slip and distance overshoot
+	// Control:		PID controller on distance using original distance set-point
+	// To State 4:	- when within tolerance of desired distance
+	//
+	// [State 4]
+	// Purpose:		Done.
 
+	rDrivetrainSub->ResetDrive();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveStraightCmd::Execute()
 {
+	float nextSpeed;
+
+	switch(state)
+	{
+	// State 0:  Initial setup
+	case 0:
+		// Manage the speed PID
+		rDrivetrainSub->DisableSpeedPID();
+		rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_SOFT_START);
+		rDrivetrainSub->PIDDrive(SOFT_START_ACCEL_VALUE);
+		rDrivetrainSub->EnableSpeedPID();
+		currentSpeed = SOFT_START_ACCEL_VALUE;
+
+		state = 1;
+		break;
+
+	// State 1:  Acceleration
+	case 1:
+		if( 0 /* TODO: currentDistance is close to target distance */)
+		{
+			// We've gotten to the close to the target distance before getting to target speed
+			state = 2;
+		}
+		else if( (currentSpeed / targetSpeed) > SOFT_START_SPEED_CUTOFF_RATIO )
+		{
+			// At target speed.  Hold this speed.
+			rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_NORMAL);
+			rDrivetrainSub->PIDDrive(targetSpeed);
+			state = 2;
+		}
+		else
+		{
+			// We haven't reached target speed yet so keep accelerating
+			currentSpeed += SOFT_START_ACCEL_VALUE;
+			rDrivetrainSub->PIDDrive(currentSpeed);
+		}
+		break;
+
+	// State 2:  Constant speed
+	case 2:
+		if( 0 /* TODO: currentDistance is close to target distance */)
+		{
+			// We've gotten to the close to the target distance.  Start the distance PID to decelerate.
+			// TODO: setup distance PID...
+			state = 3;
+		}
+		break;
+
+	// State 3:  Deceleration to target distance
+	case 3:
+		// if we are within distance-PID tolerance, stop
+		// TODO: stop motors
+		state = 4;
+		break;
+
+	// State 4:  Stop
+	case 4:
+	default:
+		// other cleanup?
+		finished = true;
+		break;
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveStraightCmd::IsFinished()
 {
-	/*
-	counter++;
-	if (counter>5000){
-
-		if (rDrivetrainSub->GetRightEnc() == previousRightEncoder
-				&& rDrivetrainSub->GetLeftEnc() == previousLeftEncoder) {
-			return true;
-		}
-
-		previousLeftEncoder = rDrivetrainSub->GetLeftEnc();
-		previousRightEncoder = rDrivetrainSub->GetRightEnc();
-
-		counter = 0;
-	}*/
-	return rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();
+	return finished;
 }
 
 // Called once after isFinished returns true
