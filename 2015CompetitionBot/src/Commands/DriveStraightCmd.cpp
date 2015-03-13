@@ -57,21 +57,17 @@ void DriveStraightCmd::Initialize()
 	state = 0;
 	finished = false;
 	rDrivetrainSub->ResetDrive();
-    rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_SOFT_START);
+    rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_AUTO);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveStraightCmd::Execute()
 {
-	float nextSpeed;
-
 	switch(state)
 	{
 	// State 0:  Initial setup
 	case 0:
 		// Manage the speed PID
-//		rDrivetrainSub->DisableSpeedPID();
-//		rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_SOFT_START);
 		rDrivetrainSub->PIDDrive(SOFT_START_ACCEL_VALUE);
 		rDrivetrainSub->EnableSpeedPID();
 		currentSpeed = SOFT_START_ACCEL_VALUE;
@@ -89,8 +85,6 @@ void DriveStraightCmd::Execute()
 		else if( (currentSpeed / targetSpeed) > SOFT_START_SPEED_CUTOFF_RATIO )
 		{
 			// At target speed.  Hold this speed.
-			rLiftSub->SetLocks(LOCKS_CLOSED);
-//			rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_NORMAL);
 			rDrivetrainSub->PIDDrive(targetSpeed);
 			state = 2;
 		}
@@ -143,9 +137,10 @@ void DriveStraightCmd::End()
 {
 	rDrivetrainSub->DisableDistancePID();
 	rDrivetrainSub->DisableTurnPID();
+	rDrivetrainSub->DisableSpeedPID();
 	rDrivetrainSub->Drive(0,0);
 
-	rLiftSub->SetLocks(LOCKS_OPEN);
+	rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_NORMAL);
 	state = 0;
 }
 

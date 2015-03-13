@@ -16,7 +16,7 @@
 #define TURN_CTRL_ID	2
 
 // Speed PID modes
-#define SPEED_MODE_SOFT_START 0
+#define SPEED_MODE_AUTO 0
 #define SPEED_MODE_NORMAL 1
 
 

@@ -13,8 +13,8 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	leftDistanceEncoder  = leftSpeedVirtualEncoder->GetEncoder();
 	rightDistanceEncoder = rightSpeedVirtualEncoder->GetEncoder();
 
-	controlState = FPS_DRIVE_CONTROLS;
-	pidGetSetId = DRIVE_CTRL_ID;
+	controlState = TANK_DRIVE_CONTROLS;
+	pidGetSetId = SPEED_CTRL_ID;
 
 	// Set encoder parameters
 	leftDistanceEncoder->SetDistancePerPulse(DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
@@ -24,8 +24,8 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	// Speed is calculated from the distance encoders
 	leftSpeedController = new PIDController(SPEED_P_VALUE, SPEED_I_VALUE, SPEED_D_VALUE, SPEED_F_VALUE, leftSpeedVirtualEncoder, leftMotor);
 	rightSpeedController = new PIDController(SPEED_P_VALUE, SPEED_I_VALUE, SPEED_D_VALUE, SPEED_F_VALUE, rightSpeedVirtualEncoder, rightMotor);
-	leftSpeedController->SetAbsoluteTolerance(DRIVE_SPEED_TOLERANCE);
-	rightSpeedController->SetAbsoluteTolerance(DRIVE_SPEED_TOLERANCE);
+	leftSpeedController->SetAbsoluteTolerance(SPEED_TOLERANCE);
+	rightSpeedController->SetAbsoluteTolerance(SPEED_TOLERANCE);
 	leftSpeedController->Disable();
 	rightSpeedController->Disable();
 
@@ -73,8 +73,8 @@ void DrivetrainSub::PIDDrive(float speed) {
 
 void DrivetrainSub::PIDDrive(float leftSpeed, float rightSpeed) {
 
-	//leftDoubleController->PIDWrite(MAX_SPEED_EV*leftSpeed);		////////////////////////////// TODO: Fix
-	//rightDoubleController->PIDWrite(MAX_SPEED_EV*rightSpeed);
+	leftSpeedController->SetSetpoint(MAX_SPEED_EV*leftSpeed);
+	rightSpeedController->SetSetpoint(MAX_SPEED_EV*rightSpeed);
 }
 
 void DrivetrainSub::PIDDist(float distance, float speed) {
@@ -226,15 +226,19 @@ void DrivetrainSub::EnableDistancePID(){
 
 void DrivetrainSub::SetSpeedPIDMode(int mode) {
 	switch(mode) {
-	case SPEED_MODE_SOFT_START:
-		leftSpeedController->SetPID(SOFT_START_SPEED_P_VALUE, SOFT_START_SPEED_I_VALUE, SOFT_START_SPEED_D_VALUE, SOFT_START_SPEED_F_VALUE);
-		rightSpeedController->SetPID(SOFT_START_SPEED_P_VALUE, SOFT_START_SPEED_I_VALUE, SOFT_START_SPEED_D_VALUE, SOFT_START_SPEED_F_VALUE);
+	case SPEED_MODE_AUTO:
+		leftSpeedController->SetPID(AUTO_SPEED_P_VALUE, AUTO_SPEED_I_VALUE, AUTO_SPEED_D_VALUE, AUTO_SPEED_F_VALUE);
+		rightSpeedController->SetPID(AUTO_SPEED_P_VALUE, AUTO_SPEED_I_VALUE, AUTO_SPEED_D_VALUE, AUTO_SPEED_F_VALUE);
+		leftSpeedController->SetAbsoluteTolerance(AUTO_SPEED_TOLERANCE);
+		rightSpeedController->SetAbsoluteTolerance(AUTO_SPEED_TOLERANCE);
 		break;
 
 	case SPEED_MODE_NORMAL:
 	default:
 		leftSpeedController->SetPID(SPEED_P_VALUE, SPEED_I_VALUE, SPEED_D_VALUE, SPEED_F_VALUE);
 		rightSpeedController->SetPID(SPEED_P_VALUE, SPEED_I_VALUE, SPEED_D_VALUE, SPEED_F_VALUE);
+		leftSpeedController->SetAbsoluteTolerance(SPEED_TOLERANCE);
+		rightSpeedController->SetAbsoluteTolerance(SPEED_TOLERANCE);
 		break;
 	}
 }
@@ -265,14 +269,14 @@ void DrivetrainSub::DisableDistancePID(){
 
 void DrivetrainSub::SetLeftSetpoint(int setpoint, float speed){
 	// Negatives here are to fix a strange bug where different output ranges resulted in different speeds on either side
-	leftSpeedController->SetOutputRange(-fabs(speed / MAX_SPEED_EV), fabs(speed / MAX_SPEED_EV));
+	leftDistanceController->SetOutputRange(-fabs(speed / MAX_SPEED_EV), fabs(speed / MAX_SPEED_EV));
 	//leftController->SetSetpoint(-setpoint);
-	leftSpeedController->SetSetpoint(setpoint);
+	leftDistanceController->SetSetpoint(setpoint);
 }
 
 void DrivetrainSub::SetRightSetpoint(int setpoint, float speed){
-	rightSpeedController->SetOutputRange(-fabs(speed / MAX_SPEED_EV), fabs(speed / MAX_SPEED_EV));
-	rightSpeedController->SetSetpoint(setpoint);
+	rightDistanceController->SetOutputRange(-fabs(speed / MAX_SPEED_EV), fabs(speed / MAX_SPEED_EV));
+	rightDistanceController->SetSetpoint(setpoint);
 }
 
 bool DrivetrainSub::isOnDistTarget() {
@@ -280,11 +284,11 @@ bool DrivetrainSub::isOnDistTarget() {
 }
 
 bool DrivetrainSub::isLeftOnTarget(){
-	return leftSpeedController->OnTarget();
+	return leftDistanceController->OnTarget();
 }
 
 bool DrivetrainSub::isRightOnTarget(){
-	return rightSpeedController->OnTarget();
+	return rightDistanceController->OnTarget();
 }
 
 double DrivetrainSub::GetLeftEncoderRate(){
