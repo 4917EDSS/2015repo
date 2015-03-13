@@ -7,12 +7,14 @@
 #include "SetLiftHeightCmd.h"
 #include "GrabStackGrp.h"
 #include "ResetLiftEncoderCmd.h"
+#include "ConditionalWaitCmd.h"
 
 PickUpBoxGrp::PickUpBoxGrp()
 {
 	AddSequential(new ResetLiftEncoderCmd());
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
 	AddSequential(new SetJawsCmd(JAWS_CLOSED));
+	AddSequential(new ConditionalWaitCmd(ARMS_CLOSE_DELAY, CommandBase::rIntakeSub->IsLimitHit()));
 	AddSequential(new IntakeUntilLimitCmd());
 	AddSequential(new GrabStackGrp());
 	AddSequential(new SetLiftHeightCmd(TRANSFER_EV));
