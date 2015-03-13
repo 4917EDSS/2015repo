@@ -54,7 +54,10 @@ void DriveStraightCmd::Initialize()
 	// [State 4]
 	// Purpose:		Done.
 
+	state = 0;
+	finished = false;
 	rDrivetrainSub->ResetDrive();
+    rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_SOFT_START);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -67,8 +70,8 @@ void DriveStraightCmd::Execute()
 	// State 0:  Initial setup
 	case 0:
 		// Manage the speed PID
-		rDrivetrainSub->DisableSpeedPID();
-		rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_SOFT_START);
+//		rDrivetrainSub->DisableSpeedPID();
+//		rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_SOFT_START);
 		rDrivetrainSub->PIDDrive(SOFT_START_ACCEL_VALUE);
 		rDrivetrainSub->EnableSpeedPID();
 		currentSpeed = SOFT_START_ACCEL_VALUE;
@@ -78,7 +81,7 @@ void DriveStraightCmd::Execute()
 
 	// State 1:  Acceleration
 	case 1:
-		if( 0 /* TODO: currentDistance is close to target distance */)
+		if(targetDistance - rDrivetrainSub->GetLeftEnc() < (DECEL_DISTANCE(currentSpeed)) )
 		{
 			// We've gotten to the close to the target distance before getting to target speed
 			state = 2;
@@ -86,7 +89,8 @@ void DriveStraightCmd::Execute()
 		else if( (currentSpeed / targetSpeed) > SOFT_START_SPEED_CUTOFF_RATIO )
 		{
 			// At target speed.  Hold this speed.
-			rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_NORMAL);
+			rLiftSub->SetLocks(LOCKS_CLOSED);
+//			rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_NORMAL);
 			rDrivetrainSub->PIDDrive(targetSpeed);
 			state = 2;
 		}
@@ -100,19 +104,23 @@ void DriveStraightCmd::Execute()
 
 	// State 2:  Constant speed
 	case 2:
-		if( 0 /* TODO: currentDistance is close to target distance */)
+		if(targetDistance - rDrivetrainSub->GetLeftEnc() < (DECEL_DISTANCE(targetSpeed)))
 		{
 			// We've gotten to the close to the target distance.  Start the distance PID to decelerate.
-			// TODO: setup distance PID...
+			rDrivetrainSub->PIDDist(targetDistance, currentSpeed);
+			rDrivetrainSub->DisableSpeedPID();
+			rDrivetrainSub->EnableDistancePID();
 			state = 3;
 		}
+
 		break;
 
 	// State 3:  Deceleration to target distance
 	case 3:
 		// if we are within distance-PID tolerance, stop
-		// TODO: stop motors
-		state = 4;
+		if( rDrivetrainSub->isOnDistTarget()) {
+			state = 4;
+		}
 		break;
 
 	// State 4:  Stop
@@ -136,6 +144,9 @@ void DriveStraightCmd::End()
 	rDrivetrainSub->DisableDistancePID();
 	rDrivetrainSub->DisableTurnPID();
 	rDrivetrainSub->Drive(0,0);
+
+	rLiftSub->SetLocks(LOCKS_OPEN);
+	state = 0;
 }
 
 // Called when another command which requires one or more of the same

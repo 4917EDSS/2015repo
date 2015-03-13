@@ -29,8 +29,10 @@ private:
 	Encoder* rightDistanceEncoder;
 	Encoder4917* leftSpeedVirtualEncoder;
 	Encoder4917* rightSpeedVirtualEncoder;
-	PIDController* rightSpeedController;
 	PIDController* leftSpeedController;
+	PIDController* rightSpeedController;
+	PIDController* leftDistanceController;
+	PIDController* rightDistanceController;
 	DrivetrainRotationMeasure* rotationMeasure;
 	DriveTurnController* turnOutput;
 	PIDController* turnController;
@@ -45,6 +47,7 @@ public:
 	void Drive(float leftSpeed, float rightSpeed);
 	void PIDDrive(float speed);
 	void PIDDrive(float leftSpeed, float rightSpeed);
+	void PIDDist(float distance, float speed);
 	void SetExternallyAccessiblePid(int id);
 	void SetP(float p);
 	float GetP();
@@ -69,6 +72,7 @@ public:
 	void EnableTurnPID();
 	void SetLeftSetpoint(int setpoint, float speed);
 	void SetRightSetpoint(int setpoint, float speed);
+	bool isOnDistTarget();
 	bool isLeftOnTarget();
 	bool isRightOnTarget();
 	double GetLeftEncoderRate();

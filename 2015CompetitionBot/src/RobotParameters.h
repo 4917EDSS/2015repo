@@ -29,7 +29,7 @@
 #define CAMERA_NAME "cam0"
 
 #define CTRLR_HOR_INTAKE_TOLERANCE 0.8
-#define DRIVE_DIST_TOLERANCE 50			// in mm
+#define DRIVE_DIST_TOLERANCE 20			// in mm
 #define DRIVE_TURN_TOLERANCE 10
 #define DRIVE_SPEED_TOLERANCE 100		// in mm/s
 
@@ -96,20 +96,23 @@
 
 	//PID and other control values
 	#define SOFT_START_ACCEL_VALUE 100				// in mm/s per tick (i.e. per Execute)
-	#define SOFT_START_SPEED_CUTOFF_RATIO 0.90f		// switch to constant speed when [actual speed] / [target speed] >= to this value
+	#define SOFT_START_SPEED_CUTOFF_RATIO 0.95f		// switch to constant speed when [actual speed] / [target speed] >= to this value
 	#define SOFT_START_SPEED_P_VALUE 0.0015
 	#define SOFT_START_SPEED_I_VALUE 0
 	#define SOFT_START_SPEED_D_VALUE 0
 	#define SOFT_START_SPEED_F_VALUE 0
 
-	#define SPEED_P_VALUE 0.0015
+	#define DECEL_DISTANCE(x) (1500 * x / MAX_SPEED_EV)
+
+	#define SPEED_P_VALUE 1.6
 	#define SPEED_I_VALUE 0
-	#define SPEED_D_VALUE 0.004
+	#define SPEED_D_VALUE 0
 	#define SPEED_F_VALUE 0
 
-	#define DISTANCE_P_VALUE 0.0003
-	#define DISTANCE_I_VALUE 0.000075
-	#define DISTANCE_D_VALUE 0
+	#define DISTANCE_P_VALUE 0.04
+	#define DISTANCE_I_VALUE 0.0
+	#define DISTANCE_D_VALUE 0.1
+	#define DISTANCE_F_VALUE 0
 #endif
 
 //ONLY FOR BOT SPECIFIC STUFF
