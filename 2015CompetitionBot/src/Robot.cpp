@@ -143,7 +143,7 @@ private:
 		SmartDashboard::PutBoolean("Drive Style", CommandBase::rDrivetrainSub->GetControls());
 		SmartDashboard::PutNumber("P on drivetrain",CommandBase::rDrivetrainSub->GetP()*1000);
 		SmartDashboard::PutNumber("I on drivetrain",CommandBase::rDrivetrainSub->GetI()*1000);
-		SmartDashboard::PutNumber("D on drivetrain",CommandBase::rDrivetrainSub->GetI()*1000);
+		SmartDashboard::PutNumber("D on drivetrain",CommandBase::rDrivetrainSub->GetD()*1000);
 		SmartDashboard::PutBoolean("left on target", CommandBase::rDrivetrainSub->isLeftOnTarget());
 		SmartDashboard::PutBoolean("right on target", CommandBase::rDrivetrainSub->isRightOnTarget());
 		SmartDashboard::PutBoolean( "IMU_Connected", imu->IsConnected());

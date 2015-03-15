@@ -7,11 +7,11 @@
 class DriveStraightCmd: public CommandBase
 {
 private:
-	int currentDrive;
 	int targetDistance;
-	float rightSpeed;
-	float leftSpeed;
-	bool forward;
+	float targetSpeed;
+	float currentSpeed;
+	int state;
+	bool finished;
 	int previousLeftEncoder;
 	int previousRightEncoder;
 	int counter;

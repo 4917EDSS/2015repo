@@ -57,7 +57,7 @@ bool DriveTurnCmd::IsFinished()
 
 		counter = 0;
 	}*/
-	return rDrivetrainSub->isLeftOnTarget() && rDrivetrainSub->isRightOnTarget();;
+	return rDrivetrainSub->isOnDistTarget();
 }
 
 // Called once after isFinished returns true

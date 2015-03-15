@@ -29,8 +29,10 @@
 #define CAMERA_NAME "cam0"
 
 #define CTRLR_HOR_INTAKE_TOLERANCE 0.8
-#define DRIVE_DIST_TOLERANCE 50
+#define DRIVE_DIST_TOLERANCE 20			// in mm
 #define DRIVE_TURN_TOLERANCE 10
+#define SPEED_TOLERANCE 20				// in mm/s
+#define AUTO_SPEED_TOLERANCE 100		// in mm/s
 
 #define LOCKS_CLOSE_DELAY .3
 #define LOCKS_OPEN_DELAY .4
@@ -90,20 +92,32 @@
 
 	//DRIVE ENCODER VALS
 	//millimeters/tick
-	#define DISTANCE_PER_PULSE 2000.0/7920.0
+	#define DISTANCE_PER_PULSE (2000.0/7920.0)
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
-	#define DISTANCE_PER_DEGREE 745.0/90.0
+	#define DISTANCE_PER_DEGREE (745.0/90.0)
 
-	#define MAX_SPEED_EV 2700
+	#define MAX_SPEED_EV 2700						// What units?  Encoder resolution, mm/s ???
 
-	//PID Values
-	#define SPEED_P_VALUE 0.0015
+	//PID and other control values
+	#define SOFT_START_ACCEL_VALUE 100				// in mm/s per tick (i.e. per Execute)
+	#define SOFT_START_SPEED_CUTOFF_RATIO 0.95f		// switch to constant speed when [actual speed] / [target speed] >= to this value
+
+	#define DECEL_DISTANCE(x) (1500 * x / MAX_SPEED_EV)
+
+	#define SPEED_P_VALUE 0.0005
 	#define SPEED_I_VALUE 0
-	#define SPEED_D_VALUE 0.004
+	#define SPEED_D_VALUE 0
+	#define SPEED_F_VALUE 0
 
-	#define DISTANCE_P_VALUE 0.0003
-	#define DISTANCE_I_VALUE 0.000075
-	#define DISTANCE_D_VALUE 0
+	#define AUTO_SPEED_P_VALUE 0.0015
+	#define AUTO_SPEED_I_VALUE 0
+	#define AUTO_SPEED_D_VALUE 0
+	#define AUTO_SPEED_F_VALUE 0
+
+	#define DISTANCE_P_VALUE 0.04
+	#define DISTANCE_I_VALUE 0.0
+	#define DISTANCE_D_VALUE 0.1
+	#define DISTANCE_F_VALUE 0
 #endif
 
 //ONLY FOR BOT SPECIFIC STUFF
@@ -131,9 +145,9 @@
 
 	//DRIVE ENCODER VALS
 	//millimeters/tick
-	#define DISTANCE_PER_PULSE 2000.0/10700.0
+	#define DISTANCE_PER_PULSE (2000.0/10700.0)
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
-	#define DISTANCE_PER_DEGREE 745.0/90.0
+	#define DISTANCE_PER_DEGREE (745.0/90.0)
 	#define MAX_SPEED_EV 2700
 
 #endif

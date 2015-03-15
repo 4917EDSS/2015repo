@@ -47,8 +47,7 @@ AutoThreeToteOneBinGrp::AutoThreeToteOneBinGrp()
 
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
 	AddSequential(new IntakeUntilLimitCmd());
-	AddParallel(new Turn90CCWiseDropGrp());
 	AddSequential(new GrabStackGrp());
-
+	AddSequential(new Turn90CCWiseDropGrp());
 
 }
