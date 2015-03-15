@@ -106,7 +106,7 @@
 	#define SPEED_D_VALUE 0
 	#define SPEED_F_VALUE 0
 
-	#define AUTO_SPEED_P_VALUE 1.60
+	#define AUTO_SPEED_P_VALUE 0.0015
 	#define AUTO_SPEED_I_VALUE 0
 	#define AUTO_SPEED_D_VALUE 0
 	#define AUTO_SPEED_F_VALUE 0
