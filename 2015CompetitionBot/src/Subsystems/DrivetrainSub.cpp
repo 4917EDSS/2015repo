@@ -14,7 +14,7 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	rightDistanceEncoder = rightSpeedVirtualEncoder->GetEncoder();
 
 	controlState = TANK_DRIVE_CONTROLS;
-	pidGetSetId = DRIVE_CTRL_ID;
+	pidGetSetId = SPEED_CTRL_ID;
 
 	// Set encoder parameters
 	leftDistanceEncoder->SetDistancePerPulse(DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);

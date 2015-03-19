@@ -29,10 +29,10 @@
 #define CAMERA_NAME "cam0"
 
 #define CTRLR_HOR_INTAKE_TOLERANCE 0.8
-#define DRIVE_DIST_TOLERANCE 20			// in mm
+#define DRIVE_DIST_TOLERANCE 30			// in mm
 #define DRIVE_TURN_TOLERANCE 10
 #define SPEED_TOLERANCE 20				// in mm/s
-#define AUTO_SPEED_TOLERANCE 100		// in mm/s
+#define AUTO_SPEED_TOLERANCE 130// in mm/s
 
 #define LOCKS_CLOSE_DELAY .3
 #define LOCKS_OPEN_DELAY .4
@@ -124,30 +124,30 @@
 #ifdef COMPETITION_BOT
 	//LIFT ENCODER VALUES
 	#define BOTTOM_LIMIT_EV 0
-	#define SCORE_HEIGHT_EV 680  //scoring platform
-	#define FIRST_CONTACT_EV 914
-	#define TRANSFER_EV 2358
+	#define SCORE_HEIGHT_EV 548  //scoring platform
+	#define FIRST_CONTACT_EV 762
+	#define TRANSFER_EV 2300
 	#define INTERFERENCE_LOCKOUT_EV 2525
 	#define TOTE_CHUTE_INTAKE_EV 4000 // NEEDS A CORRECT VALUE
-	#define GREEN_BIN_HANDLES_EV 2280 // NACV
+	#define GREEN_BIN_HANDLES_EV 2072 // NACV
 	#define GREEN_BIN_ABOVE_TOTE_EV 4100 // NACV
 	#define ONE_STACK_EV 1750
 	#define TWO_STACK_EV 3223
 	#define THREE_STACK_EV 4700
 	#define FOUR_STACK_EV 6035
-	#define FIVE_STACK_EV 7550
-	#define TOP_LIMIT_EV 7884
-	#define LOCK_GRAB_STACK_EV 2000  //NACV
+	#define FIVE_STACK_EV 7750
+	#define TOP_LIMIT_EV 7800
+	#define LOCK_GRAB_STACK_EV 1850  //NACV
 	#define LIFT_ENCODER_SLOWDOWN_DISTANCE 100
 
 
 
 	//DRIVE ENCODER VALS
 	//millimeters/tick
-	#define DISTANCE_PER_PULSE (2000.0/10700.0)
+	#define DISTANCE_PER_PULSE (2000.0/11250.0)
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
 	#define DISTANCE_PER_DEGREE (745.0/90.0)
-	#define MAX_SPEED_EV (2700*(10700.0/7920))
+	#define MAX_SPEED_EV (2700*(11250.0/7920))
 
 //PID and other control values
 	#define SOFT_START_ACCEL_VALUE 100				// in mm/s per tick (i.e. per Execute)
@@ -155,19 +155,19 @@
 
 	#define DECEL_DISTANCE(x) (1500 * x / MAX_SPEED_EV)
 
-	#define SPEED_P_VALUE 0.0005
+	#define SPEED_P_VALUE 0.00038
 	#define SPEED_I_VALUE 0
 	#define SPEED_D_VALUE 0
 	#define SPEED_F_VALUE 0
 
-	#define AUTO_SPEED_P_VALUE 0.0015
+	#define AUTO_SPEED_P_VALUE 0.0011
 	#define AUTO_SPEED_I_VALUE 0
 	#define AUTO_SPEED_D_VALUE 0
 	#define AUTO_SPEED_F_VALUE 0
 
-	#define DISTANCE_P_VALUE 0.04
+	#define DISTANCE_P_VALUE 0.035
 	#define DISTANCE_I_VALUE 0.0
-	#define DISTANCE_D_VALUE 0.1
+	#define DISTANCE_D_VALUE 0.04
 	#define DISTANCE_F_VALUE 0
 
 #endif

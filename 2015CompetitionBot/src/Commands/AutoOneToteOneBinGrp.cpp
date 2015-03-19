@@ -16,7 +16,7 @@
 
 AutoOneToteOneBinGrp::AutoOneToteOneBinGrp()
 {
-	AddParallel(new SetLocksCmd(LOCKS_OPEN));
+	AddSequential(new SetLocksCmd(LOCKS_OPEN));
 	AddSequential(new SetJawsCmd(JAWS_OPEN));
 	AddSequential(new SetJawsCmd(ARMS_OPEN));
 	AddSequential(new SetLiftHeightCmd(GREEN_BIN_ABOVE_TOTE_EV));

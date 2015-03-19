@@ -20,6 +20,7 @@
 #include "Commands/AutoOneToteGrp.h"
 #include "Commands/AdjustPIDCmd.h"
 #include "Commands/AutoDropStackGrp.h"
+#include "COmmands/AutoDoNothingCmd.h"
 #include "Subsystems/IMU.h"
 #include "Subsystems/IMUAdvanced.h"
 #include "Subsystems/AHRS.h"
@@ -57,6 +58,7 @@ private:
 		autoOptions->AddObject("Moves one bin and one tote to auto zone", new AutoOneToteOneBinGrp());
 		autoOptions->AddObject("Moves three tote and one bin to auto zone", new AutoThreeToteOneBinGrp());
 		autoOptions->AddObject("Moves all three totes to auto zone, assuming two bins are moved", new AutoThreeToteGrp());
+		autoOptions->AddObject("Does nothing", new AutoDoNothingCmd());
 		SmartDashboard::PutData("Autonomous selector", autoOptions);
 		autoCommand = 0;
 

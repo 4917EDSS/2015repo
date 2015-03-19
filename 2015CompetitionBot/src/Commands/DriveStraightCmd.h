@@ -14,6 +14,7 @@ private:
 	bool finished;
 	int previousLeftEncoder;
 	int previousRightEncoder;
+	bool backward;
 	int counter;
 
 public:

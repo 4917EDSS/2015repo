@@ -16,6 +16,8 @@ DriveStraightCmd::DriveStraightCmd(int driveDistanceMillimeters, float driveSpee
 	state = 0;			// Always start at beginning of state-machine
 	finished = false;
 
+	backward = targetDistance < 0;
+
 ////////////
 	previousRightEncoder = 0;
 	previousLeftEncoder = 0;
@@ -64,66 +66,131 @@ void DriveStraightCmd::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveStraightCmd::Execute()
 {
-	switch(state)
-	{
-	// State 0:  Initial setup
-	case 0:
-		// Manage the speed PID
-		rDrivetrainSub->PIDDrive(SOFT_START_ACCEL_VALUE);
-		rDrivetrainSub->EnableSpeedPID();
-		currentSpeed = SOFT_START_ACCEL_VALUE;
-
-		state = 1;
-		break;
-
-	// State 1:  Acceleration
-	case 1:
-		if(targetDistance - rDrivetrainSub->GetLeftEnc() < (DECEL_DISTANCE(currentSpeed)) )
+	if (backward) {
+		switch(state)
 		{
-			// We've gotten to the close to the target distance before getting to target speed
-			state = 2;
+		// State 0:  Initial setup
+		case 0:
+			// Manage the speed PID
+			rDrivetrainSub->PIDDrive(-SOFT_START_ACCEL_VALUE);
+			rDrivetrainSub->EnableSpeedPID();
+			currentSpeed = -SOFT_START_ACCEL_VALUE;
+
+			state = 1;
+			break;
+
+		// State 1:  Acceleration
+		case 1:
+			if(targetDistance - rDrivetrainSub->GetLeftEnc() > (DECEL_DISTANCE(currentSpeed)) )
+			{
+				// We've gotten to the close to the target distance before getting to target speed
+				state = 2;
+			}
+			else if( (currentSpeed / targetSpeed) > SOFT_START_SPEED_CUTOFF_RATIO )
+			{
+				// At target speed.  Hold this speed.
+				rDrivetrainSub->PIDDrive(-targetSpeed);
+				state = 2;
+			}
+			else
+			{
+				// We haven't reached target speed yet so keep accelerating
+				currentSpeed -= SOFT_START_ACCEL_VALUE;
+				rDrivetrainSub->PIDDrive(currentSpeed);
+			}
+			break;
+
+		// State 2:  Constant speed
+		case 2:
+			if(targetDistance - rDrivetrainSub->GetLeftEnc() > (DECEL_DISTANCE(targetSpeed)))
+			{
+				// We've gotten to the close to the target distance.  Start the distance PID to decelerate.
+				rDrivetrainSub->PIDDist(-targetDistance, currentSpeed);
+				rDrivetrainSub->DisableSpeedPID();
+				rDrivetrainSub->EnableDistancePID();
+				state = 3;
+			}
+
+			break;
+
+		// State 3:  Deceleration to target distance
+		case 3:
+			// if we are within distance-PID tolerance, stop
+			if( rDrivetrainSub->isOnDistTarget()) {
+				state = 4;
+			}
+			break;
+
+		// State 4:  Stop
+		case 4:
+		default:
+			// other cleanup?
+			finished = true;
+			break;
 		}
-		else if( (currentSpeed / targetSpeed) > SOFT_START_SPEED_CUTOFF_RATIO )
+	}
+	else{
+		switch(state)
 		{
-			// At target speed.  Hold this speed.
-			rDrivetrainSub->PIDDrive(targetSpeed);
-			state = 2;
-		}
-		else
-		{
-			// We haven't reached target speed yet so keep accelerating
-			currentSpeed += SOFT_START_ACCEL_VALUE;
-			rDrivetrainSub->PIDDrive(currentSpeed);
-		}
-		break;
+		// State 0:  Initial setup
+		case 0:
+			// Manage the speed PID
+			rDrivetrainSub->PIDDrive(SOFT_START_ACCEL_VALUE);
+			rDrivetrainSub->EnableSpeedPID();
+			currentSpeed = SOFT_START_ACCEL_VALUE;
 
-	// State 2:  Constant speed
-	case 2:
-		if(targetDistance - rDrivetrainSub->GetLeftEnc() < (DECEL_DISTANCE(targetSpeed)))
-		{
-			// We've gotten to the close to the target distance.  Start the distance PID to decelerate.
-			rDrivetrainSub->PIDDist(targetDistance, currentSpeed);
-			rDrivetrainSub->DisableSpeedPID();
-			rDrivetrainSub->EnableDistancePID();
-			state = 3;
+			state = 1;
+			break;
+
+		// State 1:  Acceleration
+		case 1:
+			if(targetDistance - rDrivetrainSub->GetLeftEnc() < (DECEL_DISTANCE(currentSpeed)) )
+			{
+				// We've gotten to the close to the target distance before getting to target speed
+				state = 2;
+			}
+			else if( (currentSpeed / targetSpeed) > SOFT_START_SPEED_CUTOFF_RATIO )
+			{
+				// At target speed.  Hold this speed.
+				rDrivetrainSub->PIDDrive(targetSpeed);
+				state = 2;
+			}
+			else
+			{
+				// We haven't reached target speed yet so keep accelerating
+				currentSpeed += SOFT_START_ACCEL_VALUE;
+				rDrivetrainSub->PIDDrive(currentSpeed);
+			}
+			break;
+
+		// State 2:  Constant speed
+		case 2:
+			if(targetDistance - rDrivetrainSub->GetLeftEnc() < (DECEL_DISTANCE(targetSpeed)))
+			{
+				// We've gotten to the close to the target distance.  Start the distance PID to decelerate.
+				rDrivetrainSub->PIDDist(targetDistance, currentSpeed);
+				rDrivetrainSub->DisableSpeedPID();
+				rDrivetrainSub->EnableDistancePID();
+				state = 3;
+			}
+
+			break;
+
+		// State 3:  Deceleration to target distance
+		case 3:
+			// if we are within distance-PID tolerance, stop
+			if( rDrivetrainSub->isOnDistTarget()) {
+				state = 4;
+			}
+			break;
+
+		// State 4:  Stop
+		case 4:
+		default:
+			// other cleanup?
+			finished = true;
+			break;
 		}
-
-		break;
-
-	// State 3:  Deceleration to target distance
-	case 3:
-		// if we are within distance-PID tolerance, stop
-		if( rDrivetrainSub->isOnDistTarget()) {
-			state = 4;
-		}
-		break;
-
-	// State 4:  Stop
-	case 4:
-	default:
-		// other cleanup?
-		finished = true;
-		break;
 	}
 }
 
