@@ -13,6 +13,9 @@
 #include "PickUpFirstBoxGrp.h"
 #include "ResetLiftEncoderCmd.h"
 #include "GrabStackGrp.h"
+#include "IntakeAndGrapGrp.h"
+#include "Turn90CCDriveGrp.h"
+#include "DropStackAndBackoffGrp.h"
 
 AutoThreeToteOneBinGrp::AutoThreeToteOneBinGrp()
 {
@@ -45,9 +48,8 @@ AutoThreeToteOneBinGrp::AutoThreeToteOneBinGrp()
 	AddSequential(new WaitCommand(ARMS_OPEN_DELAY));
 	AddSequential(new ResetLiftEncoderCmd());
 
-	AddSequential(new SetArmsCmd(ARMS_CLOSED));
-	AddSequential(new IntakeUntilLimitCmd());
-	AddSequential(new GrabStackGrp());
-	AddSequential(new Turn90CCWiseDropGrp());
+	AddParallel(new IntakeAndGrapGrp());
+	AddSequential(new Turn90CCDriveGrp());
+	AddSequential(new DropStackAndBackoffGrp());
 
 }

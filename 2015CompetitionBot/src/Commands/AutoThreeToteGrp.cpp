@@ -4,7 +4,7 @@
 #include "DriveStraightCmd.h"
 #include "IntakeUntilLimitCmd.h"
 #include "DriveTurnCmd.h"
-#include "AutoDropStackGrp.h"
+#include "DropStackAndBackoffGrp.h"
 #include "SetLiftHeightCmd.h"
 #include "SetArmsCmd.h"
 #include "SetLocksCmd.h"
@@ -47,7 +47,7 @@ AutoThreeToteGrp::AutoThreeToteGrp()
 	AddSequential(new IntakeUntilLimitCmd());
 	AddParallel(new SetLiftHeightCmd(FIRST_CONTACT_EV));
 	AddSequential(new DriveTurnCmd(90, true, MAX_SPEED_EV/2));
+	AddSequential(new SetLocksCmd(LOCKS_OPEN));
 	AddSequential(new DriveStraightCmd(DRIVE_CENTER_TO_CENTER, MAX_SPEED_EV/2));
-	AddSequential(new AutoDropStackGrp());
-	AddSequential(new DriveStraightCmd(BACK_OFF_DISTANCE, MAX_SPEED_EV/2));
+	AddSequential(new DropStackAndBackoffGrp());
 }

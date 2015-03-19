@@ -219,7 +219,7 @@ bool LiftSub::GetBottomLimitSwitch()
 
 bool LiftSub::GetTopLimitSwitch()
 {
-	return !topLimitSwitch->Get();
+	return false;
 }
 
 bool LiftSub::ArmsAboveJaws()
