@@ -74,14 +74,14 @@ void DriveStraightCmd::Execute()
 			// Manage the speed PID
 			rDrivetrainSub->PIDDrive(-SOFT_START_ACCEL_VALUE);
 			rDrivetrainSub->EnableSpeedPID();
-			currentSpeed = -SOFT_START_ACCEL_VALUE;
+			currentSpeed = SOFT_START_ACCEL_VALUE;
 
 			state = 1;
 			break;
 
 		// State 1:  Acceleration
 		case 1:
-			if(targetDistance - rDrivetrainSub->GetLeftEnc() > (DECEL_DISTANCE(currentSpeed)) )
+			if(fabs(targetDistance - rDrivetrainSub->GetLeftEnc()) < (DECEL_DISTANCE(currentSpeed)) )
 			{
 				// We've gotten to the close to the target distance before getting to target speed
 				state = 2;
@@ -95,17 +95,17 @@ void DriveStraightCmd::Execute()
 			else
 			{
 				// We haven't reached target speed yet so keep accelerating
-				currentSpeed -= SOFT_START_ACCEL_VALUE;
-				rDrivetrainSub->PIDDrive(currentSpeed);
+				currentSpeed += SOFT_START_ACCEL_VALUE;
+				rDrivetrainSub->PIDDrive(-currentSpeed);
 			}
 			break;
 
 		// State 2:  Constant speed
 		case 2:
-			if(targetDistance - rDrivetrainSub->GetLeftEnc() > (DECEL_DISTANCE(targetSpeed)))
+			if( fabs(targetDistance - rDrivetrainSub->GetLeftEnc()) < (DECEL_DISTANCE(targetSpeed)) )
 			{
 				// We've gotten to the close to the target distance.  Start the distance PID to decelerate.
-				rDrivetrainSub->PIDDist(-targetDistance, currentSpeed);
+				rDrivetrainSub->PIDDist(targetDistance, -currentSpeed);
 				rDrivetrainSub->DisableSpeedPID();
 				rDrivetrainSub->EnableDistancePID();
 				state = 3;
