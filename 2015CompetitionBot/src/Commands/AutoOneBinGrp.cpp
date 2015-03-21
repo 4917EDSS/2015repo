@@ -13,6 +13,7 @@
 
 AutoOneBinGrp::AutoOneBinGrp()
 {
+	AddSequential(new WaitCommand(4));
 	AddSequential(new SetJawsCmd(JAWS_OPEN));
 	AddSequential(new SetLocksCmd(LOCKS_OPEN));
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));

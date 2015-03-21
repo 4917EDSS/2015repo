@@ -24,7 +24,7 @@ AutoThreeToteOneBinGrp::AutoThreeToteOneBinGrp()
 		AddSequential(new SetJawsCmd(JAWS_OPEN));
 		AddSequential(new SetJawsCmd(ARMS_OPEN));
 		AddSequential(new SetLiftHeightCmd(GREEN_BIN_ABOVE_TOTE_EV));
-		AddSequential(new DriveStraightCmd(DRIVE_ONE_GREEN_BIN, MAX_SPEED_EV));
+		AddSequential(new DriveStraightCmd(DRIVE_ONE_GREEN_BIN, MAX_SPEED_EV/2));
 		AddSequential(new ResetLiftEncoderCmd());
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
 	AddSequential(new IntakeUntilLimitCmd());

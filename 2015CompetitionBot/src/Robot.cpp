@@ -16,6 +16,7 @@
 #include "Commands/AutoDriveForwardsGrp.h"
 #include "Commands/AutoOneBinGrp.h"
 #include "Commands/AutoOneToteOneBinGrp.h"
+#include "Commands/AutoWaitOneBinGrp.h"
 #include "Commands/ResetDrivetrainCmd.h"
 #include "Commands/AutoOneToteGrp.h"
 #include "Commands/AdjustPIDCmd.h"
@@ -58,6 +59,7 @@ private:
 		autoOptions->AddObject("Moves one bin and one tote to auto zone", new AutoOneToteOneBinGrp());
 		autoOptions->AddObject("Moves three tote and one bin to auto zone", new AutoThreeToteOneBinGrp());
 		autoOptions->AddObject("Moves all three totes to auto zone, assuming two bins are moved", new AutoThreeToteGrp());
+		autoOptions->AddObject("Wait four seconds, move one green bin to auto zone", new AutoWaitOneBinGrp());
 		autoOptions->AddObject("Does nothing", new AutoDoNothingCmd());
 		SmartDashboard::PutData("Autonomous selector", autoOptions);
 		autoCommand = 0;
