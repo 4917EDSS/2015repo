@@ -4,10 +4,10 @@
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class TimeIntakeCmd: public CommandBase
+class StartIntakeCmd: public CommandBase
 {
 public:
-	TimeIntakeCmd();
+	StartIntakeCmd();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

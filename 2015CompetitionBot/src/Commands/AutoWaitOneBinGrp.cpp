@@ -6,7 +6,7 @@
 #include "SetArmsCmd.h"
 #include "SetJawsCmd.h"
 #include "SetLocksCmd.h"
-#include "TimeIntakeCmd.h"
+#include "StartIntakeCmd.h"
 #include "StopBeltsCmd.h"
 #include "GrabStackGrp.h"
 #include "ResetLiftEncoderCmd.h"
@@ -22,7 +22,7 @@ AutoWaitOneBinGrp::AutoWaitOneBinGrp()
 	AddSequential(new SetJawsCmd(ARMS_OPEN));
 	AddSequential(new DriveStraightCmd(700, MAX_SPEED_EV/2));
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
-	AddSequential(new TimeIntakeCmd());
+	AddSequential(new StartIntakeCmd());
 	AddSequential(new WaitCommand(1.5));
 	AddSequential(new StopBeltsCmd());
 	AddSequential(new SetLiftHeightCmd(2500));

@@ -1,8 +1,8 @@
-#include "TimeIntakeCmd.h"
+#include "StartIntakeCmd.h"
 
 int i;
 
-TimeIntakeCmd::TimeIntakeCmd()
+StartIntakeCmd::StartIntakeCmd()
 {
 	Requires(rIntakeSub);
 	// Use Requires() here to declare subsystem dependencies
@@ -10,32 +10,32 @@ TimeIntakeCmd::TimeIntakeCmd()
 }
 
 // Called just before this Command runs the first time
-void TimeIntakeCmd::Initialize()
+void StartIntakeCmd::Initialize()
 {
 	rIntakeSub->SetBeltsIn(0.5);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void TimeIntakeCmd::Execute()
+void StartIntakeCmd::Execute()
 {
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool TimeIntakeCmd::IsFinished()
+bool StartIntakeCmd::IsFinished()
 {
 	return true;
 }
 
 // Called once after isFinished returns true
-void TimeIntakeCmd::End()
+void StartIntakeCmd::End()
 {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void TimeIntakeCmd::Interrupted()
+void StartIntakeCmd::Interrupted()
 {
 
 }
