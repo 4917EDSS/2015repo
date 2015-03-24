@@ -10,10 +10,11 @@ AdjustPIDCmd::AdjustPIDCmd()
 // Called just before this Command runs the first time
 void AdjustPIDCmd::Initialize()
 {
+	rDrivetrainSub->SetExternallyAccessiblePid(SmartDashboard::GetNumber("Selected PID"));
 	rDrivetrainSub->SetP(SmartDashboard::GetNumber("p value")/1000);
 	rDrivetrainSub->SetI(SmartDashboard::GetNumber("i value")/1000);
 	rDrivetrainSub->SetD(SmartDashboard::GetNumber("d value")/1000);
-
+	rDrivetrainSub->SetF(SmartDashboard::GetNumber("f value")/1000);
 }
 
 // Called repeatedly when this Command is scheduled to run

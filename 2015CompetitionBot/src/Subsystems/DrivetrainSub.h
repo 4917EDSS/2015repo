@@ -54,12 +54,15 @@ public:
 	void PIDDrive(float leftSpeed, float rightSpeed);
 	void PIDDist(float distance, float speed);
 	void SetExternallyAccessiblePid(int id);
+	int GetExternallyAccessiblePid();
 	void SetP(float p);
 	float GetP();
 	void SetD(float d);
 	float GetD();
 	void SetI(float i);
 	float GetI();
+	void SetF(float f);
+	float GetF();
 	void InitDefaultCommand();
 	void ResetDrive(); //reset both drive encoders
 	int GetRawLeftEnc();

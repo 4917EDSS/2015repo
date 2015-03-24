@@ -167,6 +167,10 @@ void DrivetrainSub::SetExternallyAccessiblePid( int id ) {
 	pidGetSetId = id;
 }
 
+int DrivetrainSub::GetExternallyAccessiblePid() {
+	return pidGetSetId;
+}
+
 void DrivetrainSub::SetP(float p){
 	switch(pidGetSetId) {
 	case NORMAL_SPEED_CTRL_ID:
@@ -282,6 +286,46 @@ float DrivetrainSub::GetD(){
 		break;
 	case TURN_CTRL_ID:
 		val = turnController->GetD();
+		break;
+	}
+	return val;
+}
+
+void DrivetrainSub::SetF(float f){
+	switch(pidGetSetId) {
+	case NORMAL_SPEED_CTRL_ID:
+		leftDriveSpeedController->SetPID(leftDriveSpeedController->GetP(), leftDriveSpeedController->GetI(), leftDriveSpeedController->GetD(), f);
+		rightDriveSpeedController->SetPID(rightDriveSpeedController->GetP(), rightDriveSpeedController->GetI(), rightDriveSpeedController->GetD(), f);
+		break;
+	case AUTO_SPEED_CTRL_ID:
+		leftAutoSpeedController->SetPID(leftAutoSpeedController->GetP(), leftAutoSpeedController->GetI(), leftAutoSpeedController->GetD(), f);
+		rightAutoSpeedController->SetPID(rightAutoSpeedController->GetP(), rightAutoSpeedController->GetI(), rightAutoSpeedController->GetD(), f);
+		break;
+	case DISTANCE_CTRL_ID:
+		leftDistanceController->SetPID(leftDistanceController->GetP(), leftDistanceController->GetI(), leftDistanceController->GetD(), f);
+		rightDistanceController->SetPID(rightDistanceController->GetP(), rightDistanceController->GetI(), rightDistanceController->GetD(), f);
+		break;
+	case TURN_CTRL_ID:
+		turnController->SetPID(turnController->GetP(), turnController->GetI(), turnController->GetD(), f);
+		break;
+	}
+}
+
+float DrivetrainSub::GetF(){
+	float val = 0.0;
+
+	switch(pidGetSetId) {
+	case NORMAL_SPEED_CTRL_ID:
+		val = leftDriveSpeedController->GetF();
+		break;
+	case AUTO_SPEED_CTRL_ID:
+		val = leftAutoSpeedController->GetF();
+		break;
+	case DISTANCE_CTRL_ID:
+		val = leftDistanceController->GetF();
+		break;
+	case TURN_CTRL_ID:
+		val = turnController->GetF();
 		break;
 	}
 	return val;
