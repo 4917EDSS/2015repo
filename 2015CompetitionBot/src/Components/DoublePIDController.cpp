@@ -8,6 +8,13 @@
 #include "DoublePIDController.h"
 #include "RobotParameters.h"
 
+// WARNING:  This object is no longer used
+// TODO:  Determine which values to use here
+#define DISTANCE_P_VALUE 0.04
+#define DISTANCE_I_VALUE 0.0
+#define DISTANCE_D_VALUE 0.1
+#define DISTANCE_F_VALUE 0
+
 DoublePIDController::DoublePIDController(PIDSource* source, Talon* output, float* modifier) : PIDOutput(){
 	motor = output;
 	speedController = new PIDController(DISTANCE_P_VALUE,DISTANCE_I_VALUE,DISTANCE_D_VALUE, source, output);

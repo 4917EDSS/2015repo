@@ -29,10 +29,6 @@
 #define CAMERA_NAME "cam0"
 
 #define CTRLR_HOR_INTAKE_TOLERANCE 0.8
-#define DRIVE_DIST_TOLERANCE 30			// in mm
-#define DRIVE_TURN_TOLERANCE 10
-#define SPEED_TOLERANCE 20				// in mm/s
-#define AUTO_SPEED_TOLERANCE 130// in mm/s
 
 #define LOCKS_CLOSE_DELAY .3
 #define LOCKS_OPEN_DELAY .4
@@ -104,21 +100,6 @@
 	#define SOFT_START_SPEED_CUTOFF_RATIO 0.95f		// switch to constant speed when [actual speed] / [target speed] >= to this value
 
 	#define DECEL_DISTANCE(x) (1500 * x / MAX_SPEED_EV)
-
-	#define SPEED_P_VALUE 0.0005
-	#define SPEED_I_VALUE 0
-	#define SPEED_D_VALUE 0
-	#define SPEED_F_VALUE 0
-
-	#define AUTO_SPEED_P_VALUE 0.0015
-	#define AUTO_SPEED_I_VALUE 0
-	#define AUTO_SPEED_D_VALUE 0
-	#define AUTO_SPEED_F_VALUE 0
-
-	#define DISTANCE_P_VALUE 0.04
-	#define DISTANCE_I_VALUE 0.0
-	#define DISTANCE_D_VALUE 0.1
-	#define DISTANCE_F_VALUE 0
 #endif
 
 //ONLY FOR BOT SPECIFIC STUFF
@@ -155,21 +136,6 @@
 	#define SOFT_START_SPEED_CUTOFF_RATIO 0.95f		// switch to constant speed when [actual speed] / [target speed] >= to this value
 
 	#define DECEL_DISTANCE(x) (1500 * x / MAX_SPEED_EV)
-
-	#define SPEED_P_VALUE 0.00038
-	#define SPEED_I_VALUE 0
-	#define SPEED_D_VALUE 0
-	#define SPEED_F_VALUE 0
-
-	#define AUTO_SPEED_P_VALUE 0.0011
-	#define AUTO_SPEED_I_VALUE 0
-	#define AUTO_SPEED_D_VALUE 0
-	#define AUTO_SPEED_F_VALUE 0
-
-	#define DISTANCE_P_VALUE 0.035
-	#define DISTANCE_I_VALUE 0.0
-	#define DISTANCE_D_VALUE 0.04
-	#define DISTANCE_F_VALUE 0
 
 #endif
 

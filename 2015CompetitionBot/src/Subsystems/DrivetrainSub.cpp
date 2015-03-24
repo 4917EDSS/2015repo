@@ -3,6 +3,49 @@
 #include "Commands/DriveWithJoystickCmd.h"
 #include "RobotParameters.h"
 
+// PID Parameters
+#ifdef PRACTICE_BOT
+
+	#define SPEED_P_VALUE 0.0005
+	#define SPEED_I_VALUE 0
+	#define SPEED_D_VALUE 0
+	#define SPEED_F_VALUE 0
+
+	#define AUTO_SPEED_P_VALUE 0.0015
+	#define AUTO_SPEED_I_VALUE 0
+	#define AUTO_SPEED_D_VALUE 0
+	#define AUTO_SPEED_F_VALUE 0
+
+	#define DISTANCE_P_VALUE 0.04
+	#define DISTANCE_I_VALUE 0.0
+	#define DISTANCE_D_VALUE 0.1
+	#define DISTANCE_F_VALUE 0
+
+#else // COMPETITION_BOT
+
+	#define SPEED_P_VALUE 0.00038
+	#define SPEED_I_VALUE 0
+	#define SPEED_D_VALUE 0
+	#define SPEED_F_VALUE 0
+
+	#define AUTO_SPEED_P_VALUE 0.0011
+	#define AUTO_SPEED_I_VALUE 0
+	#define AUTO_SPEED_D_VALUE 0
+	#define AUTO_SPEED_F_VALUE 0
+
+	#define DISTANCE_P_VALUE 0.035
+	#define DISTANCE_I_VALUE 0.0
+	#define DISTANCE_D_VALUE 0.04
+	#define DISTANCE_F_VALUE 0
+
+#endif
+
+#define DRIVE_DIST_TOLERANCE 30			// in mm
+#define DRIVE_TURN_TOLERANCE 10
+#define SPEED_TOLERANCE 20				// in mm/s
+#define AUTO_SPEED_TOLERANCE 130		// in mm/s
+
+
 DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C, int leftEncoder2C, int rightEncoder1C, int rightEncoder2C) :
 		Subsystem("DrivetrainSub")
 {
