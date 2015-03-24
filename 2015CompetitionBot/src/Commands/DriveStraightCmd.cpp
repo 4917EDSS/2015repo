@@ -59,7 +59,6 @@ void DriveStraightCmd::Initialize()
 	state = 0;
 	finished = false;
 	rDrivetrainSub->ResetDrive();
-	rDrivetrainSub->DisableSpeedPID();
     rDrivetrainSub->SetSpeedPIDMode(SPEED_MODE_AUTO);
 }
 

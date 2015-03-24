@@ -11,9 +11,10 @@
 
 // PID Controller IDs
 // For use with GetP/I/D and SetP/I/D routing
-#define SPEED_CTRL_ID	0
-#define DRIVE_CTRL_ID	1
-#define TURN_CTRL_ID	2
+#define NORMAL_SPEED_CTRL_ID	0
+#define AUTO_SPEED_CTRL_ID		1
+#define DISTANCE_CTRL_ID		2
+#define TURN_CTRL_ID			3	// Not currently used
 
 // Speed PID modes
 #define SPEED_MODE_AUTO 0
@@ -29,8 +30,12 @@ private:
 	Encoder* rightDistanceEncoder;
 	Encoder4917* leftSpeedVirtualEncoder;
 	Encoder4917* rightSpeedVirtualEncoder;
-	PIDController* leftSpeedController;
-	PIDController* rightSpeedController;
+	PIDController* leftDriveSpeedController;
+	PIDController* rightDriveSpeedController;
+	PIDController* leftAutoSpeedController;
+	PIDController* rightAutoSpeedController;
+	PIDController* leftCurSpeedController;		// Pointers to current speed controllers
+	PIDController* rightCurSpeedController;
 	PIDController* leftDistanceController;
 	PIDController* rightDistanceController;
 	DrivetrainRotationMeasure* rotationMeasure;
