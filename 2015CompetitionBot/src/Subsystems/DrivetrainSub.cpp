@@ -135,6 +135,8 @@ void DrivetrainSub::Drive(float leftSpeed, float rightSpeed) {
 }
 
 void DrivetrainSub::PIDDrive(float speed) {
+	// In order to avoid having the robot spasm when it overshoots the desired speed, set the
+	// output range to prevent the motor from turning in the opposite direction.
 	if(speed > 0)
 	{
 		leftCurSpeedController->SetOutputRange(0.0, 1.0);
