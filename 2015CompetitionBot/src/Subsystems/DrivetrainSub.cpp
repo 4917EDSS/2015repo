@@ -5,7 +5,11 @@
 
 // PID Parameters
 #ifdef PRACTICE_BOT
+	// Encoder values (millimeters/tick)
+	#define RIGHT_DISTANCE_PER_PULSE (2000.0/7920.0)
+	#define LEFT_DISTANCE_PER_PULSE (2000.0/7920.0)
 
+	// PID parameters
 	#define SPEED_P_VALUE 0.0005
 	#define SPEED_I_VALUE 0
 	#define SPEED_D_VALUE 0
@@ -22,6 +26,9 @@
 	#define DISTANCE_F_VALUE 0
 
 #else // COMPETITION_BOT
+	// Encoder values (millimeters/tick)
+	#define RIGHT_DISTANCE_PER_PULSE (2000.0/11250.0)
+	#define LEFT_DISTANCE_PER_PULSE (2000.0/11250.0)
 
 	#define SPEED_P_VALUE 0.00038
 	#define SPEED_I_VALUE 0
@@ -40,6 +47,7 @@
 
 #endif
 
+// PID set-point tolerances
 #define DRIVE_DIST_TOLERANCE 30			// in mm
 #define DRIVE_TURN_TOLERANCE 10
 #define SPEED_TOLERANCE 20				// in mm/s
@@ -57,21 +65,38 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 	rightDistanceEncoder = rightSpeedVirtualEncoder->GetEncoder();
 
 	controlState = TANK_DRIVE_CONTROLS;
-	pidGetSetId = SPEED_CTRL_ID;
+	pidGetSetId = NORMAL_SPEED_CTRL_ID;
 
 	// Set encoder parameters
-	leftDistanceEncoder->SetDistancePerPulse(DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
-	rightDistanceEncoder->SetDistancePerPulse(DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
+	leftDistanceEncoder->SetDistancePerPulse(LEFT_DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
+	rightDistanceEncoder->SetDistancePerPulse(RIGHT_DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
 
 	// Set PID controller parameters
 	// Speed is calculated from the distance encoders
-	leftSpeedController = new PIDController(SPEED_P_VALUE, SPEED_I_VALUE, SPEED_D_VALUE, SPEED_F_VALUE, leftSpeedVirtualEncoder, leftMotor);
-	rightSpeedController = new PIDController(SPEED_P_VALUE, SPEED_I_VALUE, SPEED_D_VALUE, SPEED_F_VALUE, rightSpeedVirtualEncoder, rightMotor);
-	leftSpeedController->SetAbsoluteTolerance(SPEED_TOLERANCE);
-	rightSpeedController->SetAbsoluteTolerance(SPEED_TOLERANCE);
-	leftSpeedController->Disable();
-	rightSpeedController->Disable();
+	// There are two speed PID pairs since we need different values for driving (FPS-mode) and auto
+	leftDriveSpeedController = new PIDController(SPEED_P_VALUE, SPEED_I_VALUE, SPEED_D_VALUE, SPEED_F_VALUE, leftSpeedVirtualEncoder, leftMotor);
+	rightDriveSpeedController = new PIDController(SPEED_P_VALUE, SPEED_I_VALUE, SPEED_D_VALUE, SPEED_F_VALUE, rightSpeedVirtualEncoder, rightMotor);
+	leftDriveSpeedController->SetAbsoluteTolerance(SPEED_TOLERANCE);
+	rightDriveSpeedController->SetAbsoluteTolerance(SPEED_TOLERANCE);
+	leftDriveSpeedController->SetOutputRange(-1.0, 1.0);
+	rightDriveSpeedController->SetOutputRange(-1.0, 1.0);
+	leftDriveSpeedController->Disable();
+	rightDriveSpeedController->Disable();
 
+	leftAutoSpeedController = new PIDController(AUTO_SPEED_P_VALUE, AUTO_SPEED_I_VALUE, AUTO_SPEED_D_VALUE, AUTO_SPEED_F_VALUE, leftSpeedVirtualEncoder, leftMotor);
+	rightAutoSpeedController = new PIDController(AUTO_SPEED_P_VALUE, AUTO_SPEED_I_VALUE, AUTO_SPEED_D_VALUE, AUTO_SPEED_F_VALUE, rightSpeedVirtualEncoder, rightMotor);
+	leftAutoSpeedController->SetAbsoluteTolerance(AUTO_SPEED_TOLERANCE);
+	rightAutoSpeedController->SetAbsoluteTolerance(AUTO_SPEED_TOLERANCE);
+	leftDriveSpeedController->SetOutputRange(-1.0, 1.0);
+	rightDriveSpeedController->SetOutputRange(-1.0, 1.0);
+	leftAutoSpeedController->Disable();
+	rightAutoSpeedController->Disable();
+
+	// Set current speed control mode to normal driving
+	leftCurSpeedController = leftDriveSpeedController;
+	rightCurSpeedController = rightDriveSpeedController;
+
+	// Distance PID setup
 	leftDistanceController = new PIDController(DISTANCE_P_VALUE, DISTANCE_I_VALUE, DISTANCE_D_VALUE, DISTANCE_F_VALUE, leftDistanceEncoder, leftMotor);
 	rightDistanceController = new PIDController(DISTANCE_P_VALUE, DISTANCE_I_VALUE, DISTANCE_D_VALUE, DISTANCE_F_VALUE, rightDistanceEncoder, rightMotor);
 	leftDistanceController->SetAbsoluteTolerance(DRIVE_DIST_TOLERANCE);
@@ -110,14 +135,25 @@ void DrivetrainSub::Drive(float leftSpeed, float rightSpeed) {
 }
 
 void DrivetrainSub::PIDDrive(float speed) {
-	leftSpeedController->SetSetpoint(speed);
-	rightSpeedController->SetSetpoint(speed);
+	// In order to avoid having the robot spasm when it overshoots the desired speed, set the
+	// output range to prevent the motor from turning in the opposite direction.
+	if(speed > 0)
+	{
+		leftCurSpeedController->SetOutputRange(0.0, 1.0);
+		rightCurSpeedController->SetOutputRange(0.0, 1.0);
+	}
+	else if(speed < 0)
+	{
+		leftCurSpeedController->SetOutputRange(-1.0, 0.0);
+		rightCurSpeedController->SetOutputRange(-1.0, 0.0);
+	}
+	leftCurSpeedController->SetSetpoint(speed);
+	rightCurSpeedController->SetSetpoint(speed);
 }
 
 void DrivetrainSub::PIDDrive(float leftSpeed, float rightSpeed) {
-
-	leftSpeedController->SetSetpoint(MAX_SPEED_EV*leftSpeed);
-	rightSpeedController->SetSetpoint(MAX_SPEED_EV*rightSpeed);
+	leftCurSpeedController->SetSetpoint(MAX_SPEED_EV*leftSpeed);
+	rightCurSpeedController->SetSetpoint(MAX_SPEED_EV*rightSpeed);
 }
 
 void DrivetrainSub::PIDDist(float distance, float speed) {
@@ -127,19 +163,25 @@ void DrivetrainSub::PIDDist(float distance, float speed) {
 	rightDistanceController->SetOutputRange(-fabs(speed / MAX_SPEED_EV), fabs(speed / MAX_SPEED_EV));
 }
 
-
-
 void DrivetrainSub::SetExternallyAccessiblePid( int id ) {
 	pidGetSetId = id;
 }
 
+int DrivetrainSub::GetExternallyAccessiblePid() {
+	return pidGetSetId;
+}
+
 void DrivetrainSub::SetP(float p){
 	switch(pidGetSetId) {
-	case SPEED_CTRL_ID:
-		leftSpeedController->SetPID(p, leftSpeedController->GetI(), leftSpeedController->GetD());
-		rightSpeedController->SetPID(p, rightSpeedController->GetI(), rightSpeedController->GetD());
+	case NORMAL_SPEED_CTRL_ID:
+		leftDriveSpeedController->SetPID(p, leftDriveSpeedController->GetI(), leftDriveSpeedController->GetD());
+		rightDriveSpeedController->SetPID(p, rightDriveSpeedController->GetI(), rightDriveSpeedController->GetD());
 		break;
-	case DRIVE_CTRL_ID:
+	case AUTO_SPEED_CTRL_ID:
+		leftAutoSpeedController->SetPID(p, leftAutoSpeedController->GetI(), leftAutoSpeedController->GetD());
+		rightAutoSpeedController->SetPID(p, rightAutoSpeedController->GetI(), rightAutoSpeedController->GetD());
+		break;
+	case DISTANCE_CTRL_ID:
 		leftDistanceController->SetPID(p, leftDistanceController->GetI(), leftDistanceController->GetD());
 		rightDistanceController->SetPID(p, rightDistanceController->GetI(), rightDistanceController->GetD());
 		break;
@@ -153,10 +195,13 @@ float DrivetrainSub::GetP(){
 	float val = 0.0;
 
 	switch(pidGetSetId) {
-	case SPEED_CTRL_ID:
-		val = leftSpeedController->GetP();
+	case NORMAL_SPEED_CTRL_ID:
+		val = leftDriveSpeedController->GetP();
 		break;
-	case DRIVE_CTRL_ID:
+	case AUTO_SPEED_CTRL_ID:
+		val = leftAutoSpeedController->GetP();
+		break;
+	case DISTANCE_CTRL_ID:
 		val = leftDistanceController->GetP();
 		break;
 	case TURN_CTRL_ID:
@@ -168,11 +213,15 @@ float DrivetrainSub::GetP(){
 
 void DrivetrainSub::SetI(float i){
 	switch(pidGetSetId) {
-	case SPEED_CTRL_ID:
-		leftSpeedController->SetPID(leftSpeedController->GetP(), i, leftSpeedController->GetD());
-		rightSpeedController->SetPID(rightSpeedController->GetP(), i, rightSpeedController->GetD());
+	case NORMAL_SPEED_CTRL_ID:
+		leftDriveSpeedController->SetPID(leftDriveSpeedController->GetP(), i, leftDriveSpeedController->GetD());
+		rightDriveSpeedController->SetPID(rightDriveSpeedController->GetP(), i, rightDriveSpeedController->GetD());
 		break;
-	case DRIVE_CTRL_ID:
+	case AUTO_SPEED_CTRL_ID:
+		leftAutoSpeedController->SetPID(leftAutoSpeedController->GetP(), i, leftAutoSpeedController->GetD());
+		rightAutoSpeedController->SetPID(rightAutoSpeedController->GetP(), i, rightAutoSpeedController->GetD());
+		break;
+	case DISTANCE_CTRL_ID:
 		leftDistanceController->SetPID(leftDistanceController->GetP(), i, leftDistanceController->GetD());
 		rightDistanceController->SetPID(rightDistanceController->GetP(), i, rightDistanceController->GetD());
 		break;
@@ -186,10 +235,13 @@ float DrivetrainSub::GetI(){
 	float val = 0.0;
 
 	switch(pidGetSetId) {
-	case SPEED_CTRL_ID:
-		val = leftSpeedController->GetI();
+	case NORMAL_SPEED_CTRL_ID:
+		val = leftDriveSpeedController->GetI();
 		break;
-	case DRIVE_CTRL_ID:
+	case AUTO_SPEED_CTRL_ID:
+		val = leftAutoSpeedController->GetI();
+		break;
+	case DISTANCE_CTRL_ID:
 		val = leftDistanceController->GetI();
 		break;
 	case TURN_CTRL_ID:
@@ -201,11 +253,15 @@ float DrivetrainSub::GetI(){
 
 void DrivetrainSub::SetD(float d){
 	switch(pidGetSetId) {
-	case SPEED_CTRL_ID:
-		leftSpeedController->SetPID(leftSpeedController->GetP(), leftSpeedController->GetI(), d);
-		rightSpeedController->SetPID(rightSpeedController->GetP(), rightSpeedController->GetI(), d);
+	case NORMAL_SPEED_CTRL_ID:
+		leftDriveSpeedController->SetPID(leftDriveSpeedController->GetP(), leftDriveSpeedController->GetI(), d);
+		rightDriveSpeedController->SetPID(rightDriveSpeedController->GetP(), rightDriveSpeedController->GetI(), d);
 		break;
-	case DRIVE_CTRL_ID:
+	case AUTO_SPEED_CTRL_ID:
+		leftAutoSpeedController->SetPID(leftAutoSpeedController->GetP(), leftAutoSpeedController->GetI(), d);
+		rightAutoSpeedController->SetPID(rightAutoSpeedController->GetP(), rightAutoSpeedController->GetI(), d);
+		break;
+	case DISTANCE_CTRL_ID:
 		leftDistanceController->SetPID(leftDistanceController->GetP(), leftDistanceController->GetI(), d);
 		rightDistanceController->SetPID(rightDistanceController->GetP(), rightDistanceController->GetI(), d);
 		break;
@@ -219,14 +275,57 @@ float DrivetrainSub::GetD(){
 	float val = 0.0;
 
 	switch(pidGetSetId) {
-	case SPEED_CTRL_ID:
-		val = leftSpeedController->GetD();
+	case NORMAL_SPEED_CTRL_ID:
+		val = leftDriveSpeedController->GetD();
 		break;
-	case DRIVE_CTRL_ID:
+	case AUTO_SPEED_CTRL_ID:
+		val = leftAutoSpeedController->GetD();
+		break;
+	case DISTANCE_CTRL_ID:
 		val = leftDistanceController->GetD();
 		break;
 	case TURN_CTRL_ID:
 		val = turnController->GetD();
+		break;
+	}
+	return val;
+}
+
+void DrivetrainSub::SetF(float f){
+	switch(pidGetSetId) {
+	case NORMAL_SPEED_CTRL_ID:
+		leftDriveSpeedController->SetPID(leftDriveSpeedController->GetP(), leftDriveSpeedController->GetI(), leftDriveSpeedController->GetD(), f);
+		rightDriveSpeedController->SetPID(rightDriveSpeedController->GetP(), rightDriveSpeedController->GetI(), rightDriveSpeedController->GetD(), f);
+		break;
+	case AUTO_SPEED_CTRL_ID:
+		leftAutoSpeedController->SetPID(leftAutoSpeedController->GetP(), leftAutoSpeedController->GetI(), leftAutoSpeedController->GetD(), f);
+		rightAutoSpeedController->SetPID(rightAutoSpeedController->GetP(), rightAutoSpeedController->GetI(), rightAutoSpeedController->GetD(), f);
+		break;
+	case DISTANCE_CTRL_ID:
+		leftDistanceController->SetPID(leftDistanceController->GetP(), leftDistanceController->GetI(), leftDistanceController->GetD(), f);
+		rightDistanceController->SetPID(rightDistanceController->GetP(), rightDistanceController->GetI(), rightDistanceController->GetD(), f);
+		break;
+	case TURN_CTRL_ID:
+		turnController->SetPID(turnController->GetP(), turnController->GetI(), turnController->GetD(), f);
+		break;
+	}
+}
+
+float DrivetrainSub::GetF(){
+	float val = 0.0;
+
+	switch(pidGetSetId) {
+	case NORMAL_SPEED_CTRL_ID:
+		val = leftDriveSpeedController->GetF();
+		break;
+	case AUTO_SPEED_CTRL_ID:
+		val = leftAutoSpeedController->GetF();
+		break;
+	case DISTANCE_CTRL_ID:
+		val = leftDistanceController->GetF();
+		break;
+	case TURN_CTRL_ID:
+		val = turnController->GetF();
 		break;
 	}
 	return val;
@@ -268,32 +367,33 @@ void DrivetrainSub::EnableDistancePID(){
 }
 
 void DrivetrainSub::SetSpeedPIDMode(int mode) {
+	// Disable the current PID controller and "connect" the new PID controller
 	switch(mode) {
 	case SPEED_MODE_AUTO:
-		leftSpeedController->SetPID(AUTO_SPEED_P_VALUE, AUTO_SPEED_I_VALUE, AUTO_SPEED_D_VALUE, AUTO_SPEED_F_VALUE);
-		rightSpeedController->SetPID(AUTO_SPEED_P_VALUE, AUTO_SPEED_I_VALUE, AUTO_SPEED_D_VALUE, AUTO_SPEED_F_VALUE);
-		leftSpeedController->SetAbsoluteTolerance(AUTO_SPEED_TOLERANCE);
-		rightSpeedController->SetAbsoluteTolerance(AUTO_SPEED_TOLERANCE);
+		leftCurSpeedController->Disable();
+		rightCurSpeedController->Disable();
+		leftCurSpeedController = leftAutoSpeedController;
+		rightCurSpeedController = rightAutoSpeedController;
 		break;
 
 	case SPEED_MODE_NORMAL:
 	default:
-		leftSpeedController->SetPID(SPEED_P_VALUE, SPEED_I_VALUE, SPEED_D_VALUE, SPEED_F_VALUE);
-		rightSpeedController->SetPID(SPEED_P_VALUE, SPEED_I_VALUE, SPEED_D_VALUE, SPEED_F_VALUE);
-		leftSpeedController->SetAbsoluteTolerance(SPEED_TOLERANCE);
-		rightSpeedController->SetAbsoluteTolerance(SPEED_TOLERANCE);
+		leftCurSpeedController->Disable();
+		rightCurSpeedController->Disable();
+		leftCurSpeedController = leftDriveSpeedController;
+		rightCurSpeedController = rightDriveSpeedController;
 		break;
 	}
 }
 
 void DrivetrainSub::EnableSpeedPID(){
-	leftSpeedController->Enable();
-	rightSpeedController->Enable();
+	leftCurSpeedController->Enable();
+	rightCurSpeedController->Enable();
 }
 
 void DrivetrainSub::DisableSpeedPID(){
-	leftSpeedController->Disable();
-	rightSpeedController->Disable();
+	leftCurSpeedController->Disable();
+	rightCurSpeedController->Disable();
 }
 
 void DrivetrainSub::DisableTurnPID(){
@@ -346,6 +446,6 @@ void DrivetrainSub::SetTurnModifier(float turnModifier){
 
 	SmartDashboard::PutNumber("Drivetrain TurnModifier", turnModifier);
 	SmartDashboard::PutNumber("Drivetrain rotation", rotationMeasure->PIDGet());
-//	leftTurnModifier = -turnModifier;
+//	leftTurnModifier = -turnModifier;												// TODO:  Fix or remove
 //	rightTurnModifier = turnModifier;
 }

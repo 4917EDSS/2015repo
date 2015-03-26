@@ -76,8 +76,13 @@ void DriveWithJoystickCmd::Execute()
 		{
 			previousRightSpeed = oi->DGetRightHor();
 		}
+#ifdef BYPASS_DRIVE_PID
 		rDrivetrainSub->DisableSpeedPID();
 		rDrivetrainSub->Drive(previousLeftSpeed + previousRightSpeed, previousLeftSpeed - previousRightSpeed);
+#else
+		rDrivetrainSub->EnableSpeedPID();
+		rDrivetrainSub->PIDDrive(previousLeftSpeed + previousRightSpeed, previousLeftSpeed - previousRightSpeed);
+#endif
 		SmartDashboard::PutNumber("leftStickValue", oi->DGetLeftVer());
 	}
 }

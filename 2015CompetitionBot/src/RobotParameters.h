@@ -57,7 +57,7 @@
 #define LANDFILL_TO_AUTO_ZONE_DISTANCE -1750
 #define CLOTHESLINE_DROP_POSITION 305
 #define PULL_BIN_OFF_STEP 2000
-#define BACKUP_WITH_GREEN_EV 2500
+#define BACKUP_WITH_GREEN_EV -2500
 
 #define ENCODER_CONVERSION_FACTOR 4
 
@@ -88,8 +88,6 @@
 	#define LIFT_ENCODER_SLOWDOWN_DISTANCE 200
 
 	//DRIVE ENCODER VALS
-	//millimeters/tick
-	#define DISTANCE_PER_PULSE (2000.0/7920.0)
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
 	#define DISTANCE_PER_DEGREE (745.0/90.0)
 
@@ -125,8 +123,6 @@
 
 
 	//DRIVE ENCODER VALS
-	//millimeters/tick
-	#define DISTANCE_PER_PULSE (2000.0/11250.0)
 	//go forward this much on one side and reverse the same amount on the other for a 90 degree turn
 	#define DISTANCE_PER_DEGREE (745.0/90.0)
 	#define MAX_SPEED_EV (2700*(11250.0/7920))

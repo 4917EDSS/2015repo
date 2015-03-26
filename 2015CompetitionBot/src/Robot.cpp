@@ -49,9 +49,9 @@ private:
 		CommandBase::init();
 		lw = LiveWindow::GetInstance();
 
-		CameraServer::GetInstance()->SetQuality(50);
+		//CameraServer::GetInstance()->SetQuality(50);
 		//the camera name (ex "cam0") can be found through the roborio web interface
-		CameraServer::GetInstance()->StartAutomaticCapture(CAMERA_NAME);
+		//CameraServer::GetInstance()->StartAutomaticCapture(CAMERA_NAME);
 		autoOptions = new SendableChooser();
 		autoOptions->AddDefault("Drive forward starting at auto line", new AutoDriveForwardsGrp());
 		autoOptions->AddObject("Moves one bin to auto zone", new AutoOneBinGrp());
@@ -88,9 +88,11 @@ private:
 		SmartDashboard::PutNumber("p value", CommandBase::rDrivetrainSub->GetP()*1000);
 		SmartDashboard::PutNumber("i value", CommandBase::rDrivetrainSub->GetI()*1000);
 		SmartDashboard::PutNumber("d value", CommandBase::rDrivetrainSub->GetD()*1000);
+		SmartDashboard::PutNumber("f value", CommandBase::rDrivetrainSub->GetF()*1000);
+		SmartDashboard::PutNumber("Selected PID", CommandBase::rDrivetrainSub->GetExternallyAccessiblePid());
 
 
-        serial_port = new SerialPort(4800, SerialPort::kMXP);
+        serial_port = new SerialPort(57600, SerialPort::kUSB);
 		imu = new IMU(serial_port,60);
 
 		// TODO: initialize all air solenoids to values

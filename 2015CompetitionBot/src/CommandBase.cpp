@@ -6,7 +6,7 @@ OI* CommandBase::oi = NULL;
 DrivetrainSub* CommandBase::rDrivetrainSub = NULL;
 IntakeSub* CommandBase::rIntakeSub = NULL;
 LiftSub* CommandBase::rLiftSub = NULL;
-CameraSub* CommandBase::rCameraSub = NULL;
+//CameraSub* CommandBase::rCameraSub = NULL;
 
 CommandBase::CommandBase(char const *name) :
 		Command(name)
