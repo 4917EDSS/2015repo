@@ -49,9 +49,9 @@ private:
 		CommandBase::init();
 		lw = LiveWindow::GetInstance();
 
-		CameraServer::GetInstance()->SetQuality(50);
+		//CameraServer::GetInstance()->SetQuality(50);
 		//the camera name (ex "cam0") can be found through the roborio web interface
-		CameraServer::GetInstance()->StartAutomaticCapture(CAMERA_NAME);
+		//CameraServer::GetInstance()->StartAutomaticCapture(CAMERA_NAME);
 		autoOptions = new SendableChooser();
 		autoOptions->AddDefault("Drive forward starting at auto line", new AutoDriveForwardsGrp());
 		autoOptions->AddObject("Moves one bin to auto zone", new AutoOneBinGrp());
