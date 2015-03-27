@@ -106,7 +106,8 @@ private:
 
 	void AutonomousInit()
 	{
-		autoCommand = (CommandGroup*)autoOptions->GetSelected();
+		//autoCommand = (CommandGroup*)autoOptions->GetSelected();
+		autoCommand = (new AutoWaitOneBinGrp());
 		autoCommand->Start();
 	}
 
