@@ -18,12 +18,6 @@ DriveStraightCmd::DriveStraightCmd(int driveDistanceMillimeters, float driveSpee
 
 	backward = targetDistance < 0;
 
-////////////
-	previousRightEncoder = 0;
-	previousLeftEncoder = 0;
-	counter = 0;
-////////////
-
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 	Requires(rDrivetrainSub);
