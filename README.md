@@ -1,3 +1,6 @@
+#Release
+Welcome to [4917](http://4917.ca)'s code for the 2015 FIRST Robotics Competition. This code made ![this](http://www.chiefdelphi.com/media/img/bdb/bdb2a2d7ad9aa58d076e9557cd43d19a_l.jpg) do [this](http://watchfirstnow.com/archives/123589220). The code is mostly as is after the scramble of the Waterloo and North Bay competitions.
+
 #Naming Conventions
 
 **[Classes](#classes)**  
