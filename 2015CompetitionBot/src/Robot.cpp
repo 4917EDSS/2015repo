@@ -28,16 +28,16 @@
 
 class Robot: public IterativeRobot
 {
-    NetworkTable *table;
-#if defined(ENABLE_AHRS)
-    AHRS *imu;
-#elif defined(ENABLE_IMU_ADVANCED)
-    IMUAdvanced *imu;
-#else // ENABLE_IMU
-    IMU *imu;
-#endif
-    SerialPort *serial_port;
-    bool first_iteration;
+	NetworkTable *table;
+	#if defined(ENABLE_AHRS)
+		AHRS *imu;
+	#elif defined(ENABLE_IMU_ADVANCED)
+		IMUAdvanced *imu;
+	#else // ENABLE_IMU
+		IMU *imu;
+	#endif
+		SerialPort *serial_port;
+		bool first_iteration;
 
 private:
 	LiveWindow *lw;
@@ -49,9 +49,6 @@ private:
 		CommandBase::init();
 		lw = LiveWindow::GetInstance();
 
-		//CameraServer::GetInstance()->SetQuality(50);
-		//the camera name (ex "cam0") can be found through the roborio web interface
-		//CameraServer::GetInstance()->StartAutomaticCapture(CAMERA_NAME);
 		autoOptions = new SendableChooser();
 		autoOptions->AddDefault("Drive forward starting at auto line", new AutoDriveForwardsGrp());
 		autoOptions->AddObject("Moves one bin to auto zone", new AutoOneBinGrp());
@@ -64,8 +61,6 @@ private:
 		SmartDashboard::PutData("Autonomous selector", autoOptions);
 		autoCommand = 0;
 
-		//CameraServer::GetInstance()->SetQuality(50);
-		//CameraServer::GetInstance()->StartAutomaticCapture(CAMERA_NAME);
 		SmartDashboard::PutData("Intake Until Limit Command", new IntakeUntilLimitCmd());
 		SmartDashboard::PutData("Set Locks Open", new SetLocksCmd(LOCKS_OPEN));
 		SmartDashboard::PutData("Set Locks Closed", new SetLocksCmd(LOCKS_CLOSED));
@@ -92,10 +87,8 @@ private:
 		SmartDashboard::PutNumber("Selected PID", CommandBase::rDrivetrainSub->GetExternallyAccessiblePid());
 
 
-        serial_port = new SerialPort(57600, SerialPort::kUSB);
+        	serial_port = new SerialPort(57600, SerialPort::kUSB);
 		imu = new IMU(serial_port,60);
-
-		// TODO: initialize all air solenoids to values
 
 	}
 	
