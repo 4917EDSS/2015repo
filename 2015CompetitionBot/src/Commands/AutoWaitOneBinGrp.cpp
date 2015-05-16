@@ -12,7 +12,10 @@
 #include "ResetLiftEncoderCmd.h"
 #include "IntakeUntilLimitCmd.h"
 
-
+/**
+ * This command was quickly added at Waterloo to allow us to grab the one bin that 4678 left behind in their autonomous.
+ * Forgive the sloppiness.
+ */
 AutoWaitOneBinGrp::AutoWaitOneBinGrp()
 {
 
