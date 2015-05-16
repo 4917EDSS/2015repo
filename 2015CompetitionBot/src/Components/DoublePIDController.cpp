@@ -1,15 +1,10 @@
 /*
- * DoublePIDController.cpp
- *
- *  Created on: Feb 21, 2015
- *      Author: TEAM 4917
+ * WARNING : OLD OBJECT. UNUSED. 
  */
 
 #include "DoublePIDController.h"
 #include "RobotParameters.h"
 
-// WARNING:  This object is no longer used
-// TODO:  Determine which values to use here
 #define DISTANCE_P_VALUE 0.04
 #define DISTANCE_I_VALUE 0.0
 #define DISTANCE_D_VALUE 0.1
