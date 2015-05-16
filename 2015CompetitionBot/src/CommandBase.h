@@ -8,7 +8,6 @@
 #include "Subsystems/DrivetrainSub.h"
 #include "Subsystems/IntakeSub.h"
 #include "Subsystems/LiftSub.h"
-//#include "Subsystems/CameraSub.h"
 
 //Talons
 #define LeftDrivePWM 1
@@ -54,7 +53,6 @@ public:
 	static IntakeSub *rIntakeSub;
 	static LiftSub *rLiftSub;
 	static OI *oi;
-	//static CameraSub *rCameraSub;
 };
 
 #endif
