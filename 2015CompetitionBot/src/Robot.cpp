@@ -21,7 +21,8 @@
 #include "Commands/AutoOneToteGrp.h"
 #include "Commands/AdjustPIDCmd.h"
 #include "Commands/AutoDropStackGrp.h"
-#include "COmmands/AutoDoNothingCmd.h"
+#include "Commands/AutoDoNothingCmd.h"
+#include "Commands/AdjustAccelThreshCmd.h"
 #include "Subsystems/IMU.h"
 #include "Subsystems/IMUAdvanced.h"
 #include "Subsystems/AHRS.h"
@@ -86,6 +87,9 @@ private:
 		SmartDashboard::PutNumber("f value", CommandBase::rDrivetrainSub->GetF()*1000);
 		SmartDashboard::PutNumber("Selected PID", CommandBase::rDrivetrainSub->GetExternallyAccessiblePid());
 
+		SmartDashboard::PutData("Set accel thresh", new AdjustAccelThreshCmd());
+		SmartDashboard::PutNumber("Accel thresh", CommandBase::rDrivetrainSub->GetAccelThresh()*1000);
+
 
         	serial_port = new SerialPort(57600, SerialPort::kUSB);
 		imu = new IMU(serial_port,60);
@@ -99,7 +103,9 @@ private:
 
 	void AutonomousInit()
 	{
-		autoCommand = (CommandGroup*)autoOptions->GetSelected();
+		//autoCommand = (CommandGroup*)autoOptions->GetSelected();
+		//autoCommand = (new AutoWaitOneBinGrp());
+		autoCommand = (new AutoOneBinGrp());
 		autoCommand->Start();
 	}
 

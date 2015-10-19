@@ -23,6 +23,8 @@
 #define LockSolenoid2PNC 3
 #define JawsSolenoid1PNC 4
 #define JawsSolenoid2PNC 5
+#define ContainerJaw1PNC 6
+#define ContainerJaw2PNC 7
 
 //Digital IO
 #define LeftDriveEncoder1DIO 4
