@@ -12,6 +12,7 @@ private:
 	Talon* armLeft;
 
 	DoubleSolenoid* armsOpenClose;
+	DoubleSolenoid* ConJawOpenClose;
 
 	DigitalInput* intakeLimit;
 
@@ -20,7 +21,8 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
-	IntakeSub(int armRightC, int armLeftC, int armsOpenClose1C, int armsOpenClose2C, int intakeLimitC);
+	IntakeSub(int armRightC, int armLeftC, int armsOpenClose1C, int armsOpenClose2C, int conJawOpenClose1C,
+			 int conJawOpenClose2C, int intakeLimitC);
 	void InitDefaultCommand();
 	void SetBeltsIn(float speed);
 	void SetBeltsOut(float speed);
@@ -30,6 +32,9 @@ public:
 	void SetArms(bool armsOut);
 	bool GetArms();
 	void ToggleArms();
+	void SetConJaw(bool conJawOut);
+	bool GetConJaw();
+	void ToggleConJaw();
 	bool IsLimitHit();
 
 };

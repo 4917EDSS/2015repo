@@ -18,6 +18,8 @@
 #define LOCKS_CLOSED true
 #define ARMS_CLOSED true
 #define ARMS_OPEN false
+#define CONJAW_OPEN true
+#define CONJAW_CLOSED false
 #define JAWS_OPEN false
 #define JAWS_CLOSED true
 

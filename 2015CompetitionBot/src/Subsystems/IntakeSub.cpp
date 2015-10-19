@@ -3,12 +3,14 @@
 #include "Commands/SpinIntakeWithJoystickCmd.h"
 #include "RobotParameters.h"
 
-IntakeSub::IntakeSub(int armRightC, int armLeftC, int armsOpenClose1C, int armsOpenClose2C, int intakeLimitC) :
+IntakeSub::IntakeSub(int armRightC, int armLeftC, int armsOpenClose1C, int armsOpenClose2C, int conJawOpenClose1C, 
+		int conJawOpenClose2C, int intakeLimitC) :
 		Subsystem("IntakeSub")
 {
 	armRight = new Talon(armRightC);
 	armLeft = new Talon(armLeftC);
 	armsOpenClose = new DoubleSolenoid(armsOpenClose1C, armsOpenClose2C);
+	conJawOpenClose = new DoubleSolenoid(conJawOpenClose1C, conJawOpenClose2C);
 	intakeLimit = new DigitalInput(intakeLimitC);
 
 }
@@ -67,6 +69,28 @@ bool IntakeSub::GetArms()
 void IntakeSub::ToggleArms()
 {
 	SetArms(!GetArms());
+}
+void IntakeSub::SetConJaw(bool conJawOut)
+{
+	if(conJawOut == CONJAW_OPEN) {
+			conJawOpenClose->Set(DoubleSolenoid::kForward);
+	}
+		else {
+			conJawOpenClose->Set(DoubleSolenoid::kReverse);
+		}
+}
+bool IntakeSub::GetConJaw()
+{
+	if(conJawOpenClose->Get()==DoubleSolenoid::kForward){
+			return CONJAW_OPEN;
+		}
+		else{
+			return CONJAW_CLOSED;
+		}
+}
+void IntakeSub::ToggleConJaw()
+{
+	SetConJaw(!GetConJaw());
 }
 bool IntakeSub::IsLimitHit()
 {

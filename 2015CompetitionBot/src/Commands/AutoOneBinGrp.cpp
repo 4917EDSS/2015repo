@@ -13,11 +13,11 @@
 
 AutoOneBinGrp::AutoOneBinGrp()
 {
-	AddSequential(new WaitCommand(4));
+	//AddSequential(new WaitCommand(4));
 	AddSequential(new SetJawsCmd(JAWS_OPEN));
 	AddSequential(new SetLocksCmd(LOCKS_OPEN));
 	AddSequential(new SetArmsCmd(ARMS_CLOSED));
 	AddSequential(new WaitCommand(ARMS_CLOSE_DELAY));
 	AddSequential(new SetLiftHeightCmd(GREEN_BIN_ABOVE_TOTE_EV));
-	AddSequential(new DriveStraightCmd(-STAGING_TO_AUTO_DISTANCE, MAX_SPEED_EV/2));
+	//AddSequential(new DriveStraightCmd(-STAGING_TO_AUTO_DISTANCE, MAX_SPEED_EV/2));
 }

@@ -30,7 +30,7 @@
 #define OControllerOperatorPort 1
 
 //Buttons
-#define ODropOnTwoStackBtn 2
+#define OToggleConJawBtn 2
 #define ODropOnThreeStackBtn 1
 #define ODropOnFourStackBtn 3
 #define ODropOnFiveStackBtn 4
@@ -69,7 +69,7 @@ private:
 	JoystickButton* oToggleJawsBtn;
 	JoystickButton* oStartStackingBtn;
 	JoystickButton* oLockToggleBtn;
-	JoystickButton* oDropOnTwoStackBtn;
+	JoystickButton* oToggleConJawBtn;
 	JoystickButton* oDropOnThreeStackBtn;
 	JoystickButton* oDropOnFourStackBtn;
 	JoystickButton* oDropOnFiveStackBtn;

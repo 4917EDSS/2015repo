@@ -66,6 +66,7 @@ DrivetrainSub::DrivetrainSub(int rightMotorC, int leftMotorC, int leftEncoder1C,
 
 	controlState = TANK_DRIVE_CONTROLS;
 	pidGetSetId = NORMAL_SPEED_CTRL_ID;
+	accelThreshold = ACCELERATION_THRESHOLD;
 
 	// Set encoder parameters
 	leftDistanceEncoder->SetDistancePerPulse(LEFT_DISTANCE_PER_PULSE*ENCODER_CONVERSION_FACTOR);
@@ -449,3 +450,14 @@ void DrivetrainSub::SetTurnModifier(float turnModifier){
 //	leftTurnModifier = -turnModifier;												// TODO:  Fix or remove
 //	rightTurnModifier = turnModifier;
 }
+
+float DrivetrainSub::GetAccelThresh()
+{
+	return accelThreshold;
+}
+
+void DrivetrainSub::SetAccelThresh(float accelThresh)
+{
+	accelThreshold = accelThresh;
+}
+

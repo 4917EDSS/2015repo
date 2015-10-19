@@ -19,26 +19,26 @@ void DriveWithJoystickCmd::Execute()
 {
 	if(rDrivetrainSub->GetControls() == TANK_DRIVE_CONTROLS)
 	{
-		if (oi->DGetLeftVer() - previousLeftSpeed > ACCELERATION_THRESHOLD)
+		if (oi->DGetLeftVer() - previousLeftSpeed > rDrivetrainSub->GetAccelThresh())
 		{
-			previousLeftSpeed += ACCELERATION_THRESHOLD;
+			previousLeftSpeed += rDrivetrainSub->GetAccelThresh();
 		}
-		else if (oi->DGetLeftVer()-previousLeftSpeed < -ACCELERATION_THRESHOLD)
+		else if (oi->DGetLeftVer()-previousLeftSpeed < -rDrivetrainSub->GetAccelThresh())
 		{
-			previousLeftSpeed -= ACCELERATION_THRESHOLD;
+			previousLeftSpeed -= rDrivetrainSub->GetAccelThresh();
 		}
 		else
 		{
 			previousLeftSpeed = oi->DGetLeftVer();
 		}
 
-		if (oi->DGetRightVer()-previousRightSpeed > ACCELERATION_THRESHOLD)
+		if (oi->DGetRightVer()-previousRightSpeed > rDrivetrainSub->GetAccelThresh())
 		{
-			previousRightSpeed += ACCELERATION_THRESHOLD;
+			previousRightSpeed += rDrivetrainSub->GetAccelThresh();
 		}
-		else if (oi->DGetRightVer()-previousRightSpeed < -ACCELERATION_THRESHOLD)
+		else if (oi->DGetRightVer()-previousRightSpeed < -rDrivetrainSub->GetAccelThresh())
 		{
-			previousRightSpeed -= ACCELERATION_THRESHOLD;
+			previousRightSpeed -= rDrivetrainSub->GetAccelThresh();
 		}
 		else
 		{
@@ -52,25 +52,25 @@ void DriveWithJoystickCmd::Execute()
 
 	else
 	{
-		if (oi->DGetLeftVer()-previousLeftSpeed > ACCELERATION_THRESHOLD)
+		if (oi->DGetLeftVer()-previousLeftSpeed > rDrivetrainSub->GetAccelThresh())
 		{
-			previousLeftSpeed += ACCELERATION_THRESHOLD;
+			previousLeftSpeed += rDrivetrainSub->GetAccelThresh();
 		}
-		else if (oi->DGetLeftVer()-previousLeftSpeed < -ACCELERATION_THRESHOLD)
+		else if (oi->DGetLeftVer()-previousLeftSpeed < -rDrivetrainSub->GetAccelThresh())
 		{
-			previousLeftSpeed -= ACCELERATION_THRESHOLD;
+			previousLeftSpeed -= rDrivetrainSub->GetAccelThresh();
 		}
 		else
 		{
 			previousLeftSpeed = oi->DGetLeftVer();
 		}
-		if (oi->DGetRightHor()-previousRightSpeed > ACCELERATION_THRESHOLD)
+		if (oi->DGetRightHor()-previousRightSpeed > rDrivetrainSub->GetAccelThresh())
 		{
-			previousRightSpeed += ACCELERATION_THRESHOLD;
+			previousRightSpeed += rDrivetrainSub->GetAccelThresh();
 		}
-		else if (oi->DGetRightHor()-previousRightSpeed < -ACCELERATION_THRESHOLD)
+		else if (oi->DGetRightHor()-previousRightSpeed < -rDrivetrainSub->GetAccelThresh())
 		{
-			previousRightSpeed -= ACCELERATION_THRESHOLD;
+			previousRightSpeed -= rDrivetrainSub->GetAccelThresh();
 		}
 		else
 		{

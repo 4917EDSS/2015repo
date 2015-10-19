@@ -44,6 +44,7 @@ private:
 
 	int controlState;
 	int pidGetSetId;	// which PID controller GetP/I/D and SetP/I/D are connected to
+	float accelThreshold;
 
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
@@ -86,7 +87,8 @@ public:
 	double GetLeftEncoderRate();
 	double GetRightEncoderRate();
 	void SetTurnModifier(float turnModifier);
-
+	float GetAccelThresh();
+	void SetAccelThresh(float accelThresh);
 };
 
 #endif

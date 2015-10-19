@@ -1,5 +1,6 @@
 #include "OI.h"
 #include "Commands/ToggleArmsCmd.h"
+#include "Commands/ToggleConJawCmd.h"
 #include "Commands/ToggleLocksCmd.h"
 #include "Commands/PickUpBoxGrp.h"
 #include "Commands/PickUpBoxCmd.h"
@@ -28,8 +29,8 @@ OI::OI()
 	oToggleJawsBtn->WhenPressed(new ToggleJawsCmd());
 	oStartStackingBtn = new JoystickButton(oController, OStackingBtn);
 	oStartStackingBtn->WhenPressed(new PickUpBoxCmd());
-	oDropOnTwoStackBtn = new JoystickButton(oController, ODropOnTwoStackBtn);
-	oDropOnTwoStackBtn->WhenPressed(new SetLiftHeightCmd(TWO_STACK_EV));
+	oToggleConJawBtn = new JoystickButton(oController, OToggleConJawBtn);
+	oToggleConJawBtn->WhenPressed(new ToggleConJawCmd());
 	oDropOnThreeStackBtn = new JoystickButton(oController, ODropOnThreeStackBtn);
 	oDropOnThreeStackBtn->WhenPressed(new SetLiftHeightCmd(THREE_STACK_EV));
 	oDropOnFourStackBtn = new JoystickButton(oController, ODropOnFourStackBtn);

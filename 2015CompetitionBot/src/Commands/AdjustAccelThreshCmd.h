@@ -1,15 +1,13 @@
-#ifndef CameraUpdateCmd_H
-#define CameraUpdateCmd_H
+#ifndef AdjustAccelThreshCmd_H
+#define AdjustAccelThreshCmd_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class CameraUpdateCmd: public CommandBase
+class AdjustAccelThreshCmd: public CommandBase
 {
-private:
-	double prevTime;
 public:
-	CameraUpdateCmd();
+	AdjustAccelThreshCmd();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
